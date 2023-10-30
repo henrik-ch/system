@@ -14,7 +14,11 @@
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     wezterm
-       
+    vscode
+    rustup 
+    git 
+    github-desktop
+          
     # archives
     zip
     xz
