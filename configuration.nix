@@ -15,8 +15,34 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # explicitly set the boot resume device 
+  # (NixOS docs for this are incorrect when stating that if left 
+  # undefined, then the swap device will be automatically used)
   boot.resumeDevice = /dev/disk/by-label/SWAP;
-  
+
+  # turn off systemd services that would otherwise allow for
+  # auto sleep/hibernate; for now keeping it manual
+  systemd = {
+    targets = {
+      sleep.enable = false;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
+  };
+
+  # set what closing the lid/pressing the power button does
+  services = {
+    logind = {
+      lidSwitch = "hibernate";
+      lidSwitchExternalPower = "hibernate";
+      extraConfig = ''
+        HandlePowerKey=hibernate
+      '';    
+    };
+  };
+   
   networking.hostName = "book"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
