@@ -19,18 +19,7 @@
   # explicitly set the boot resume device 
   # (NixOS docs for this are incorrect when stating that if left 
   # undefined, then the swap device will be automatically used)
-  boot.resumeDevice = /dev/disk/by-label/SWAP;
-
-  # turn off systemd services that would otherwise allow for
-  # auto sleep/hibernate; for now keeping it manual
-  systemd = {
-    targets = {
-      sleep.enable = false;
-      suspend.enable = false;
-      hibernate.enable = false;
-      hybrid-sleep.enable = false;
-    };
-  };
+  boot.resumeDevice = "/dev/disk/by-label/SWAP";
 
   # set what closing the lid/pressing the power button does
   services = {
