@@ -5,8 +5,9 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -16,8 +17,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # explicitly set the boot resume device 
-  # (NixOS docs for this are incorrect when stating that if left 
+  # explicitly set the boot resume device
+  # (NixOS docs for this are incorrect when stating that if left
   # undefined, then the swap device will be automatically used)
   boot.resumeDevice = "/dev/disk/by-label/SWAP";
 
@@ -28,10 +29,10 @@
       lidSwitchExternalPower = "hibernate";
       extraConfig = ''
         HandlePowerKey=hibernate
-      '';    
+      '';
     };
   };
-   
+
   networking.hostName = "book"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -59,7 +60,7 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  
+
 
   # Configure keymap in X11
   # services.xserver.layout = "us";

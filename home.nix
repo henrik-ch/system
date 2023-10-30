@@ -11,14 +11,16 @@
     userEmail = "bhmerchant@gmail.com";
   };
 
+  fonts.fontconfig.enable = true;
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     wezterm
     vscode
-    rustup 
-    git 
+    rustup
+    git
     github-desktop
-          
+
     # archives
     zip
     xz
@@ -33,13 +35,21 @@
 
     # networking tools
     mtr # A network diagnostic tool
-    
+
     # misc
     file
     which
     tree
     zstd
     gnupg
+
+    (pkgs.nerdfonts.override { fonts = [ "Inconsolata" ]; })
+    atkinson-hyperlegible
+    corefonts
+    inconsolata
+    fira-mono
+
+    nixd
   ];
 
   home.stateVersion = "23.05";
