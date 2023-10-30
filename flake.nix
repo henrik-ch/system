@@ -7,36 +7,28 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, ... }: 
-    let
-      system = "x86_64-linux";
-      
-      pkgs = import nixpkgs {
-        # which system's packages are we going to be using?
-        # ans: the one we defined just above
+  outputs = { nixpkgs, home-manager, ... }:
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = { allowUnfree = true; };
+    };
+  in
+  {
+    nixosConfigurations = {
+      book = nixpkgs.lib.nixosSystem {
+        # what underlying system is this going to be built on?
         inherit system;
-        config = { 
-          allowUnfree = true; 
-        };
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.users.bzm3r = import ./home.nix;
+         }
+        ];
       };
-
-      lib = nixpkgs.lib;
-    in     
-      {
-        nixosConfigurations = {
-          book = lib.nixosSystem {
-            # what underlying system is this going to be built on?
-            system = "x86_64-linux";
-            modules = [
-              ./configuration.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.bzm3r = import ./home.nix;
-             }
-            ];
-          };
-        };
-      };
+    };
+  };
 }
