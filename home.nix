@@ -49,7 +49,9 @@
     inconsolata
     fira-mono
 
+    helix
     nixd
+    discord
   ];
 
   home.stateVersion = "23.05";
