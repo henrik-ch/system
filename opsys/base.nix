@@ -26,7 +26,7 @@
     };
   };
 
-  # use systemd on initrfd
+  # use systemd on initrd
   boot.initrd.systemd.enable = true;
   # enable fwupd daemon for finding any missing firmware
   services.fwupd.enable = true;

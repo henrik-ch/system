@@ -50,7 +50,7 @@
     fira-mono
 
     helix
-    nixd
+    nil # turns out that nixd is still too premature
     discord
   ];
 
