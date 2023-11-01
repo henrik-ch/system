@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { nixpkgs, anyrun, ... }:
@@ -30,7 +26,7 @@
           ./os/base-programs.nix
           ./os/base-audio.nix
           # ./os/gui-gnome.nix
-          (import ./os/gui-hyprland.nix anyrun)
+          ./os/gui-hyprland.nix
           ./usr/bzm3r.nix # we can add as many user modules as we need to here
         ];
       };

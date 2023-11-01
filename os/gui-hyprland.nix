@@ -19,5 +19,7 @@
     qt6.qtwayland
     qt6Packages.qt6ct
     lxappearance
+    kickoff
+    dolphin
   ];
 }
