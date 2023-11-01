@@ -13,11 +13,11 @@
     swayosd
     wlr-which-key
     waybar
-    libsForQt5.polkit-kde-agent
-    libsForQtf5.qt5ct
-    libsForQt5.qt5.qtwayland
-    qt6.qtwayland
-    qt6Packages.qt6ct
+    pkgs.libsForQt5.polkit-kde-agent
+    pkgs.libsForQt5.qt5ct
+    pkgs.libsForQt5.qt5.qtwayland
+    pkgs.qt6.qtwayland
+    pkgs.qt6Packages.qt6ct
     lxappearance
     kickoff
     dolphin

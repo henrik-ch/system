@@ -51,7 +51,7 @@
     zstd
     gnupg
     broot
-    dust
+    du-dust
     halp
     mtr # A network diagnostic tool
     fd
