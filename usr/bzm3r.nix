@@ -14,6 +14,7 @@
         nil
         vscode
         discord
+        vesktop
         github-desktop
         wakatime
       ];

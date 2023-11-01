@@ -1,6 +1,12 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./base-audio.nix
+    ./base-programs.nix
+    ./base-time.nix
+  ];
+  
   boot = {
     initrd.systemd.enable = true;
     loader = {

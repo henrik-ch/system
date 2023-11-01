@@ -21,6 +21,7 @@
     okular
     helix
     corefonts
+    bibata-cursors
     (nerdfonts.override { fonts = [ "Inconsolata" ]; })
   ];
 

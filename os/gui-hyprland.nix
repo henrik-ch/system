@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./base-gui.nix
+  ];
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   programs.hyprland = {
     enable = true;
@@ -18,7 +22,7 @@
     pkgs.libsForQt5.qt5.qtwayland
     pkgs.qt6.qtwayland
     pkgs.qt6Packages.qt6ct
-    lxappearance
+    nwg-look
     kickoff
     dolphin
   ];
