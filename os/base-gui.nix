@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfreePredicate =
+    package:
+      builtins.elem (pkgs.lib.getName package) [ "corefonts" "vscode" "discord" ];
+
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {

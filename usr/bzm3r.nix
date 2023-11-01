@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfreePredicate =
-    package:
-      builtins.elem (pkgs.lib.getName package) [ "vscode" "discord" ];
-
   users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
 
