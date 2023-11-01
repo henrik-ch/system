@@ -18,8 +18,10 @@
     };
   in
   {
+    nixpkgs.pkgs = pkgs;
+
     nixosConfigurations = {
-      book = pkgs.lib.nixosSystem {
+      book = nixpkgs.lib.nixosSystem {
         modules = [
           ./os/base.nix
           ./os/base-time.nix

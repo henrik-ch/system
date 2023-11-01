@@ -1,13 +1,6 @@
-# thanks to:
-#   * git.eisfunke.com/config/
-
-{ pkgs, lib, inputs }:
+{ pkgs, ... }:
 
 {
-  system = {
-    configurationRevision = lib.mkIf (inputs.self ? rev) inputs.serlf.rev;
-  };
-
   boot = {
     loader = {
       systemd-boot.enable = true;
