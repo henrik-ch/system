@@ -1,7 +1,4 @@
-# thanks to:
-#   * git.eisfunke.com/config/
-
-{ pkgs, lib, inputs }:
+{ pkgs, ... }:
 
 {
   programs = {

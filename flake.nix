@@ -23,11 +23,12 @@
     nixosConfigurations = {
       book = nixpkgs.lib.nixosSystem {
         modules = [
+          ./host/book.nix
           ./os/base.nix
           ./os/base-time.nix
           ./os/base-programs.nix
           ./os/base-audio.nix
-          ./gui-gnome.nix # for now, gnome
+          ./os/gui-gnome.nix # for now, gnome
           ./usr/bzm3r.nix # we can add as many user modules as we need to here
         ];
       };
