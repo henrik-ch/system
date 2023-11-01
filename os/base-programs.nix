@@ -11,7 +11,17 @@
       lfs.enable = true;
     };
 
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+      autosuggestions = {
+        enable = true;
+        strategy = [ "completion" "history" ];
+        async = true;
+      };
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
+
+    };
   };
 
   # List packages installed in system profile. To search, run:

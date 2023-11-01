@@ -1,17 +1,17 @@
 { pkgs, ... }:
 
 {
-  pkgs.config.allowUnfreePredicate =
+  nixpkgs.config.allowUnfreePredicate =
     package:
       builtins.elem (pkgs.lib.getName package) [ "vscode" "discord" ];
 
   users = {
-    defaultUserShell = "zsh";
+    defaultUserShell = "${pkgs.zsh}/bin/zsh";
 
     users.bzm3r = {
       isNormalUser = true;
       home = "/home/bzm3r";
-      extragroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" "networkmanager" ];
       useDefaultShell = true;
 
       packages = with pkgs; [
