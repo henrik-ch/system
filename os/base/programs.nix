@@ -47,6 +47,7 @@
     rustup
     mold
     sccache
+    gh
 
     # archives
     zip
