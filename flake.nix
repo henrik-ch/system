@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { nixpkgs, anyrun, ... }:
+  outputs = { nixpkgs, ... }:
   let
     # find a nicer way to define this and pass it around
     system = "x86_64-linux";
@@ -18,7 +18,6 @@
 
     nixosConfigurations = {
       book = nixpkgs.lib.nixosSystem {
-        system.packages = [ anyrun.packages.${system}.anyrun ];
         modules = [
           ./host/book.nix
           ./os/base.nix
