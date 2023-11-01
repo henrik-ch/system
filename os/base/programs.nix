@@ -22,6 +22,7 @@
         core = {
           editor = "hx";
         };
+        credential.helper = "git-credential-oauth";
       };
     };
         

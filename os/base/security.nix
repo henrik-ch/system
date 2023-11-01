@@ -4,6 +4,7 @@
 {
   environment.systemPackages = with pkgs; [
       gnupg
+      git-credential-oauth
   ];
   
   programs = {
