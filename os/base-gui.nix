@@ -19,4 +19,6 @@
     corefonts
     (nerdfonts.override { fonts = [ "Inconsolata" ]; })
   ];
+
+  xdg.portal.enable = true;
 }

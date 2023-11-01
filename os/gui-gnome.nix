@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   services = {
@@ -10,11 +10,5 @@
       displayManager.gdm.enable = true;
       displayManager.defaultSession = "gnome";
     };
-  };
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 }

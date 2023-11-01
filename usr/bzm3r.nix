@@ -19,6 +19,7 @@
         vscode
         discord
         github-desktop
+        wakatime
       ];
     };
   };

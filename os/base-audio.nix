@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   hardware.pulseaudio.enable = false;
@@ -19,4 +19,11 @@
     # for pulseaudio, pipewire, etc.
     rtkit.enable = true;
   };
+
+  # List packages installed in system profile
+  environment.systemPackages = with pkgs; [
+    alsa-utils
+    alsa-plugins
+    easyeffects
+  ];
 }

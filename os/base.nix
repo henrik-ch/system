@@ -31,8 +31,11 @@
     polkit.enable = true;
   };
 
-  # hardware scanner + firmware recommender
-  services.fwupd.enable = true;
+  services = {
+    # hardware scanner + firmware recommender
+    fwupd.enable = true;
+    udisks2.enable = true;
+  };
 
   system.stateVersion = "23.05"; # Did you read the comment?
 }

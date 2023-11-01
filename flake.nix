@@ -9,7 +9,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }:
+  outputs = { nixpkgs, anyrun, ... }:
   let
     # find a nicer way to define this and pass it around
     system = "x86_64-linux";
@@ -22,13 +22,15 @@
 
     nixosConfigurations = {
       book = nixpkgs.lib.nixosSystem {
+        system.packages = [ anyrun.packages.${system}.anyrun ];
         modules = [
           ./host/book.nix
           ./os/base.nix
           ./os/base-time.nix
           ./os/base-programs.nix
           ./os/base-audio.nix
-          ./os/gui-gnome.nix # for now, gnome
+          # ./os/gui-gnome.nix
+          (import ./os/gui-hyprland.nix anyrun)
           ./usr/bzm3r.nix # we can add as many user modules as we need to here
         ];
       };
