@@ -41,6 +41,7 @@
 
   # List packages installed in system profile
   environment.systemPackages = with pkgs; [
+    xdg-utils
     wezterm
     firefox
     okular
