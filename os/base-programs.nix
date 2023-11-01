@@ -10,12 +10,18 @@
       enable = true;
       lfs.enable = true;
     };
-
+        
+    gnupg = {
+      enable = true;
+      enableSshSupport = true;
+      pinentryFlavor = "gnome3";
+    };
+ 
     zsh = {
       enable = true;
       autosuggestions = {
         enable = true;
-        strategy = [ "completion" "history" ];
+        strategy = [ "history" "completion" ];
         async = true;
       };
       enableCompletion = true;
