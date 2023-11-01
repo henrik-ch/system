@@ -1,11 +1,15 @@
 
-{ ... }:
+{ pkgs, ... }:
 
 {
+  environment.systemPackages = with pkgs; [
+      gnupg
+  ];
+  
   programs = {
-   gnupg = {
+   gnupg.agent = {
       enable = true;
-      enableSshSupport = true;
+      enableSSHSupport = true;
       pinentryFlavor = "gnome3";
     };
   };
