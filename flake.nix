@@ -1,32 +1,32 @@
 {
-  description = "System Configurators";
+  description = "System Configurator";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, ... }:
   let
+    # find a nicer way to define this and pass it around
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      config = { allowUnfree = true; };
     };
   in
   {
     nixosConfigurations = {
-      book = nixpkgs.lib.nixosSystem {
-        # what underlying system is this going to be built on?
-        inherit system;
+      book = pkgs.lib.nixosSystem {
         modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.bzm3r = import ./home.nix;
-         }
+          ./os/base.nix
+          ./os/base-time.nix
+          ./os/base-programs.nix
+          ./os/base-audio.nix
+          ./gui-gnome.nix # for now, gnome
+          ./usr/bzm3r.nix # we can add as many user modules as we need to here
         ];
       };
     };
