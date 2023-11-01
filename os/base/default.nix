@@ -2,11 +2,12 @@
 
 {
   imports = [
-    ./base-audio.nix
-    ./base-programs.nix
-    ./base-time.nix
+    ./audio.nix
+    ./programs.nix
+    ./time.nix
+    ./security.nix
   ];
-  
+    
   boot = {
     initrd.systemd.enable = true;
     loader = {

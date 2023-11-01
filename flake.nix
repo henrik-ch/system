@@ -20,8 +20,8 @@
       book = nixpkgs.lib.nixosSystem {
         modules = [
           ./host/book.nix
-          ./os/base.nix
-          ./os/gui-hyprland.nix
+          ./os/base/base
+          ./os/gui
           ./usr/bzm3r.nix # we can add as many user modules as we need to here
         ];
       };

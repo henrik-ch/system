@@ -5,18 +5,23 @@
     # a better traceroute
     mtr.enable = true;
 
-    # enable git globally, config is at home level
     git = {
       enable = true;
       lfs.enable = true;
+      config = {
+        init = {
+          defaultBranch = "main";
+        };
+        user = {
+          name = "Brian Merchant";
+          email = "bhmerchant@gmail.com";
+        };
+        commit = {
+          gpgSign = true;
+        };
+      };
     };
         
-    gnupg = {
-      enable = true;
-      enableSshSupport = true;
-      pinentryFlavor = "gnome3";
-    };
- 
     zsh = {
       enable = true;
       autosuggestions = {
