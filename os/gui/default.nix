@@ -44,8 +44,6 @@
     wezterm
     firefox
     okular
-    helix
-    corefonts
     bibata-cursors
     google-fonts
   ];
