@@ -19,6 +19,9 @@
         commit = {
           gpgSign = true;
         };
+        core = {
+          editor = "hx";
+        };
       };
     };
         
