@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  environment.systemPackages = with pkgs; [
+    xdg-user-dirs
+  ];
+
   environment.etc."xdg/user-dirs.defaults".text = ''
     CONFIG_DIRS=$HOME/config-sys
     CONFIG_HOME=$HOME/config
