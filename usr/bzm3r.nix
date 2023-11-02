@@ -26,7 +26,7 @@
       };
     };
   };
-  
+
   users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
 
@@ -45,6 +45,7 @@
         wakatime
         git-credential-manager
         pass
+        tealdeer
       ];
     };
   };
