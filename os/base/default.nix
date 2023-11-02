@@ -3,9 +3,10 @@
 {
   imports = [
     ./audio.nix
+    ./default-dirs.nix
     ./programs.nix
-    ./time.nix
     ./security.nix
+    ./time.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
