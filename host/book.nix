@@ -27,19 +27,19 @@
   fileSystems."/" =
     { device = "/dev/disk/by-label/SYSTEM";
       fsType = "btrfs";
-      options = [ "subvol=@" "compress=zstd"];
+      options = [ "subvol=@" "compress=zstd:9" "thread_pool=4"];
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-label/SYSTEM";
       fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd"];
+      options = [ "subvol=@home" "compress=zstd:9" "thread_pool=4"];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-label/SYSTEM";
       fsType = "btrfs";
-      options = [ "subvol=@nix" "compress=zstd"];
+      options = [ "subvol=@nix" "compress=zstd:9" "thread_pool=4"];
     };
 
   fileSystems."/boot" =
