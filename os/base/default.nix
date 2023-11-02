@@ -32,5 +32,5 @@
     udisks2.enable = true;
  };
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Apparently, no need to change, in order to make it robust to syntax issues...
 }
