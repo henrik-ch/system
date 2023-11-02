@@ -24,6 +24,28 @@
     resumeDevice = "/dev/disk/by-label/SWAP";
   };
 
+  fileSystems = (
+    fsys: let
+        defaultOpts = ["subvol=@", "compress=zstd:9", "thread_pool=4"];
+        diskLabel = "SYSTEM";
+        fsType = "btrfs";
+        layouts = [ "" "nix" "root" "home" ];
+        genFsEntry = 
+          fs: diskLabel: fsType: opts: layout: 
+            fs."/$layout" = { 
+              device = "/dev/disk/by-label/$diskLabel"; 
+              fsType = fsType;
+              options = opts; 
+            } 
+      in {
+        map 
+          (layout: genFsEntry diskLabel fsType defaultOpts layout) 
+          layouts
+      }
+  ) fileSystems;
+    
+    
+
   fileSystems."/" =
     { device = "/dev/disk/by-label/SYSTEM";
       fsType = "btrfs";
