@@ -3,9 +3,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-      gnupg
-      keepassxc
-      git-credential-keepassxc
+    gnupg
+    libsecret
   ];
   
   programs = {

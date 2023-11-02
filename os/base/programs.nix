@@ -4,26 +4,6 @@
   programs = {
     # a better traceroute
     mtr.enable = true;
-
-    git = {
-      enable = true;
-      lfs.enable = true;
-      config = {
-        init = {
-          defaultBranch = "main";
-        };
-        user = {
-          name = "Brian Merchant";
-          email = "bhmerchant@gmail.com";
-        };
-        commit = {
-          gpgSign = true;
-        };
-        core = {
-          editor = "hx";
-        };
-      };
-    };
         
     zsh = {
       enable = true;
@@ -45,9 +25,6 @@
   environment.systemPackages = with pkgs; [
     helix # no vim or emacs allowed
     rustup
-    mold
-    sccache
-    gh
 
     # archives
     zip
@@ -64,7 +41,6 @@
     which
     tree
     zstd
-    gnupg
     broot
     du-dust
     halp
@@ -85,7 +61,6 @@
     seatd
 
     distrobox
-
     zsh-powerlevel10k
   ];
 }

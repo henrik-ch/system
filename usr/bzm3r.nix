@@ -1,6 +1,32 @@
 { pkgs, ... }:
 
 {
+  programs = {
+    git = {
+      enable = true;
+      lfs.enable = true;
+      config = {
+        init = {
+          defaultBranch = "main";
+        };
+        user = {
+          name = "Brian Merchant";
+          email = "bhmerchant@gmail.com";
+        };
+        commit = {
+          gpgSign = true;
+        };
+        core = {
+          editor = "hx";
+        };
+        credential = {
+          helper = "manager";
+          credentialStore = "gpg";
+        };
+      };
+    };
+  };
+  
   users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
 
@@ -14,9 +40,11 @@
         nil
         vscode
         discord
-        vesktop
         github-desktop
+        gh
         wakatime
+        git-credential-manager
+        pass
       ];
     };
   };
