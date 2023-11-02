@@ -24,53 +24,41 @@
     resumeDevice = "/dev/disk/by-label/SWAP";
   };
 
-  fileSystems = (
-    fsys: let
-        defaultOpts = ["subvol=@", "compress=zstd:9", "thread_pool=4"];
-        diskLabel = "SYSTEM";
-        fsType = "btrfs";
-        layouts = [ "" "nix" "root" "home" ];
-        genFsEntry = 
-          fs: diskLabel: fsType: opts: layout: 
-            fs."/$layout" = { 
-              device = "/dev/disk/by-label/$diskLabel"; 
-              fsType = fsType;
-              options = opts; 
-            } 
-      in {
-        map 
-          (layout: genFsEntry diskLabel fsType defaultOpts layout) 
-          layouts
-      }
-  ) fileSystems;
-    
-    
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/SYSTEM";
-      fsType = "btrfs";
-      options = [ "subvol=@" "compress=zstd:9" "thread_pool=4"];
-    };
-
-  fileSystems."/home" =
-    { device = "/dev/disk/by-label/SYSTEM";
-      fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd:9" "thread_pool=4"];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-label/SYSTEM";
-      fsType = "btrfs";
-      options = [ "subvol=@nix" "compress=zstd:9" "thread_pool=4"];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/BOOT";
-      fsType = "vfat";
-    };
+    fileSystems =
+        (nixpkgs.lib.genAttrs
+            (
+                # fileSystems is a list of attribute sets of the form:
+                # { mountPath, device, fsType, options, depends }
+                #(see: https://github.com/NixOS/nixpkgs/blob/0cbe9f69c234a7700596e943bfae7ef27a31b735/nixos/modules/tasks/filesystems.nix#L33)
+                # (we are fine with using the default value of depends)
+                path:
+                    let
+                        diskLabel = "SYSTEM";
+                        fsType = "btrfs";
+                        defaultOptions = [ "compress=zstd:9" "thread_pool=4" ];
+                    in
+                # notation demarcating an attribute set
+                {
+                    device = "/dev/disk/by-label/${diskLabel}";
+                    mountPath = "/${path}"
+                    fsType = fsType;
+                    options = [ "subvol=@${path}" ] ++ defaultOptions ;
+                }
+            )
+            ["" "nix" "root" "home"]
+        )
+        ++
+        [
+            {
+                mountPath = "/boot";
+                device = "/dev/disk/by-label/BOOT";
+                fsType = "vfat";
+            }
+        ];
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/SWAP"; }
+    [
+        { device = "/dev/disk/by-label/SWAP"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
