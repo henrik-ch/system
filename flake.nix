@@ -19,10 +19,10 @@
     nixosConfigurations = {
       book = nixpkgs.lib.nixosSystem {
         modules = [
-          ./host/book.nix
-          ./os/base
-          ./os/gui
-          ./usr/bzm3r.nix # we can add as many user modules as we need to here
+          ./host-book.nix
+          ./base
+          ./gui
+          ./bzm3r.nix # we can add as many user modules as we need to here
         ];
       };
     };
