@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+
   programs = {
     git = {
       enable = true;
@@ -27,6 +28,57 @@
     };
   };
 
+  documentation.man.man-db.enable = true;
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    tlp
+    thermald
+    acpilight
+
+    helix # no vim or emacs allowed
+    pass
+
+    # archives
+    zip
+    xz
+    unzip
+    p7zip
+
+    # utils
+    ripgrep # recursively searches directories for a regex pattern
+    bat # nicer cat
+    lsd # nicer ls
+    fzf # A command-line fuzzy finder
+    file
+    which
+    tree
+    zstd
+    broot
+    du-dust
+    halp
+    fd
+    lsd
+    most
+    tealdeer
+    systeroid
+
+    man-db
+    man-pages
+
+    btrfs-progs
+    f2fs-tools
+    dosfstools
+    e2fsprogs
+    wget
+    curl
+    seatd
+
+    distrobox
+    zsh-powerlevel10k
+  ];
+
   users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
 
@@ -37,17 +89,19 @@
       useDefaultShell = true;
 
       packages = with pkgs; [
-        nil
-        vscode
-        discord
-        github-desktop
-        gh
-        wakatime
-        git-credential-manager
-        pass
+        rustup
+        mold
+        sccache
 
-        tealdeer
-        systeroid
+        nil
+
+        vscode
+
+        discord
+
+        gh
+        git-credential-manager
+        wakatime
       ];
     };
   };
