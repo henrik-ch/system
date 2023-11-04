@@ -20,7 +20,7 @@
       book = nixpkgs.lib.nixosSystem {
         modules = [
           ./host-book.nix
-          ./base
+          ./core
           ./gui
         ];
       };
