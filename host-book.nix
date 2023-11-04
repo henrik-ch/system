@@ -25,31 +25,31 @@
   };
 
     fileSystems."/" = {
-        device = "dev/disk/by-label/SYSTEM";
+        device = "dev/disk/by-label/FS";
         fsType = "btrfs";
         options = [ "subvol=@" ];
     };
 
     fileSystems."/boot" = {
-        device = "dev/disk/by-label/SYSTEM";
+        device = "dev/disk/by-label/FS";
         fsType = "btrfs";
         options = [ "subvol=@boot" ];
     };
 
     fileSystems."/root" = {
-        device = "dev/disk/by-label/SYSTEM";
+        device = "dev/disk/by-label/FS";
         fsType = "btrfs";
         options = [ "subvol=@root" ];
     };
 
     fileSystems."/nix" = {
-        device = "dev/disk/by-label/SYSTEM";
+        device = "dev/disk/by-label/FS";
         fsType = "btrfs";
         options = [ "subvol=@nix" ];
     };
 
     fileSystems."/home" = {
-        device = "dev/disk/by-label/SYSTEM";
+        device = "dev/disk/by-label/FS";
         fsType = "btrfs";
         options = [ "subvol=@home" ];
     };
