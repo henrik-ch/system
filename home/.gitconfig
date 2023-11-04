@@ -1,0 +1,7 @@
+[credential]
+    credentialStore = gpg
+[user]
+    name = Brian Merchant
+    email = bhmerchant@gmail.com
+[commit]
+    gpgsign = true

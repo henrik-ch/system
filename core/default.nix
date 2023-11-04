@@ -4,9 +4,7 @@
   imports = [
     ./audio.nix
     ./default-dirs.nix
-    ./programs.nix
-    ./security.nix
-    ./time.nix
+    ./user.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -32,6 +30,9 @@
     fwupd.enable = true;
     udisks2.enable = true;
  };
+
+  # should set up one-time auto-detect (perhaps on startup/login)
+  time.timeZone = "America/Vancouver";
 
   system.stateVersion = "23.11"; # Apparently, no need to change, in order to make it robust to syntax issues...
 }

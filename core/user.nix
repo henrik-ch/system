@@ -1,44 +1,17 @@
 { pkgs, ... }:
 
 {
-
-  programs = {
-    git = {
-      enable = true;
-      lfs.enable = true;
-      config = {
-        init = {
-          defaultBranch = "main";
-        };
-        user = {
-          name = "Brian Merchant";
-          email = "bhmerchant@gmail.com";
-        };
-        commit = {
-          gpgSign = true;
-        };
-        core = {
-          editor = "hx";
-        };
-        credential = {
-          helper = "manager";
-          credentialStore = "gpg";
-        };
-      };
-    };
-  };
-
   documentation.man.man-db.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    #hardware
     tlp
     thermald
     acpilight
 
     helix # no vim or emacs allowed
-    pass
 
     # archives
     zip
@@ -46,27 +19,16 @@
     unzip
     p7zip
 
-    # utils
-    ripgrep # recursively searches directories for a regex pattern
-    bat # nicer cat
-    lsd # nicer ls
-    fzf # A command-line fuzzy finder
-    file
-    which
-    tree
-    zstd
-    broot
-    du-dust
-    halp
-    fd
-    lsd
-    most
-    tealdeer
-    systeroid
+    #security
+    gnupg
+    pass
+    libsecret
 
+    #man
     man-db
     man-pages
 
+    # various
     btrfs-progs
     f2fs-tools
     dosfstools
@@ -75,8 +37,25 @@
     curl
     seatd
 
+    # nice-to-haves
+    ripgrep # recursively searches directories for a regex pattern
+    bat # nicer cat
+    lsd # nicer ls
+    fzf # A command-line fuzzy finder
+    file
+    which
+    tree
+    zstd
+    fd
     distrobox
     zsh-powerlevel10k
+    broot
+    du-dust
+    halp
+    lsd
+    most
+    tealdeer
+    systeroid
   ];
 
   users = {

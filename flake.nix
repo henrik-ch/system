@@ -22,7 +22,6 @@
           ./host-book.nix
           ./base
           ./gui
-          ./bzm3r.nix # we can add as many user modules as we need to here
         ];
       };
     };
