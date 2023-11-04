@@ -27,29 +27,34 @@
     fileSystems."/" = {
         device = "dev/disk/by-label/SYSTEM";
         fsType = "btrfs";
-        options = [ "subvol=@" ] ++ defaultOptions;
+        options = [ "subvol=@" ];
     };
 
     fileSystems."/boot" = {
         device = "dev/disk/by-label/SYSTEM";
         fsType = "btrfs";
-        options = [ "subvol=@boot" ] ++ defaultOptions;
+        options = [ "subvol=@boot" ];
+    };
+
+    fileSystems."/root" = {
+        device = "dev/disk/by-label/SYSTEM";
+        fsType = "btrfs";
+        options = [ "subvol=@root" ];
     };
 
     fileSystems."/nix" = {
         device = "dev/disk/by-label/SYSTEM";
         fsType = "btrfs";
-        options = [ "subvol=@nix" ] ++ defaultOptions;
+        options = [ "subvol=@nix" ];
     };
 
     fileSystems."/home" = {
         device = "dev/disk/by-label/SYSTEM";
         fsType = "btrfs";
-        options = [ "subvol=@home" ] ++ defaultOptions;
+        options = [ "subvol=@home" ];
     };
 
     fileSystems."/efi" = {
-        mountPath = "/efi";
         device = "/dev/disk/by-label/EFI";
         fsType = "vfat";
     };
