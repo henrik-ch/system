@@ -40,7 +40,7 @@
                 # notation demarcating an attribute set
                 {
                     device = "/dev/disk/by-label/${diskLabel}";
-                    mountPath = "/${path}"
+                    mountPath = "/${path}";
                     fsType = fsType;
                     options = [ "subvol=@${path}" ] ++ defaultOptions ;
                 }
