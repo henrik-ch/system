@@ -24,37 +24,67 @@
     resumeDevice = "/dev/disk/by-label/SWAP";
   };
 
-    fileSystems =
-        (pkgs.lib.genAttrs
-            (
-                # fileSystems is a list of attribute sets of the form:
-                # { mountPath, device, fsType, options, depends }
-                #(see: https://github.com/NixOS/nixpkgs/blob/0cbe9f69c234a7700596e943bfae7ef27a31b735/nixos/modules/tasks/filesystems.nix#L33)
-                # (we are fine with using the default value of depends)
-                path:
-                    let
-                        diskLabel = "SYSTEM";
-                        fsType = "btrfs";
-                        defaultOptions = [ "compress=zstd:9" "thread_pool=4" ];
-                    in
-                # notation demarcating an attribute set
-                {
-                    device = "/dev/disk/by-label/${diskLabel}";
-                    mountPath = "/${path}";
-                    fsType = fsType;
-                    options = [ "subvol=@${path}" ] ++ defaultOptions ;
-                }
-            )
-            ["" "nix" "root" "home"]
-        )
-        ++
-        [
-            {
-                mountPath = "/boot";
-                device = "/dev/disk/by-label/BOOT";
-                fsType = "vfat";
-            }
-        ];
+    fileSystems."/" = {
+        device = "dev/disk/by-label/SYSTEM";
+        fsType = "btrfs";
+        options = [ "subvol=@" ] ++ defaultOptions;
+    };
+
+    fileSystems."/boot" = {
+        device = "dev/disk/by-label/SYSTEM";
+        fsType = "btrfs";
+        options = [ "subvol=@boot" ] ++ defaultOptions;
+    };
+
+    fileSystems."/nix" = {
+        device = "dev/disk/by-label/SYSTEM";
+        fsType = "btrfs";
+        options = [ "subvol=@nix" ] ++ defaultOptions;
+    };
+
+    fileSystems."/home" = {
+        device = "dev/disk/by-label/SYSTEM";
+        fsType = "btrfs";
+        options = [ "subvol=@home" ] ++ defaultOptions;
+    };
+
+    fileSystems."/efi" = {
+        mountPath = "/efi";
+        device = "/dev/disk/by-label/EFI";
+        fsType = "vfat";
+    };
+
+    # fileSystems =
+    #     (pkgs.lib.genAttrs
+    #         (
+    #             # fileSystems is a list of attribute sets of the form:
+    #             # { mountPath, device, fsType, options, depends }
+    #             #(see: https://github.com/NixOS/nixpkgs/blob/0cbe9f69c234a7700596e943bfae7ef27a31b735/nixos/modules/tasks/filesystems.nix#L33)
+    #             # (we are fine with using the default value of depends)
+    #             path:
+    #                 let
+    #                     diskLabel = "SYSTEM";
+    #                     fsType = "btrfs";
+    #                     defaultOptions = [ "compress=zstd:9" "thread_pool=4" ];
+    #                 in
+    #             # notation demarcating an attribute set
+    #             {
+    #                 device = "/dev/disk/by-label/${diskLabel}";
+    #                 mountPath = "/${path}";
+    #                 fsType = fsType;
+    #                 options = [ "subvol=@${path}" ] ++ defaultOptions ;
+    #             }
+    #         )
+    #         ["" "nix" "root" "home"]
+    #     )
+    #     ++
+    #     [
+    #         {
+    #             mountPath = "/boot";
+    #             device = "/dev/disk/by-label/BOOT";
+    #             fsType = "vfat";
+    #         }
+    #     ];
 
   swapDevices =
     [
