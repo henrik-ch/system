@@ -25,7 +25,7 @@
   };
 
     fileSystems =
-        (nixpkgs.lib.genAttrs
+        (pkgs.lib.genAttrs
             (
                 # fileSystems is a list of attribute sets of the form:
                 # { mountPath, device, fsType, options, depends }
