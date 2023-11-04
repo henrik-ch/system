@@ -16,7 +16,10 @@
 
     loader = {
       systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/efi";
+      }
     };
 
     # explicitly set which device is to be used for storing hibernation/sleep
