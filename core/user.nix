@@ -24,7 +24,7 @@
         enableLsColors = true;
     };
 
-    programs.gnupg {
+    programs.gnupg = {
         agent = {
             enable = true;
             enableBrowserSocket = true;
