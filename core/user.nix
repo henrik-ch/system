@@ -6,7 +6,6 @@
     programs.zsh = {
         enable = true;
         enableCompletion = true;
-        enableZshIntegration = true;
         syntaxHighlighting = {
             highlighters = [ "main" ];
         };
