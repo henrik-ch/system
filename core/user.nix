@@ -106,6 +106,7 @@
 
         gh
         git-credential-manager
+        zsh-powerlevel10k
 
         wakatime
       ];
