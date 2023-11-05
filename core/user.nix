@@ -3,6 +3,34 @@
 {
   documentation.man.man-db.enable = true;
 
+    programs.zsh = {
+        enable = true;
+        enableCompletion = true;
+        enableZshIntegration = true;
+        syntaxHighlighting = {
+            highlighters = [ "main" ];
+        };
+        shellAliases = {
+            # for now, nothing
+        };
+        autosuggestions = {
+            strategy = [ "completion" "history" ];
+            highlightStyle = {
+                fg = "dim grey";
+            };
+            async = true;
+
+        };
+        enableLsColors = true;
+    };
+
+    programs.gnupg {
+        agent = {
+            enable = true;
+            enableBrowserSocket = true;
+            pinentryFlavor = "tty";
+        };
+    };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -10,6 +38,7 @@
     tlp
     thermald
     acpilight
+    git
 
     helix # no vim or emacs allowed
 
@@ -73,13 +102,12 @@
         sccache
 
         nil
-
         vscode
-
         discord
 
         gh
         git-credential-manager
+
         wakatime
       ];
     };
