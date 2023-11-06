@@ -7,8 +7,10 @@
     xserver = {
       enable = true;
       desktopManager.gnome.enable = true;
-      displayManager.gdm.enable = true;
-      displayManager.defaultSession = "gnome";
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
+      };
     };
   };
 }
