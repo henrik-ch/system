@@ -41,6 +41,8 @@
     };
 
     services.gnome.gnome-keyring.enable = true;
+    security.pam.services.bzm3r.enableGnomeKeyring = true;
+    
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -61,9 +63,7 @@
     #security
     gnupg
     libsecret
-    pinentry
-    gnome-keyring
-    secret-tool
+    pinentry    
     lssecret
 
     #man

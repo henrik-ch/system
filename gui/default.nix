@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./gnome.nix
+    ./hyprland.nix
   ];
   
   nixpkgs.config.allowUnfreePredicate =
