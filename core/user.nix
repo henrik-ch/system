@@ -21,6 +21,8 @@
             nixupgrade = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
             nixhist = "nix profile history --profile /nix/var/nix/profiles/system";
             nixwipe = "sudo nix profile wipe-history --profile /nix/var/nix/profiles/system";
+            rbt = "sudo reboot -h now";
+            sdn = "sudo shutdown -h now";
             ls = "lsd -a";
             cat = "bat";
         };
@@ -108,24 +110,7 @@
     wakatime
 
     zsh-powerlevel10k
-
-    # for hyprland
-    dunst
-    swayosd
-    wlr-which-key
-    waybar
-    libsForQt5.polkit-kde-agent
-    libsForQt5.qt5ct
-    libsForQt5.qt5.qtwayland
-    qt6.qtwayland
-    qt6Packages.qt6ct
-    nwg-look
-    wofi
-    dolphin
-
-    fontfinder
-    font-manager
-  ];
+ ];
 
   users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
