@@ -39,6 +39,8 @@
             pinentryFlavor = "tty";
         };
     };
+
+    services.gnome.gnome-keyring.enable = true;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -58,9 +60,11 @@
 
     #security
     gnupg
-    pass
     libsecret
     pinentry
+    gnome-keyring
+    secret-tool
+    lssecret
 
     #man
     man-db
@@ -94,20 +98,6 @@
     tealdeer
     systeroid
 
-    zsh-powerlevel10k
-  ];
-
-  users = {
-    defaultUserShell = "${pkgs.zsh}/bin/zsh";
-
-    users.bzm3r = {
-      isNormalUser = true;
-      home = "/home/bzm3r";
-      extraGroups = [ "wheel" "networkmanager" ];
-      useDefaultShell = true;
-
-      packages = with pkgs; [
-        rustup
         mold
         sccache
 
@@ -132,7 +122,20 @@
         nwg-look
         wofi
         dolphin
-      ];
+
+        font-finder
+
+    zsh-powerlevel10k
+  ];
+
+  users = {
+    defaultUserShell = "${pkgs.zsh}/bin/zsh";
+
+    users.bzm3r = {
+      isNormalUser = true;
+      home = "/home/bzm3r";
+      extraGroups = [ "wheel" "networkmanager" ];
+      useDefaultShell = true;
     };
   };
 }
