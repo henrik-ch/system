@@ -12,7 +12,9 @@
         shellAliases = {
             hl = "Hyprland";
             sysconf = "hx ~/nixos-conf";
-            userconf = "hx ~/nixos-conf/core/user.nix";
+            usrconf = "hx ~/nixos-conf/core/user.nix";
+            wezconf = "hx ~/nixos-conf/home/.wezterm.lua";
+            hlxconf = "hx ~/nixos-conf/home/.config/helix/config.toml";
             hyprconf = "hx ~/nixos-conf/home/.config/hypr/hyprland.conf";
             nixrebuild = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
             nixupgrade = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
