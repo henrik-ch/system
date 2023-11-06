@@ -6,20 +6,7 @@
     enable = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    dunst
-    swayosd
-    wlr-which-key
-    waybar
-    pkgs.libsForQt5.polkit-kde-agent
-    pkgs.libsForQt5.qt5ct
-    pkgs.libsForQt5.qt5.qtwayland
-    pkgs.qt6.qtwayland
-    pkgs.qt6Packages.qt6ct
-    nwg-look
-    kickoff
-    dolphin
-  ];
+  # it seems that programs to provide basic functionality
+  # for hyprland must be installed at a user level
+  # otherwise we would have to use sudo 
 }

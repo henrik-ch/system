@@ -10,7 +10,14 @@
             highlighters = [ "main" ];
         };
         shellAliases = {
-            # for now, nothing
+            hl = "Hyprland";
+            sysconf = "hx ~/nixos-conf";
+            userconf = "hx ~/nixos-conf/core/user.nix";
+            hyprconf = "hx ~/nixos-conf/home/.config/hypr/hyprland.conf";
+            srebuild = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
+            supgrade = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
+            ls = "lsd -a";
+            cat = "bat";
         };
         autosuggestions = {
             strategy = [ "completion" "history" ];
@@ -49,6 +56,7 @@
     gnupg
     pass
     libsecret
+    pinentry
 
     #man
     man-db
@@ -104,8 +112,22 @@
         discord
 
         gh
-        git-credential-manager
+        git-credential-oauth
         wakatime
+
+        # for gui
+        dunst
+        swayosd
+        wlr-which-key
+        waybar
+        libsForQt5.polkit-kde-agent
+        pkgs.libsForQt5.qt5ct
+        pkgs.libsForQt5.qt5.qtwayland
+        pkgs.qt6.qtwayland
+        pkgs.qt6Packages.qt6ct
+        nwg-look
+        wofi
+        dolphin
       ];
     };
   };
