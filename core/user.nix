@@ -123,7 +123,8 @@
     wofi
     dolphin
 
-    font-finder
+    fontfinder
+    font-manager
   ];
 
   users = {
