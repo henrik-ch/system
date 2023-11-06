@@ -20,7 +20,7 @@
     wofi
     dolphin
 
-    glib
+    glib.bin
     gnome3.adwaita-icon-theme
     wl-clipboard
 
