@@ -50,7 +50,7 @@
     tlp
     thermald
     acpilight
-    git
+    gitFull
 
     helix # no vim or emacs allowed
 

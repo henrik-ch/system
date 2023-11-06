@@ -1,5 +1,5 @@
 [credential]
-	helper = oauth
+	helper = libsecret
 
 [user]
     name = Brian Merchant
@@ -7,3 +7,5 @@
 
 [commit]
     gpgsign = true
+[core]
+	editor = hx
