@@ -16,6 +16,7 @@
             wezconf = "hx ~/nixos-conf/home/.wezterm.lua";
             hlxconf = "hx ~/nixos-conf/home/.config/helix/config.toml";
             hyprconf = "hx ~/nixos-conf/home/.config/hypr/hyprland.conf";
+            nix-hyprconf = "hx ~/nixos-conf/gui/hyprland.nix";
             nixrebuild = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
             nixupgrade = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
             nixhist = "nix profile history --profile /nix/var/nix/profiles/system";
