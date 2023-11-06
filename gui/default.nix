@@ -15,6 +15,10 @@
   fonts.packages = with pkgs; [
     google-fonts
     atkinson-hyperlegible
+    vollkorn
+    inter
+    source-sans
+    source-serif
     (nerdfonts.override { fonts = [ "Inconsolata" ]; } )
   ];
 
