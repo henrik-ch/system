@@ -14,9 +14,6 @@
         };
         autosuggestions = {
             strategy = [ "completion" "history" ];
-            highlightStyle = {
-                fg = "dim grey";
-            };
             async = true;
 
         };
@@ -76,7 +73,6 @@
     zstd
     fd
     distrobox
-    zsh-powerlevel10k
     broot
     du-dust
     halp
@@ -84,6 +80,8 @@
     most
     tealdeer
     systeroid
+
+    zsh-powerlevel10k
   ];
 
   users = {
@@ -106,8 +104,6 @@
 
         gh
         git-credential-manager
-        zsh-powerlevel10k
-
         wakatime
       ];
     };
