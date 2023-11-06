@@ -39,6 +39,8 @@
             pinentryFlavor = "tty";
         };
     };
+
+    services.gnome.gnome-keyring.enable = true;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -58,9 +60,11 @@
 
     #security
     gnupg
-    pass
     libsecret
     pinentry
+    gnome-keyring
+    secret-tool
+    lssecret
 
     #man
     man-db
@@ -94,6 +98,14 @@
     tealdeer
     systeroid
 
+    nil
+    vscode
+    discord
+
+    gh
+    git-credential-oauth
+    wakatime
+
     zsh-powerlevel10k
   ];
 
@@ -105,18 +117,6 @@
       home = "/home/bzm3r";
       extraGroups = [ "wheel" "networkmanager" ];
       useDefaultShell = true;
-
-      packages = with pkgs; [
-        nil
-        vscode
-        discord
-
-        gh
-        git-credential-oauth
-        wakatime
-
-        # for gui
-      ];
     };
   };
 }
