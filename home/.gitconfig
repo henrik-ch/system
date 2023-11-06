@@ -1,4 +1,5 @@
 [credential]
+	helper = oauth
 
 [user]
     name = Brian Merchant
