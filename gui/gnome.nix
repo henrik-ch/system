@@ -13,4 +13,8 @@
       };
     };
   };
+
+  environment.systemPackages = {
+    gnome.gnome
+  }
 }
