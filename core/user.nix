@@ -14,8 +14,10 @@
             sysconf = "hx ~/nixos-conf";
             userconf = "hx ~/nixos-conf/core/user.nix";
             hyprconf = "hx ~/nixos-conf/home/.config/hypr/hyprland.conf";
-            srebuild = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
-            supgrade = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
+            nixrebuild = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
+            nixupgrade = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
+            nixhist = "nix profile history --profile /nix/var/nix/profiles/system";
+            nixwipe = "sudo nix profile wipe-history --profile /nix/var/nix/profiles/system";
             ls = "lsd -a";
             cat = "bat";
         };
