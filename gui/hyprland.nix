@@ -6,6 +6,8 @@
     enable = true;
   };
 
+  gtk.iconCache.enable = true;
+
   qt = {
     enable = true;
     platformTheme = "gnome";
@@ -17,29 +19,20 @@
     swayosd
     wlr-which-key
     waybar
-    libsForQt5.polkit-kde-agent
     
-   libsForQt5.qt5.qtwayland
+    libsForQt5.polkit-kde-agent
+    libsForQt5.qt5.qtwayland
     qt6.qtwayland
-   
-    nwg-look
+    
     wofi
     dolphin
 
-    gtk3
-    gtk4
-
-    glib.bin
-    gnome3.adwaita-icon-theme
+    bibata-cursors
     wl-clipboard
-
+    
     fontfinder
     font-manager    
   ];
 
   programs.dconf.enable = true;
-
-  # it seems that programs to provide basic functionality
-  # for hyprland must be installed at a user level
-  # otherwise we would have to use sudo 
 }
