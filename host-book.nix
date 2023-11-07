@@ -67,6 +67,13 @@
         { device = "/dev/disk/by-label/SWAP"; }
     ];
 
+
+    services.logind = {
+      lidSwitch = "hibernate";
+      powerKey = "hibernate";
+      powerKeyLongPress = "poweroff";
+    };
+    
     # fileSystems =
     #     (pkgs.lib.genAttrs
     #         (
