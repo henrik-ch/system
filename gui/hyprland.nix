@@ -19,13 +19,9 @@
     waybar
     libsForQt5.polkit-kde-agent
     
-    libsForQt5.qt5ct
-    libsForQt5.qt5.qtwayland
+   libsForQt5.qt5.qtwayland
     qt6.qtwayland
-    qt6Packages.qt6ct
-    adwaita-qt
-    adwaita-qt6
-    
+   
     nwg-look
     wofi
     dolphin
