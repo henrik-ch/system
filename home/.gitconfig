@@ -1,5 +1,6 @@
 [credential]
 	helper = libsecret
+	store = pass
 
 [user]
     name = Brian Merchant

@@ -43,9 +43,8 @@
         };
     };
 
-    services.gnome.gnome-keyring.enable = true;
-    security.pam.services.bzm3r.enableGnomeKeyring = true;
-    
+  services.passSecretService.enable = true;
+   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
