@@ -12,6 +12,7 @@
         shellAliases = {
             hl = "Hyprland";
             _conf = "hx ~/nixos-conf";
+            _core = "hx ~/nixos-conf/core/default.nix";
             _usr = "hx ~/nixos-conf/core/user.nix";
             _wez = "hx ~/nixos-conf/home/.wezterm.lua";
             _hx = "hx ~/nixos-conf/home/.config/helix/config.toml";
@@ -28,9 +29,10 @@
             cat = "bat";
         };
         autosuggestions = {
+            enable = true;
             strategy = [ "completion" "history" ];
             async = true;
-
+            highlightStyle = "fg=3";
         };
         enableLsColors = true;
         interactiveShellInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
@@ -45,7 +47,7 @@
     };
 
   services.passSecretService.enable = true;
-   
+     
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -103,9 +105,11 @@
     systeroid
 
     nil
+    
     vscode
     discord
     element-desktop
+    ffmpeg
 
     gh
     git-credential-oauth
@@ -114,13 +118,13 @@
     zsh-powerlevel10k
  ];
 
-  users = {
+ users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
 
     users.bzm3r = {
       isNormalUser = true;
       home = "/home/bzm3r";
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [ "wheel" "networkmanager" "video" "render" ];
       useDefaultShell = true;
     };
   };
