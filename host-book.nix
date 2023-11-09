@@ -67,11 +67,6 @@
         { device = "/dev/disk/by-label/SWAP"; }
     ];
 
-    zramSwap = {
-      enable = true;
-      writebackDevice = "/dev/disk/by-label/SWAP";
-    };
-
     services.logind = {
       lidSwitch = "hibernate";
       powerKey = "hibernate";
