@@ -19,6 +19,7 @@
             _nhl = "hx ~/nixos-conf/gui/hyprland.nix";
             _re = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
             _up = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf --upgrade ; exec zsh";
+            gpg-import = "gpg --import-options restore --import";
             _hist = "nix profile history --profile /nix/var/nix/profiles/system";
             _wipe = "sudo nix profile wipe-history --profile /nix/var/nix/profiles/system";
             _reboot = "sudo reboot -h now";
@@ -67,6 +68,7 @@
     libsecret
     pinentry    
     lssecret
+    pass
 
     #man
     man-db
@@ -103,6 +105,7 @@
     nil
     vscode
     discord
+    element-desktop
 
     gh
     git-credential-oauth
