@@ -1,0 +1,10 @@
+#!/bin/sh
+
+sudo btrfs subvolume delete /home
+sudo btrfs subvolume snapshot /snaps/$1/home
+
+sudo btrfs subvolume delete /root
+sudo btrfs subvolume snapshot /snaps/$1/root
+
+sudo btrfs subvolume delete /nix
+sudo btrfs subvolume snapshot /snaps/$1/nix
