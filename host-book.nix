@@ -1,5 +1,5 @@
 # based on the auto-generated hardware-configuration.nix
-{ pkgs, config, lib, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 
 {
   imports =
@@ -67,6 +67,10 @@
         { device = "/dev/disk/by-label/SWAP"; }
     ];
 
+    zramSwap = {
+      enable = true;
+      writebackDevice = "/dev/disk/by-label/SWAP";
+    };
 
     services.logind = {
       lidSwitch = "hibernate";
