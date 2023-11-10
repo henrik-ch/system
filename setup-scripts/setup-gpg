@@ -1,0 +1,6 @@
+#!/bin/sh
+
+gpg-import $1
+pass init 
+gh auth login
+

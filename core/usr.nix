@@ -41,15 +41,12 @@
     programs.gnupg = {
         agent = {
             enable = true;
-            enableBrowserSocket = true;
             pinentryFlavor = "tty";
         };
     };
 
   services.passSecretService.enable = true;
-  environment.sessionVariables = {
-    PASSWORD_STORE_DIR="$HOME/.password-store";
-  };    
+      
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
