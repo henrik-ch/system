@@ -15,7 +15,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    dunst 
+    mako 
     swayosd
     wlr-which-key
     waybar

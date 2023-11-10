@@ -4,7 +4,7 @@
   imports = [
     ./audio.nix
     ./default-dirs.nix
-    ./user.nix
+    ./usr.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

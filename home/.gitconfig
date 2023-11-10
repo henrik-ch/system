@@ -1,7 +1,3 @@
-[credential]
-	helper = libsecret
-	store = pass
-
 [user]
     name = Brian Merchant
 	email = bzm3r@proton.me
@@ -18,3 +14,8 @@
 	helper = !/run/current-system/sw/bin/gh auth git-credential
 [init]
 	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
