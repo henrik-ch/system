@@ -6,12 +6,6 @@
     gpgsign = true
 [core]
 	editor = hx
-[credential "https://github.com"]
-	helper = 
-	helper = !/run/current-system/sw/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/run/current-system/sw/bin/gh auth git-credential
 [init]
 	defaultBranch = main
 [filter "lfs"]
@@ -19,3 +13,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[credential]
+	helper = /run/current-system/sw/bin/git-credential-libsecret

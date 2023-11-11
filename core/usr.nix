@@ -41,12 +41,13 @@
     programs.gnupg = {
         agent = {
             enable = true;
-            pinentryFlavor = "tty";
+            pinentryFlavor = "gtk2";
         };
     };
- 
-  services.passSecretService.enable = true;
-      
+
+  security.pam.services.bzm3r.enableGnomeKeyring = true;
+  programs.seahorse.enable = true;
+  services.gnome.gnome-keyring.enable = true;   
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -68,7 +69,6 @@
     gnupg
     libsecret
     lssecret
-    pass
 
     #man
     man-db
