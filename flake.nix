@@ -17,7 +17,7 @@
     nixpkgs.pkgs = pkgs;
 
     nixosConfigurations = {
-      book = nixpkgs.lib.nixosSystem {
+      l = nixpkgs.lib.nixosSystem {
         modules = [
           ./host-l.nix
           ./core
