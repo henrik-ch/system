@@ -19,7 +19,7 @@
             _hl = "hx ~/nixos-conf/home/.config/hypr/hyprland.conf";
             _nhl = "hx ~/nixos-conf/gui/hyprland.nix";
             _re = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
-            _up = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf --upgradeall ; exec zsh";
+            _up = "cd /home/bzm3r/nixos-conf ; sudo nix flake update ; sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
             gpg-import = "gpg --import-options restore --import";
             _hist = "nix profile history --profile /nix/var/nix/profiles/system";
             _wipe = "sudo nix profile wipe-history --profile /nix/var/nix/profiles/system";
@@ -44,7 +44,7 @@
             pinentryFlavor = "tty";
         };
     };
-
+ 
   services.passSecretService.enable = true;
       
   # List packages installed in system profile. To search, run:
@@ -117,6 +117,10 @@
     git-credential-oauth
     wakatime
 
+    qemu
+    libvirt
+    virt-manager
+
     zsh-powerlevel10k
  ];
 
@@ -126,7 +130,7 @@
     users.bzm3r = {
       isNormalUser = true;
       home = "/home/bzm3r";
-      extraGroups = [ "wheel" "networkmanager" "video" "render" ];
+      extraGroups = [ "wheel" "networkmanager" "video" "render" "libvirtd" ];
       useDefaultShell = true;
     };
   };
