@@ -19,7 +19,7 @@
     nixosConfigurations = {
       book = nixpkgs.lib.nixosSystem {
         modules = [
-          ./host-book.nix
+          ./host-l.nix
           ./core
           ./gui
         ];
