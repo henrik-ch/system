@@ -122,6 +122,10 @@
     virt-manager
 
     zsh-powerlevel10k
+
+    gtk2
+    gtk3
+    gtk4
  ];
 
  users = {
