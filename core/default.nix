@@ -9,6 +9,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  hardware.opengl.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
 
   # a bigger, default tty font
