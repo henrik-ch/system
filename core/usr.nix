@@ -123,9 +123,9 @@
 
     zsh-powerlevel10k
 
-    gtk2
-    gtk3
-    gtk4
+    eureka-ideas
+    taskwarrior
+    timewarrior
  ];
 
  users = {
