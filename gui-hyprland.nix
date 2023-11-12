@@ -6,14 +6,6 @@
     enable = true;
   };
 
-  gtk.iconCache.enable = true;
-
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
-  };
-
   environment.systemPackages = with pkgs; [
     mako 
     swayosd
@@ -21,18 +13,26 @@
     waybar
     
     libsForQt5.polkit-kde-agent
+    qt6Packages.qt6ct
+    libsForQt5.qt5ct    
     libsForQt5.qt5.qtwayland
     qt6.qtwayland
+    gnome.dconf-editor
     
     wofi
-    dolphin
+    gnome.nautilus
 
-    bibata-cursors
     wl-clipboard
     
     fontfinder
     font-manager    
   ];
 
-  programs.dconf.enable = true;
+  gtk.iconCache.enable = true;
+  programs.dconf.enable = true;  
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
 }

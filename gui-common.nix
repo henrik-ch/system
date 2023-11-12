@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
-{
-  imports = [
-    ./hyprland.nix
-  ];
-  
+{ 
   nixpkgs.config.allowUnfreePredicate =
     package:
       builtins.elem (pkgs.lib.getName package) [ 

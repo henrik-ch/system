@@ -21,7 +21,8 @@
         modules = [
           ./host-l.nix
           ./core
-          ./gui
+          ./gui-common.nix
+          ./gui-sway.nix
         ];
       };
     };
