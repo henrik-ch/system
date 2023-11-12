@@ -23,7 +23,7 @@
           ./core
           ./gui-common.nix
           ./gui-sway.nix
-          ./gui-hyprland.nix
+          #./gui-hyprland.nix
         ];
       };
     };

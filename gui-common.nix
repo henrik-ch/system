@@ -47,6 +47,10 @@
     okular
     bibata-cursors
     google-fonts
+    wayland
+    glib
+    gnome.dconf-editor
+    gnome3.adwaita-icon-theme
   ];
 
   xdg.portal.enable = true;

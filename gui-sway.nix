@@ -39,27 +39,6 @@ let
   };
 in
 {
-    environment.systemPackages = with pkgs; [
-      dbus-sway-environment
-      configure-gtk
-      wayland
-      glib # gsettings
-      gnome.dconf-editor
-      gnome3.adwaita-icon-theme  # default gnome cursors
-      onagre
-      wlr-which-key
-      swayest-workstyle
-      swaysome
-      swaylock
-      swayidle
-      grim # screenshot functionality
-      slurp # screenshot functionality
-      wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-      mako # notification system developed by swaywm maintainer
-      wdisplays # tool to configure displays
-    ];
-
-
     services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -88,6 +67,21 @@ in
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
+      extraPackages = with pkgs; [
+        dbus-sway-environment
+        configure-gtk
+        onagre
+        wlr-which-key
+        swayest-workstyle
+        swaysome
+        swaylock
+        swayidle
+        grim # screenshot functionality
+        slurp # screenshot functionality
+        wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+        mako # notification system developed by swaywm maintainer
+        wdisplays # tool to configure displays      
+      ];
     };
 }
 
