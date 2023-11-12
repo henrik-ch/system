@@ -1,7 +1,4 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
+# Based on the default sway config
 # Read `man 5 sway` for a complete reference.
 
 exec dbus-sway-environment
@@ -19,7 +16,7 @@ set $right l
 
 # Your preferred terminal emulator
 set $term wezterm
-set $menu bemenu-run
+set $menu onagre
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -29,7 +26,9 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# temporarily disable background
+# output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
 #
 # Example configuration:
 #
