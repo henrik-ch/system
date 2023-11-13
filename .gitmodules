@@ -1,0 +1,9 @@
+[submodule "home-common"]
+	path = home-common
+	url = ./home-common
+[submodule "home-d"]
+	path = home-d
+	url = ./home-d
+[submodule "home-l"]
+	path = home-l
+	url = ./home-l
