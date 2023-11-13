@@ -51,6 +51,7 @@
     glib
     gnome.dconf-editor
     gnome3.adwaita-icon-theme
+    gnome.nautilus
   ];
 
   xdg.portal.enable = true;
