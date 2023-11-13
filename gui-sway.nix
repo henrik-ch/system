@@ -70,7 +70,7 @@ in
       extraPackages = with pkgs; [
         dbus-sway-environment
         configure-gtk
-        onagre
+        kickoff
         wlr-which-key
         swayest-workstyle
         swaysome
