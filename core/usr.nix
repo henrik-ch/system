@@ -30,6 +30,19 @@
             _shutdown = "sudo shutdown -h now";
             ls = "lsd -a";
             cat = "bat";
+            gs = "ls ; git status";
+            gc = "git clone --recurse-submodules";
+            gf = "git fetch";
+            gm = "git merge";
+            gpull = "git pull ; git submodule update --init --recursive";
+            gfm = "git fetch ; git merge";
+            gfp = "git fetch ; git pull";
+            gd = "git diff";
+            gp = "git push --recurse-submodules=check";
+            gpod = "git push --recurse-submodules=on-demand";
+            
+            gsmr = "git submodule update --remote --rebase";
+            gsmm = "git submodule update --remote --merge";
         };
         autosuggestions = {
             enable = true;
@@ -115,6 +128,7 @@
     discord
     element-desktop
     ffmpeg
+    gitkraken
 
     gh
     git-credential-oauth
