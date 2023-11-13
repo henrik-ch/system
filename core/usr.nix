@@ -3,6 +3,14 @@
 {
   documentation.man.man-db.enable = true;
 
+  nixpkgs.config.allowUnfreePredicate =
+    package:
+      builtins.elem (pkgs.lib.getName package) [ 
+        "vscode" 
+        "discord"
+        "gitkraken"
+      ];
+
     programs.zsh = {
         enable = true;
         enableCompletion = true;
@@ -40,9 +48,9 @@
             gd = "git diff";
             gp = "git push --recurse-submodules=check";
             gpod = "git push --recurse-submodules=on-demand";
-            
             gsmr = "git submodule update --remote --rebase";
             gsmm = "git submodule update --remote --merge";
+            cd = "f() { cd $1 ; lsd -a };f";
         };
         autosuggestions = {
             enable = true;

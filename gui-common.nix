@@ -1,13 +1,6 @@
 { pkgs, ... }:
 
 { 
-  nixpkgs.config.allowUnfreePredicate =
-    package:
-      builtins.elem (pkgs.lib.getName package) [ 
-        "vscode" 
-        "discord"
-      ];
-
   fonts.packages = with pkgs; [
     google-fonts
     atkinson-hyperlegible
