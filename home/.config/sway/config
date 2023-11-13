@@ -9,7 +9,7 @@ default_border pixel 2
 default_floating_border pixel 2
 
 # Property Name             Border  BG      Text    Indicator Child-border
-client.focused              #ff7600 #000000 #ffffff ##00ffe3   #ff7600
+client.focused              #ff7600 #000000 #ffffff #00ffe3   #ff7600
 client.focused_inactive     #5f819d #000000 #ffffff #00ffe3   #5f819d
 client.unfocused            #5f819d #000000 #ffffff #00ffe3   #5f819d
 
@@ -30,6 +30,12 @@ set $term wezterm
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu kickoff
+
+set $brightness_up "brightnessctl set 5%+"
+set $brightness_down "brightnessctl set 5%-"
+set $volume_up "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2.5%+"
+set $volume_down "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2.5%-" 
+set $volume_mute "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
 ### Output configuration
 #
@@ -217,29 +223,17 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # --locked flags allow the buttons to be used whilst the screen is locked.
-$bindsym --locked XF86AudioRaiseVolume exec $volume_up
+bindsym --locked XF86AudioRaiseVolume exec $volume_up
 
-$bindsym --locked XF86AudioLowerVolume exec $volume_down
+bindsym --locked XF86AudioLowerVolume exec $volume_down
 
-$bindsym --locked XF86AudioMute exec $volume_mute
+bindsym --locked XF86AudioMute exec $volume_mute
 
-$bindsym XF86AudioMicMute exec $mic_mute
+bindsym XF86AudioMicMute exec $mic_mute
 
-$bindsym --locked XF86MonBrightnessUp exec $brightness_up
+bindsym --locked XF86MonBrightnessUp exec $brightness_up
 
-$bindsym --locked XF86MonBrightnessDown exec $brightness_down
-
-$bindsym --locked XF86AudioPlay exec playerctl play-pause
-
-$bindsym XF86AudioNext exec playerctl next
-
-$bindsym XF86AudioPrev exec playerctl previous
-
-$bindsym XF86Search exec $menu
-
-$bindsym XF86PowerOff exec $shutdown
-
-$bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
+bindsym --locked XF86MonBrightnessDown exec $brightness_down
 
 #
 # Status Bar:

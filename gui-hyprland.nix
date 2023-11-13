@@ -8,7 +8,7 @@
 
   environment.systemPackages = with pkgs; [
     mako 
-    swayosd
+    
     wlr-which-key
     waybar
     
