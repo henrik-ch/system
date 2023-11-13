@@ -67,16 +67,15 @@ in
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
-      extraPackages = with pkgs; [
-        
+      extraPackages = with pkgs; [        
         brightnessctl
-        eww
+        eww-wayland
+        waybar
         dbus-sway-environment
         configure-gtk
         kickoff
         wlr-which-key
         swayest-workstyle
-        swaysome
         swaylock
         swayidle
         grim # screenshot functionality

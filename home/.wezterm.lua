@@ -15,7 +15,7 @@ end
 -- For example, changing the color scheme:
 config.color_scheme = 'Rasi (terminal.sexy)'
 config.font =  wezterm.font_with_fallback {'Inconsolata Nerd Font Mono', 'Fira Mono'}
-config.font_size = 14
+config.font_size = 16
 
 -- and finally, return the configuration to wezterm
 return config

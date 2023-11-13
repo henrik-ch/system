@@ -337,13 +337,12 @@
         "ᐳ": true,
         " ": true
     },
-    "editor.fontSize": 15,
     "errorLens.statusBarIconsEnabled": true,
     "errorLens.enableOnDiffView": true,
     "errorLens.fontFamily": "\"Atkinson Hyperlegible\"",
     "errorLens.removeLinebreaks": false,
     "errorLens.messageBackgroundMode": "message",
-    "editor.fontFamily": "Inconsolata",
+    "editor.fontFamily": "Inconsolata Nerd Font Mono, Source Code Pro",
     "rust-analyzer.check.command": "clippy",
     "rust-analyzer.check.overrideCommand": [
         "cargo",
@@ -483,7 +482,7 @@
             "scope": "expr"
         }
     },
-    "editor.inlayHints.fontSize": 10,
+    "editor.inlayHints.fontSize": 14,
     "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
     "rust-analyzer.inlayHints.closureCaptureHints.enable": true,
     "rust-analyzer.inlayHints.maxLength": null,
@@ -646,4 +645,6 @@
         }
     },
     "workbench.activityBar.location": "hidden",
+    "editor.codeLensFontFamily": "Atkinson Hyperlegible",
+    "window.zoomLevel": 2,
 }
