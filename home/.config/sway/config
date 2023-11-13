@@ -4,6 +4,10 @@
 exec dbus-sway-environment
 exec configure-gtk
 
+### Border
+default_border pixel 2
+default_floating_border pixel 2
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.

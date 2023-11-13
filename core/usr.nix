@@ -129,6 +129,8 @@
     eureka-ideas
     taskwarrior
     timewarrior
+
+    light
  ];
 
  users = {
