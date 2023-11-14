@@ -26,6 +26,15 @@
           #./gui-hyprland.nix
         ];
       };
+      d = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./host-d.nix
+          ./core
+          ./gui-common.nix
+          ./gui-sway.nix
+          #./gui-hyprland.nix
+        ];
+      };
     };
   };
 }
