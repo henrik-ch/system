@@ -10,8 +10,8 @@
   boot = {
     initrd = {
       systemd.enable = true;
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
-      kernelModules = [ "kvm-amd" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sdmod" ];
+      kernelModules = [ "kvm-intel" ];
     };
 
     loader = {
@@ -68,7 +68,6 @@
     ];
 
     services.logind = {
-      lidSwitch = "hibernate";
       powerKey = "hibernate";
       powerKeyLongPress = "poweroff";
     };
@@ -112,12 +111,12 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
-  networking.hostName = "l"; # Define your hostname.
+  networking.hostName = "d"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
