@@ -157,6 +157,9 @@
     timewarrior
 
     light
+
+    (callPackage ./btrfs-rec.nix {})
+    #new pkg
  ];
 
  users = {
