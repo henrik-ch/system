@@ -23,11 +23,9 @@
             _conf = "hx ~/nixos-conf";
             _core = "hx ~/nixos-conf/core/default.nix";
             _usr = "hx ~/nixos-conf/core/usr.nix";
-            _wez = "hx ~/nixos-conf/home/.wezterm.lua";
-            _hx = "hx ~/nixos-conf/home/.config/helix/config.toml";
-            _hl = "hx ~/nixos-conf/home/.config/hypr/hyprland.conf";
-            _sy = "hx ~/nixos-conf/home/.config/sway/config";
-            _nhl = "hx ~/nixos-conf/gui-hyprland.nix";
+            _wez = "hx ~/nixos-conf/home-common/.config/wezterm";
+            _hx = "hx ~/nixos-conf/home-common/.config/helix/config.toml";
+            _sy = "hx ~/nixos-conf/home-common/.config/sway";
             _nsy = "hx ~/nixos-conf/gui-sway.nix";
             _re = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
             _up = "cd /home/bzm3r/nixos-conf ; sudo nix flake update ; sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
@@ -51,9 +49,10 @@
             gsmr = "git submodule update --remote --rebase";
             gsmm = "git submodule update --remote --merge";
             cd = "f() { 
-                cd $1 ; 
-                lsd -a ;
-                git status 2> /dev/null 
+                cd $1;
+                git status 2> /dev/null;
+                echo \"\";               
+                lsd -a;
               };f";
         };
         autosuggestions = {

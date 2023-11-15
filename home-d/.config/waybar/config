@@ -30,9 +30,6 @@
 		"cpu",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
-		"battery",
-		"custom/left-arrow-light",
-		"custom/left-arrow-dark",
 		"disk",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
@@ -100,21 +97,6 @@
 		"interval": 5,
 		"format": "Disk {percentage_used:2}%",
 		"path": "/"
-	},
-	"battery": {
-		"states": {
-			"good": 95,
-			"warning": 30,
-			"critical": 15
-		},
-		"format": "{icon} {capacity}%",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		]
 	},
 	"tray": {
 		"icon-size": 20
