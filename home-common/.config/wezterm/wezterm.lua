@@ -14,7 +14,8 @@ end
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
-config.color_scheme = 'Mikazuki'
+config.color_scheme = 'Dissonance(Gogh)'
+-- Ayu Dark, Dissonance, Elementary, Hardcore, Ibm 3270 (High Contrast), Vibrant Ink
 config.font =  wezterm.font_with_fallback {
   {
     family = "Inconsolata Nerd Font Mono",
@@ -23,6 +24,5 @@ config.font =  wezterm.font_with_fallback {
   'Fira Mono'
 }
 config.font_size = fontprops.size
-
 -- and finally, return the configuration to wezterm
 return config
