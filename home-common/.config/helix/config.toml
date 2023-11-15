@@ -1,0 +1,11 @@
+theme = "ayu_evolve"
+
+[editor]
+auto-save=true
+
+[editor.soft-wrap]
+enable=true
+
+[editor.file-picker]
+hidden = false
+
