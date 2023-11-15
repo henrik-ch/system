@@ -28,5 +28,7 @@
     alsa-utils
     alsa-plugins
     easyeffects
+    pavucontrol
+    pamixer
   ];
 }
