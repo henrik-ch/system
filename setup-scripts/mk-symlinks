@@ -1,4 +1,7 @@
 #!/bin/sh
 
-cp --recursive --force --symbolic-link --target-directory=/home/bzm3r /home/bzm3r/nixos-conf/home/.
+cp --recursive --force --symbolic-link --target-directory=/home/bzm3r /home/bzm3r/nixos-conf/home-common/.
+
+cp --recursive --force --symbolic-link --target-directory=/home/bzm3r /home/bzm3r/nixos-conf/home-$1/.
+
 
