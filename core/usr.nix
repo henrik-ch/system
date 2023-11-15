@@ -75,7 +75,11 @@
 
   security.pam.services.bzm3r.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
-  services.gnome.gnome-keyring.enable = true;   
+
+  services = {
+    gnome.gnome-keyring.enable = true;
+    convos.enable = true;
+  };  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
