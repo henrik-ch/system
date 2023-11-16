@@ -1,14 +1,11 @@
-{ pkgs, ... }:
-
-{
-  
+{pkgs, ...}: {
   services = {
     # audio
     pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
-     wireplumber = {
+      wireplumber = {
         enable = true;
       };
     };

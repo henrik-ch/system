@@ -55,13 +55,13 @@ window#waybar {
 	color: #00ffea;
 }
 #cpu {
-	color: #ff00d9;
+	color: #ff39e1;
 }
 #battery {
 	color: #ddff00;
 }
 #disk {
-	color: #ffbf00;
+	color: #ff8000;
 }
 
 #clock,

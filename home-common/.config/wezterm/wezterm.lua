@@ -1,6 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
 local fontprops  = require 'fontprops'
+local color_schemes = require 'color_schemes'
 
 -- This table will hold the configuration.
 local config = {}
@@ -12,10 +13,11 @@ if wezterm.config_builder then
 end
 
 -- This is where you actually apply your config choices
+config.default_cursor_style = 'SteadyBlock'
 
 -- For example, changing the color scheme:
-config.color_scheme = 'Dissonance(Gogh)'
--- Ayu Dark, Dissonance, Elementary, Hardcore, Ibm 3270 (High Contrast), Vibrant Ink
+config.color_schemes = color_schemes
+config.color_scheme = 'bzm3r'
 config.font =  wezterm.font_with_fallback {
   {
     family = "Inconsolata Nerd Font Mono",

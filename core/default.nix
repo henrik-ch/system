@@ -1,13 +1,11 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   imports = [
     ./audio.nix
     ./default-dirs.nix
     ./usr.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   hardware.opengl.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
@@ -16,13 +14,12 @@
   console = {
     earlySetup = true;
     font = "${pkgs.terminus_font}/share/consolefonts/ter-122n.psf.gz";
-    packages = with pkgs; [ terminus_font ];
+    packages = with pkgs; [terminus_font];
     keyMap = "us";
   };
 
   security = {
-    sudo.extraConfig =
-    '' Defaults lecture = never '';
+    sudo.extraConfig = ''Defaults lecture = never '';
     polkit.enable = true;
   };
 
@@ -30,7 +27,7 @@
     # hardware scanner + firmware recommender
     fwupd.enable = true;
     udisks2.enable = true;
- };
+  };
 
   # should set up one-time auto-detect (perhaps on startup/login)
   time.timeZone = "America/Vancouver";

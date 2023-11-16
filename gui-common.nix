@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{ 
+{pkgs, ...}: {
   fonts.packages = with pkgs; [
     google-fonts
     atkinson-hyperlegible
@@ -8,26 +6,26 @@
     inter
     source-sans
     source-serif
-    (nerdfonts.override { fonts = [ "Inconsolata" ]; } )
+    (nerdfonts.override {fonts = ["Inconsolata"];})
   ];
 
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = [ 
+      monospace = [
         "Inconsolata"
-        "Fira Code" 
-        "Source Code Pro" 
+        "Fira Code"
+        "Source Code Pro"
       ];
-      serif = [ 
-        "Lora" 
-        "Vollkorn" 
-        "Source Serif Pro" 
+      serif = [
+        "Lora"
+        "Vollkorn"
+        "Source Serif Pro"
       ];
-      sansSerif = [ 
-        "Atkinson Hyperlegible" 
-        "Inter" 
-        "Source Sans Pro" 
+      sansSerif = [
+        "Atkinson Hyperlegible"
+        "Inter"
+        "Source Sans Pro"
       ];
     };
   };
