@@ -72,12 +72,157 @@
     };
   };
 
-  programs.starship = {
+  # Shell theme with Catpuccin and Starship Prompt
+  programs.starship = let
+    star_sty = {
+      fg,
+      bg,
+      sty ? "",
+    }: "(fg:${fg} bg:${bg} ${sty})";
+    star_fmt = content: "[${content}]";
+    start_sym = "";
+    end_sym = "";
+    status_sym = "●";
+    gap = " ";
+    # thanks to: https://github.com/catppuccin/catppuccin
+    palette_colors = {
+      black = "#000000";
+      white = "#ffffff";
+      light_grey = "#6c6f85";
+      dark_grey = "#1e1e1f";
+      green = "#40a02b";
+      yellow = "#dfc51d";
+      peach = "#fe640b";
+      flamingo = "#dd7878";
+      sky = "#04a5e5";
+      mauve = "#9755ed";
+      sapphire = "#209fb5";
+    };
+    star_content = content: {
+      fg,
+      bg,
+      sty ? "",
+    }: "${star_fmt content}${star_sty {
+      inherit fg bg sty;
+    }}";
+    block_start = fg: bg: (star_content start_sym {
+      inherit fg bg;
+    });
+    block_end = fg: bg: (star_content end_sym {
+      inherit fg bg;
+    });
+    block_content = content: {
+      fg,
+      bg,
+      sty,
+    }:
+      star_content content {
+        inherit fg bg sty;
+      };
+    block = content: {
+      fg,
+      bg ? "dark_grey",
+      sty ? "",
+    }: "${block_start bg palette_colors.black}${block_content content {inherit fg bg sty;}}${block_end bg palette_colors.black}";
+  in {
     enable = true;
+
     settings = {
       "$schema" = "https://starship.rs/config-schema.json";
       # Inserts a blank line between shell prompts
       add_newline = true;
+      # Other config here
+
+      # Only supported by fish and zsh
+      right_format = ''
+      '';
+
+      palette = "custom_catpuccin";
+
+      palettes.custom_catpuccin = palette_colors;
+
+      # format = ''
+      #   $status\
+      #   $host\
+      #   $usr\
+      # '';
+
+      format = "$time $hostname $username $directory $git_branch $git_commit$git_state$git_status$git_metrics  $all";
+      # $directory\
+      # $git_branch\
+      # $git_status\
+      # $git_metrics\
+      # $git_commit\
+      # $fill\
+      # $env_var\
+      # $custom\
+      # $cmd_duration\
+      # $sudo\
+      # $line_break\
+      # $nix_shell\
+      # $jobs\
+      # $character\
+
+      hostname = {
+        format = block "$hostname" {fg = "yellow";};
+        ssh_only = false;
+        disabled = false;
+      };
+
+      username = {
+        format = block "$user" {
+          fg = "peach";
+        };
+        show_always = true;
+      };
+
+      directory = {
+        format = "${block "$read_only$path" {
+          fg = "sky";
+          bg = "dark_grey";
+          sty = "bold";
+        }}";
+        read_only = " 🔒 ";
+        truncation_symbol = "…/";
+      };
+
+      git_branch = {
+        format = block "$symbol$branch(:$remote_branch)" {
+          fg = "mauve";
+          sty = "bold";
+        };
+        only_attached = true;
+      };
+
+      git_commit = {
+        format = block "$tag$hash" {
+          fg = "mauve";
+          sty = "bold";
+        };
+      };
+
+      git_status = {
+        format = block "\\[$all_status$ahead_behind\\]" {
+          fg = "red";
+          sty = "bold";
+        };
+      };
+
+      git_state = {
+        format = "\(${(block "$state( $progress_current/$progress_total)" {
+          fg = "yellow";
+          sty = "bold";
+        })}\)";
+      };
+
+      time = {
+        format = block "$time" {
+          fg = "black";
+          bg = "light_grey";
+        };
+        use_12hr = false;
+        disabled = false;
+      };
     };
   };
 
@@ -88,6 +233,7 @@
     gnome.gnome-keyring.enable = true;
     convos.enable = true;
   };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -146,7 +292,7 @@
     procs
 
     nil
-    alejandra
+    nixpkgs-fmt
 
     vscode
     discord
@@ -168,7 +314,7 @@
     taskwarrior
     timewarrior
 
-    light
+    brightnessctl
 
     (callPackage ./btrfs-rec.nix {})
     #new pkg
@@ -180,7 +326,7 @@
     users.bzm3r = {
       isNormalUser = true;
       home = "/home/bzm3r";
-      extraGroups = ["wheel" "networkmanager" "video" "render" "libvirtd"];
+      extraGroups = ["wheel" "networkmanager" "video" "rcontent_block" "libvirtd"];
       useDefaultShell = true;
     };
   };
