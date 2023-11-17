@@ -20,7 +20,6 @@
           ./core
           ./gui-common.nix
           ./gui-sway.nix
-          #./gui-hyprland.nix
         ];
       };
       d = nixpkgs.lib.nixosSystem {
@@ -29,7 +28,6 @@
           ./core
           ./gui-common.nix
           ./gui-sway.nix
-          #./gui-hyprland.nix
         ];
       };
     };
