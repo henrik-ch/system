@@ -124,6 +124,10 @@ mode "resize" {
     bindsym $down resize shrink height 10px
     bindsym $up resize grow height 10px
 
+    bindsym $mod+Right resize set width 90ppt
+    bindsym $mod+Left resize set width 63ppt;
+    bindsym $mod+Up resize set width 75ppt;
+    bindsym $mod+Down resize set width 25ppt;
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
