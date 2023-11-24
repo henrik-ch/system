@@ -7,15 +7,14 @@ stdenvNoCC.mkDerivation rec {
   src = fetchzip {
     url = "https://www.designingtyperevivals.com/DeAetna_font.zip";
     stripRoot = false;
-    hash = "";
+    hash = "sha256-LwnjOL8zWswvJ/JjDngauv8Q5NIDBk+BFYVQw0GojN4=";
   };
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -pv $out/share/{doc/${pname}-${version},fonts/{opentype}}
-    cp -v DeAetna_license.txt $out/share/doc/${pname}-${version}/
-    cp -v DeAetna_V${version}/*.otf $out/share/fonts/opentype
+    install -D DeAetna_font/DeAetna_license.txt -t $out/share/doc/${pname}
+    install -D DeAetna_font/DeAetna_V${version}/* -t $out/share/fonts/opentype
 
     runHook postInstall
   '';

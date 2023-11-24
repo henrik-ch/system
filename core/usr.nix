@@ -1,4 +1,8 @@
-input@{ pkgs, config, ...}: {
+{ pkgs, ...}: {
+  imports = [
+    ./starship.nix
+  ];
+
   documentation.man.man-db.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = package:
@@ -24,8 +28,8 @@ input@{ pkgs, config, ...}: {
       highlightStyle = "fg=3";
     };
     enableLsColors = true;
-    shellAliases = {
-      hl = "Hyprland";
+    shellAliases =
+    {
       sy = "sway";
       _conf = "hx ~/nixos-conf";
       _core = "hx ~/nixos-conf/core/default.nix";
@@ -35,6 +39,7 @@ input@{ pkgs, config, ...}: {
       _sy = "hx ~/nixos-conf/home-common/.config/sway";
       _nsy = "hx ~/nixos-conf/gui-sway.nix";
       _re = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
+      __re = "sudo nixos-rebuild switch --show-trace --option eval-cache false --flake /home/bzm3r/nixos-conf ; exec zsh";
       _up = "cd /home/bzm3r/nixos-conf ; sudo nix flake update ; sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
       gpg-import = "gpg --import-options restore --import";
       _hist = "nix profile history --profile /nix/var/nix/profiles/system; ";
@@ -83,6 +88,8 @@ input@{ pkgs, config, ...}: {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    efibootmgr
+
     #hardware
     tlp
     thermald
@@ -163,6 +170,7 @@ input@{ pkgs, config, ...}: {
     brightnessctl
 
     (callPackage ./btrfs-rec.nix {})
+    (callPackage ./de-aetna.nix {})
     #new pkg
   ];
 
@@ -176,4 +184,4 @@ input@{ pkgs, config, ...}: {
       useDefaultShell = true;
     };
   };
-} // import ./starship (input // { lib = pkgs.lib; })
+}

@@ -11,10 +11,10 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # a bigger, default tty font
-  console = {
+  console = with pkgs; {
     earlySetup = true;
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-122n.psf.gz";
-    packages = with pkgs; [terminus_font];
+    font = "${terminus_font}/share/consolefonts/ter-122n.psf.gz";
+    packages = [terminus_font];
     keyMap = "us";
   };
 
