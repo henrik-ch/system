@@ -176,7 +176,6 @@
 
   users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
-
     users.bzm3r = {
       isNormalUser = true;
       home = "/home/bzm3r";

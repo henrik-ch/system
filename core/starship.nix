@@ -213,7 +213,9 @@ in
       cmd_duration = {
         format = colors.whiteblack "󱞩  took $duration ✦";
         show_notifications = true;
-        #min_time_notify = 45_000; # in ms
+        min_time = 2000;
+        min_time_to_notify = 2000;
+        notification_timeout = 3500;
       };
 
       palette = "vivid";
@@ -308,12 +310,12 @@ in
         # =====
         # other parts
         conflicted = alert "↹";
-        stashed = "⫰↰$count";
-        deleted = warning "x$count";
+        stashed = "⫰󱞧$count";
+        deleted = warning "$count";
         renamed = info "$count";
-        staged = ok "⭱$count";
+        staged = info "${ahead_arrow}$count";
         typechanged = info "";
-        modified = warning "±$count";
+        modified = alert "🠙$count";
       };
 
       git_state = {
