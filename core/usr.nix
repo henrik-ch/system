@@ -41,8 +41,8 @@
       _hx = "hx ~/nixos-conf/home-common/.config/helix/config.toml";
       _sy = "hx ~/nixos-conf/home-common/.config/sway";
       _nsy = "hx ~/nixos-conf/gui-sway.nix";
-      _re = "sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
-      __re = "sudo nixos-rebuild switch --show-trace --option eval-cache false --flake /home/bzm3r/nixos-conf ; exec zsh";
+      _re = "sudo nixos-rebuild switch /home/bzm3r/nixos-conf ; exec zsh";
+      __re = "sudo nixos-rebuild switch --show-trace --option eval-cache false /home/bzm3r/nixos-conf ; exec zsh";
       _up = "cd /home/bzm3r/nixos-conf ; sudo nix flake update ; sudo nixos-rebuild switch --flake /home/bzm3r/nixos-conf ; exec zsh";
       gpg-import = "gpg --import-options restore --import";
       _hist = "nix profile history --profile /nix/var/nix/profiles/system; ";
