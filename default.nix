@@ -6,10 +6,23 @@
 }:
 let
   hostName = config.networking.hostName;
+  sources = import ./npins;
 in
 {
-  system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
-  imports = [
+  environment.etc."nixpkgs".source = sources.nixpkgs;
+  nixpkgs.overlays =
+    let
+      npinsOverlay = self: _super: {
+        inherit (sources) nixpkgs;
+      };
+    in
+      [ npinsOverlay ];
+  nix.nixPath = [
+    "nixpkgs=/home/bzm3r/nixos-conf/npins"
+    "nixos-config=/home/bzm3r/nixos-conf/default.nix"
+  ];
+
+ imports = [
     (
       if hostName == "d"
         then ./host-d.nix
