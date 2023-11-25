@@ -193,8 +193,8 @@ in
         "$git_commit" +
         "$git_status" +
         "$git_metrics" +
-        "$git_state\n" +
-        "$character";
+        "$git_state" +
+        "\n$character";
       #   # $directory\
       #   # $git_branch\
       #   # $git_status\
@@ -316,6 +316,7 @@ in
         staged = info "${ahead_arrow}$count";
         typechanged = info "";
         modified = alert "🠙$count";
+        untracked = alert "!$count";
       };
 
       git_state = {

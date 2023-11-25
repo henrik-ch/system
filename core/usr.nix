@@ -28,6 +28,9 @@
       highlightStyle = "fg=3";
     };
     enableLsColors = true;
+    interactiveShellInit = ''
+      eval "$(direnv hook zsh)"
+    '';
     shellAliases =
     {
       sy = "sway";
@@ -83,6 +86,12 @@
   services = {
     gnome.gnome-keyring.enable = true;
     convos.enable = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    loadInNixShell = true;
+    nix-direnv.enable = true;  
   };
 
   # List packages installed in system profile. To search, run:
