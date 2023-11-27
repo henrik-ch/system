@@ -6,9 +6,26 @@ nixpkgsPath=$(nix-instantiate --eval --read-write-mode nixpkgs/path.nix | tr -d 
 # Get the ./root.nix relative to this script
 configPath=$(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/root.nix")
 
-# nixos-rebuild always reads Nixpkgs from the NIX_PATH,
-# so we need to set it explicitly to our pinned version
-NIX_PATH=nixpkgs=$nixpkgsPath:nixos-config=$configPath
-export NIX_PATH
 
-exec nixos-rebuild "$@"
+
+sdDelta="$(sd -F -p MISSING $HOST ./config-template.nix)"
+echo "Will setup host as:"
+echo "$($sdDelta | diff ./config-template.nix)"
+confirmation="n"
+read -p 'Confirm? (y/N): ' confirmation
+
+if (confirmation -eq "y") then
+    cp config-template.nix configuration.nix
+    sd -F 'MISSING' $HOST configuration.nix
+    # nixos-rebuild always reads Nixpkgs from the NIX_PATH,
+    # so we need to set it explicitly to our pinned version
+    NIX_PATH=nixpkgs=$nixpkgsPath:nixos-config=$configPath
+    export NIX_PATH
+
+    exec nixos-rebuild "$@"
+
+    echo "Removing configuration.nix".
+    rm configuration.nix
+else
+    echo "Abort acknowledged."
+fi

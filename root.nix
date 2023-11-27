@@ -6,7 +6,7 @@
 
   environment.systemPackages = with pkgs; [
     # We're using niv to manage the systems Nixpkgs version, install it globally for ease
-    niv
+    npins
   ];
 
   # Use the Nixpkgs config and overlays from the local files for this NixOS build
