@@ -5,7 +5,7 @@
 }:
 {
  imports = [
-    ./host-MISSING.nix
+    ./host-d.nix
     ./core
     ./gui-common.nix
     ./gui-sway.nix

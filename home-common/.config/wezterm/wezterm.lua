@@ -19,11 +19,11 @@ config.default_cursor_style = 'SteadyBlock'
 config.color_schemes = color_schemes
 config.color_scheme = 'bzm3r'
 config.font =  wezterm.font_with_fallback {
-  {
-    family = "Inconsolata Nerd Font Mono",
-    harfbuzz_features = { "calt=1", "clig=1", "liga=1" },
-  },
-  'Fira Mono'
+  'Inconsolata Nerd Font Mono',
+  'Source Code Pro',
+  'JetBrains Mono',
+  'Nerd Font Symbols',
+  'Noto Color Emoji',
 }
 config.font_size = fontprops.size
 -- and finally, return the configuration to wezterm

@@ -310,7 +310,7 @@ in
         # =====
         # other parts
         conflicted = alert "↹";
-        stashed = "⫰󱞧$count";
+        stashed = info "󰆓$count";
         deleted = warning "$count";
         renamed = info "$count";
         staged = info "${ahead_arrow}$count";
