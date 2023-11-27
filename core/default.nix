@@ -7,7 +7,6 @@ inputs@{
   imports = [
     ./audio.nix
     ./default-dirs.nix
-    ./usr.nix
   ];
 
   # This will add each flake input as a registry
