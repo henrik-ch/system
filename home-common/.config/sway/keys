@@ -113,24 +113,30 @@ set $right l
 #
 # Resizing containers:
 #
-bindsym $mod+r mode "resize"
+bindsym $mod+grave mode "resize"
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $right resize grow width 10px
-    bindsym $down resize shrink height 10px
-    bindsym $up resize grow height 10px
+  # left will shrink the containers width
+  # right will grow the containers width
+  # up will shrink the containers height
+  # down will grow the containers height
+  bindsym $left resize shrink width 10px
+  bindsym $right resize grow width 10px
+  bindsym $down resize shrink height 10px
+  bindsym $up resize grow height 10px
 
-    bindsym $mod+Right resize set width 90ppt
-    bindsym $mod+Left resize set width 63ppt;
-    bindsym $mod+Up resize set width 75ppt;
-    bindsym $mod+Down resize set width 25ppt;
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+  bindsym 1 resize set width 10ppt
+  bindsym 2 resize set width 20ppt
+  bindsym 3 resize set width 30ppt
+  bindsym 4 resize set width 40ppt
+  bindsym 5 resize set width 50ppt
+  bindsym 6 resize set width 60ppt
+  bindsym 7 resize set width 70ppt
+  bindsym 8 resize set width 80ppt
+  bindsym 9 resize set width 90ppt
+
+  # Return to default mode
+  bindsym $mod mode "default"
+  bindsym Escape mode "default"
 }
 
 # --locked flags allow the buttons to be used whilst the screen is locked.

@@ -139,6 +139,7 @@
     timewarrior
 
     brightnessctl
+    wev
 
     (callPackage ./custom-derivations/btrfs-rec.nix {})
     (callPackage ./custom-derivations/de-aetna.nix {})
