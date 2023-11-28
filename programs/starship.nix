@@ -242,7 +242,7 @@ in
             ""
             time_host_user_dir
             (opt git_info)
-            "$nix_shell"
+            (opt "$nix_shell")
             "$character"
           ];
 
@@ -250,6 +250,7 @@ in
         format = c.default "󱞩  took $duration ✦";
         show_notifications = true;
         min_time = 2000;
+        notification_timeout = 3500;
       };
 
 
@@ -302,7 +303,7 @@ in
         tag = optSufSep (colors.grey "$tag");
       in {
         format = hash + tag;
-        tag_symbol = "";
+        tag_symbol = "󰃀";
         only_detached = false;
       };
 
@@ -318,18 +319,21 @@ in
         ahead_behind = opt "${sync} $ahead_behind";
         status = opt (
           "${local}" + (
-          concatStrSep preSep [
-              "$conflicted"
-              "$stashed"
-              "$deleted"
-              "$renamed"
-              "$modified"
-              "$staged"
-              "$untracked"
-              "$typechanged"
+        concatStrMap
+          optPreSep
+          [
+            "$conflicted"
+            "$stashed"
+            "$deleted"
+            "$renamed"
+            "$modified"
+            "$staged"
+            "$untracked"
+            "$typechanged"
           ]
         ));
-        symbols = {
+        symbols =
+        {
           ahead = countSym c.ok aheadArrow;
           behind = countSym c.alert behindArrow;
           diverged = concatStrSep preSep [
@@ -338,13 +342,13 @@ in
             (_countSym "$behind_count" c.alert behindArrow)
           ];
           up_to_date = c.ok "";
-          conflicted = countSym (tortoise c.alert c.alert "conflicts: ");#c.alert "↹";
-          stashed = countSym (tortoise c.info c.info "stash: ");#c.info "";
-          deleted = countSym (tortoise c.attn c.attn "del: ");#c.attn "";
-          renamed = countSym (tortoise c.attn c.attn "mv: ");#c.attn "";
-          staged = countSym (tortoise c.ok c.ok "staged: ");#c.ok "󰕒";
-          typechanged = countSym (tortoise c.info c.info "typechange");#c.info "";
-          modified = countSym (tortoise c.attn c.attn "mod: ");#c.attn "●";
+          conflicted = countSym c.alert "↹";
+          stashed = countSym c.info "";
+          deleted = countSym c.attn "";
+          renamed = countSym c.attn "";
+          staged = countSym c.ok "󰚧";
+          typechanged = countSym c.info "󱡓";
+          modified = countSym c.attn "●";
           untracked = countSym c.alert "?";
         };
       in {
@@ -366,17 +370,13 @@ in
 
       nix_shell =
       let
-        impure = c.alert "$impure_msg";
-        pure = c.ok "$pure_msg";
-        unknown = c.attn "$unknown_msg";
+        impure_msg = c.alert "impure";
+        pure_msg = c.ok "pure";
+        unknown_msg = c.attn "unkown status";
       in {
-        symbol = sufSep (bold colors.sky "nix-shell");
-        format = concatStrSep preSep [
-          impure
-          pure
-          unknown
-        ];
-        unknown_msg = "unknown status";
+        symbol = sufSep (bold colors.sky "nix ");
+        format = bold colors.sapphire "$symbol(${preSep "$state"})( \($name\))";
+        inherit impure_msg pure_msg unknown_msg;
       };
     }; # // starship_config;
   };
