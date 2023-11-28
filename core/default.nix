@@ -56,4 +56,14 @@ inputs@{
   time.timeZone = "America/Vancouver";
 
   system.stateVersion = "23.11"; # Apparently, no need to change, in order to make it robust to syntax issues...
+
+  users = {
+    defaultUserShell = "${pkgs.zsh}/bin/zsh";
+    users.bzm3r = {
+      isNormalUser = true;
+      home = "/home/bzm3r";
+      extraGroups = ["wheel" "networkmanager" "video" "rcontent_block" "libvirtd"];
+      useDefaultShell = true;
+    };
+  };
 }

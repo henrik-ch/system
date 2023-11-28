@@ -71,20 +71,26 @@ let
   # ========================================
   vivid_palette = {
     black = "#000000";
+    ice = "#b3d7ff";
     white = "#ffffff";
+    dimwhite = "#bfbfbf";
     red = "#ff0037";
     rose = "#ff6dd8";
-    silver = "#6c6f85";
-    slate = "#313131";
-    green = "#40a02b";
+    grey = "#8b8b8b";
+    slate = "#31316c6f8531";
+    green = "#68ff46";
     lime = "#a1d540";
-    teal = "#179299";
-    yellow = "#ffdd00";
-    sepia = "#d9af3b";
-    peach = "#fe640b";
-    flamingo = "#dd7878";
-    sky = "#04a5e5";
-    mauve = "#a87ae5";
+    teal = "#00f2ff";
+    lightsunny = "#fdff93";
+    sunny = "#ffee00";
+    sepia = "#ffcd44";
+    peach = "#ff9500";
+    lassi = "#ffd191";
+    flamingo = "#ff8686";
+    sky = "#00b7ff";
+    plumdim = "#812ba8";
+    plum = "#a538d7";
+    plumbright = "#c23eff";
     sapphire = "#209fb5";
   };
   colorStylor = fg: bg:
@@ -112,60 +118,67 @@ let
   # bar = n: repeatSym "―" n;
   # _block = stylor: n: _rptSym " " n stylor;
   # _bar = _rptSym "―";
-  # gap = n: _gap n silverblack;
-  # block = n: _block n blacksilver;
+  # gap = n: _gap n greyblack;
+  # block = n: _block n blackgrey;
   noSpace = "";
 
   # ========================================
   symPair = l: r: {
     inherit l r;
   };
-
-  smoothPair = symPair "" "";
-  # _sharpPair = _symPair "" "";
-
-  # smoothPair = _smoothPair silverblack;
-  # sharpPair = _sharpPair blacksilver;
-
-  # ========================================
-  capsule = with builtins; stops: out_space: in_space: content:
-    concatStrings
-    (
-      [
-            out_space
-            stops.l
-            in_space
-      ] ++
-      (if isList content then content else [ content ]) ++
-      [
-        in_space
-        stops.r
-      ]
-    );
-  smoothCap = out_space:
-    capsule
-      (base smoothPair)
-      out_space
-      noSpace;
-  smoothTightCap = smoothCap noSpace;
-  smoothGapCap = smoothCap (tuiBg (gap 1));
-
+  tortoise = shell_stylor: content_stylor: x: (shell_stylor "⦗ ") + (content_stylor x) + (shell_stylor " ⦘");
 
   # =============================================
-
-  tuiBg = colors.black;
-  base = colors.slateblack;
-  # parenthesize = x: "(${x})";
-  bold = emphasize "bold";
   # timeCapStylor = bold colors.blackslate;
 in
 {
   programs.starship =
   let
-    alert = bold colors.redslate;
-    warning = bold colors.peachslate;
-    info = bold colors.yellowslate;
-    ok = bold colors.limeslate;
+    bold = emphasize "bold";
+
+    c = with colors; {
+      alert = bold red;
+      warning = bold peach;
+      info = bold sunny;
+      ok = bold lime;
+      attn = bold flamingo;
+      dir = (bold colors.green);
+      git = lassi;
+      gitlabel = bold lassi;
+      canvas = black;
+      host = ice;
+      user = teal;
+      plain = dimwhite;
+      default = white;
+      timeTortoise = bold grey;
+    };
+
+    timeTortoise = tortoise c.timeTortoise;
+    blank = c.canvas (gap 1);
+
+
+    # op: string -> string
+    # x: string -> string (an attrset that is a functor), OR string
+    f = op: x:
+      if builtins.isString x then
+        op x
+      else
+        z: op (x (f z));
+
+    pre = prefix: x: "${prefix}${x}";
+    suf = suffix: x: "${x}${suffix}";
+
+    # concatenable functions
+    preSep = (x: pre blank x);
+    sufSep = (x: suf blank x);
+    preParen = (x: pre "(" x);
+    sufParen = (x: suf ")" x);
+    opt = (x: sufParen (preParen x));
+    optPreSep = x: opt (preSep x);
+    optSufSep = x: opt (sufSep x);
+    newLine = (x: pre "\n" x);
+    concatStrSep = f: parts: builtins.concatStringsSep (f "") parts;
+    concatStrMap = f: parts: concatStrings (map f parts);
   in
   {
     enable = true;
@@ -179,157 +192,191 @@ in
       right_format = ''
       '';
 
-      format =
-        "$cmd_duration" +
-        "\n$time" +
-        "${smoothGapCap [
-          (colors.yellowslate "$hostname")
-          (colors.whiteslate "@")
-          ((bold colors.peachslate) "$username")
-          ]
-        }" +
-        "$directory" +
-        "$git_branch" +
-        "$git_commit" +
-        "$git_status" +
-        "$git_metrics" +
-        "$git_state" +
-        "\n$character";
-      #   # $directory\
-      #   # $git_branch\
-      #   # $git_status\
-      #   # $git_metrics\
-      #   # $git_commit\
-      #   # $fill\
-      #   # $env_var\
-      #   # $custom\
-      #   # $cmd_duration\
-      #   # $sudo\
-      #   # $line_break\
-      #   # $nix_shell\
-      #   # $jobs\
-      #   # $character\
-
-      cmd_duration = {
-        format = colors.whiteblack "󱞩  took $duration ✦";
-        show_notifications = true;
-        min_time = 2000;
-        min_time_to_notify = 2000;
-        notification_timeout = 3500;
-      };
 
       palette = "vivid";
       palettes.vivid = vivid_palette;
 
+      format =
+        let
+          host_user = concatStrings [
+            (c.host "$hostname")
+            (c.plain "@")
+            (c.user "$username")
+          ];
+          sudo = sufSep "$sudo";
+          time_host_user_dir =
+            concatStrings
+            (
+              [
+                (opt sudo)
+                "$time"
+                (newLine host_user)
+              ]
+             ) +
+            (
+              concatStrMap
+              optPreSep
+              [
+                "$directory"
+                (c.default "$envVar")
+                (c.default "$jobs")
+              ]
+            );
+          git_info =
+            opt (
+              concatStrSep
+              optPreSep
+              [
+                "$git_branch"
+                "$git_commit"
+                "$git_status"
+                "$git_metrics"
+                "$git_state"
+              ]
+            );
+        in
+          concatStrSep
+          newLine
+          [
+            "$cmd_duration"
+            ""
+            time_host_user_dir
+            (opt git_info)
+            "$nix_shell"
+            "$character"
+          ];
 
-      time = {
-        format = smoothTightCap (
-          bold colors.blackslate "$time"
-        );
+      cmd_duration = {
+        format = c.default "󱞩  took $duration ✦";
+        show_notifications = true;
+        min_time = 2000;
+      };
+
+
+      time =
+      {
+        format = timeTortoise (bold c.timeTortoise) "$time";
         use_12hr = false;
         disabled = false;
       };
 
       hostname = {
-        format = "$hostname";
+        format = c.host "$hostname";
         ssh_only = false;
         disabled = false;
       };
 
       username = {
-        format = "$user";
+        format = c.user "$user";
         show_always = true;
       };
 
-      # hostname = {
-      #   format = smoothGapCap (
-      #     colors.yellowslate "$hostname"
-      #   );
-      #   ssh_only = false;
-      #   disabled = false;
-      # };
-
-      # username = {
-      #   format = smoothGapCap (
-      #     (bold colors.peachslate) "$user"
-      #   );
-      #   show_always = true;
-      # };
-
-      directory = {
-        format = smoothTightCap (
-          (bold colors.skyslate) "$read_only$path"
-        );
-        read_only = " 🔒 ";
+      directory =
+      let
+        read_only = optSufSep (c.attn "$read_only");
+      in
+      {
+        format = read_only + (c.dir "$path");
+        read_only = "🔒";
         truncation_symbol = "…/";
         truncate_to_repo = false;
       };
 
-      git_branch = {
-        format = smoothGapCap (
-          (bold colors.mauveslate)
-          "$symbol$branch(:$remote_branch)"
-        );
+      git_branch =
+      let
+        git_sym = c.gitlabel "$symbol";
+        branch = bold c.gitlabel "$branch";
+        remote = opt (c.gitlabel ":$remote_branch");
+      in {
+        format = concatStrSep preSep [
+          git_sym
+          branch
+          remote
+        ];
+        symbol = "";
         only_attached = false;
       };
 
-      git_commit = {
-        format = smoothTightCap (
-          (bold colors.mauveslate)
-          "$tag$hash"
-        );
-        tag_symbol = "🏷";
+      git_commit = let
+        hash = colors.grey "$hash";
+        tag = optSufSep (colors.grey "$tag");
+      in {
+        format = hash + tag;
+        tag_symbol = "";
         only_detached = false;
       };
 
       git_status =
       let
-        ahead_arrow = "🠙";
-        behind_arrow = "🠛";
-        diverged = "";
-        up_to_date = "";
+        defaultCount = "$count";
+        _countSym = count: color: sym: color (pre sym count);
+        countSym = _countSym defaultCount;
+        aheadArrow = "🠙";
+        behindArrow = "🠛";
+        sync = preSep (c.gitlabel "󰓦");
+        local = c.gitlabel "\n󱞩 󰋞";
+        ahead_behind = opt "${sync} $ahead_behind";
+        status = opt (
+          "${local}" + (
+          concatStrSep preSep [
+              "$conflicted"
+              "$stashed"
+              "$deleted"
+              "$renamed"
+              "$modified"
+              "$staged"
+              "$untracked"
+              "$typechanged"
+          ]
+        ));
+        symbols = {
+          ahead = countSym c.ok aheadArrow;
+          behind = countSym c.alert behindArrow;
+          diverged = concatStrSep preSep [
+            (_countSym "$ahead_count" c.ok aheadArrow)
+            (c.info "")
+            (_countSym "$behind_count" c.alert behindArrow)
+          ];
+          up_to_date = c.ok "";
+          conflicted = countSym (tortoise c.alert c.alert "conflicts: ");#c.alert "↹";
+          stashed = countSym (tortoise c.info c.info "stash: ");#c.info "";
+          deleted = countSym (tortoise c.attn c.attn "del: ");#c.attn "";
+          renamed = countSym (tortoise c.attn c.attn "mv: ");#c.attn "";
+          staged = countSym (tortoise c.ok c.ok "staged: ");#c.ok "󰕒";
+          typechanged = countSym (tortoise c.info c.info "typechange");#c.info "";
+          modified = countSym (tortoise c.attn c.attn "mod: ");#c.attn "●";
+          untracked = countSym c.alert "?";
+        };
       in {
-        format =
-          "(${smoothTightCap [ "$ahead_behind" ]})" +
-          "(${smoothTightCap [
-            "$conflicted"
-            "$stashed"
-            "$deleted"
-            "$renamed"
-            "$modified"
-            "$typechanged"
-            "$staged"
-            "$untracked"
-          ]})"; #
-        # ===
-        # $ahead_behind (repo relative) parts
-        ahead = warning "${ahead_arrow}$count";
-        behind = alert "${behind_arrow}$count";
-        diverged = (ok "${ahead_arrow}$ahead_count") + (info " ${diverged} ") + (alert "${behind_arrow}$behind_count");
-        up_to_date = (ok up_to_date);
-        # =====
-        # other parts
-        conflicted = alert "↹";
-        stashed = info "󰆓$count";
-        deleted = warning "$count";
-        renamed = info "$count";
-        staged = info "${ahead_arrow}$count";
-        typechanged = info "";
-        modified = alert "🠙$count";
-        untracked = alert "!$count";
-      };
+        format = "${ahead_behind}${status}";
+      } // symbols;
 
       git_state = {
-        format = "(${smoothTightCap (
-          info "\\($state( $progress_current/$progress_total)\\)"
-        )})";
+        format = opt (
+          c.info "\\($state( $progress_current/$progress_total)\\)"
+        );
       };
 
       git_metrics = {
-        format = "(${smoothTightCap [
-          (ok "+$added")
-          (bold (colors.roseslate) " -$deleted")
-        ]})";
+        format = concatStrSep preSep [
+          (c.ok "$+$added")
+          (c.attn"-$deleted")
+        ];
+      };
+
+      nix_shell =
+      let
+        impure = c.alert "$impure_msg";
+        pure = c.ok "$pure_msg";
+        unknown = c.attn "$unknown_msg";
+      in {
+        symbol = sufSep (bold colors.sky "nix-shell");
+        format = concatStrSep preSep [
+          impure
+          pure
+          unknown
+        ];
+        unknown_msg = "unknown status";
       };
     }; # // starship_config;
   };

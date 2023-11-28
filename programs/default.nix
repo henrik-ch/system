@@ -2,6 +2,7 @@
   imports = [
     ./starship.nix
     ./aliases.nix
+    ./gui.nix
   ];
 
   documentation.man.man-db.enable = true;
@@ -145,14 +146,4 @@
     (callPackage ./custom-derivations/de-aetna.nix {})
     #new pkg
   ];
-
-  users = {
-    defaultUserShell = "${pkgs.zsh}/bin/zsh";
-    users.bzm3r = {
-      isNormalUser = true;
-      home = "/home/bzm3r";
-      extraGroups = ["wheel" "networkmanager" "video" "rcontent_block" "libvirtd"];
-      useDefaultShell = true;
-    };
-  };
 }
