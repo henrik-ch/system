@@ -61,6 +61,7 @@
   environment.systemPackages = with pkgs; [
     efibootmgr
     compsize
+    parted
 
     #hardware
     tlp
