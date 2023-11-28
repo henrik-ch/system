@@ -53,6 +53,12 @@
     options = ["subvol=@nix"];
   };
 
+  # fileSystems."/home" = {
+  #   device = "/dev/disk/by-label/3T";
+  #   fsType = "btrfs";
+  #   options = ["subvol=@home"];
+  # };
+
   fileSystems."/home" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
