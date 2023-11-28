@@ -10,8 +10,6 @@ let
   # toUpper = lib.strings.toUpper;
 
   replicate = lib.lists.replicate;
-
-  # mapAttrs = lib.attrsets.mapAttrs;
   concatMapAttrs = lib.attrsets.concatMapAttrs;
 
   # ========================================
@@ -47,19 +45,10 @@ let
     inherit fg bg;
     emphases = "";
     __functor = self: txt:
-      if isAttrs txt then
-        mapAttrs
-          (
-            name: val:
-              if (hasPrefix "__" name) then
-                ""
-              else
-                fmt self val
-          )
-          txt
-      else
         fmt self txt;
   };
+  swapFgBg = stylor:
+    (createStylor stylor.bg stylor.fg) // { inherit (stylor) emphases; };
 
   emphasize = emphasis: stylor@{ emphases, ... }:
     stylor //
@@ -71,44 +60,81 @@ let
   # ========================================
   vivid_palette = {
     black = "#000000";
-    ice = "#b3d7ff";
     white = "#ffffff";
     dimwhite = "#bfbfbf";
-    red = "#ff0037";
+    red = "#ff0000";
     rose = "#ff6dd8";
     grey = "#8b8b8b";
     slate = "#31316c6f8531";
     green = "#68ff46";
     lime = "#a1d540";
     teal = "#00f2ff";
+    tealblue0 = "#00D3FF";
+    tealblue1 = "#00B5FF";
+    tealblue2 = "#0096FF";
+    blue = "#0077ff";
     lightsunny = "#fdff93";
     sunny = "#ffee00";
     sepia = "#ffcd44";
     peach = "#ff9500";
-    lassi = "#ffd191";
+    beige = "#ffd191";
     flamingo = "#ff8686";
     sky = "#00b7ff";
     plumdim = "#812ba8";
     plum = "#a538d7";
     plumbright = "#c23eff";
     sapphire = "#209fb5";
+    brown = "#D06B20";
   };
-  colorStylor = fg: bg:
-    if fg == bg then
-      {
-        "${fg}" = createStylor fg "";
+  colorsWith = with builtins;
+      focusDef: palette:
+      let
+        hasBg = hasAttr "bg" focusDef;
+        hasFg = hasAttr "fg" focusDef;
+        focus = if hasBg && hasFg then
+          abort "mkStylorDef cannot have both fg and bg as attrs"
+        else if hasFg then
+          let fg = focusDef.fg; in
+          {
+            n = fg;
+            f = x: createStylor fg x;
+          }
+        else if hasBg then
+          let bg = focusDef.bg; in
+          {
+            n = bg;
+            f = x: createStylor x bg;
+          }
+        else
+          abort "mkStylorDef does not have fg or bg as attrs";
+        mkStylor = n: if focus.n != n then { "${n}" = focus.f n; } else {};
+      in
+        concatMapAttrs
+        (
+          n: v: mkStylor n
+        )
+        palette;
+  colorsWithFg = fg: colorsWith { inherit fg; };
+  colorsWithBg = bg: colorsWith { inherit bg; };
+  uniformColors = palette:
+    concatMapAttrs
+    (
+      n: v: {
+      "${n}" = createStylor n n;
       }
-    else
-      {
-        "${fg}${bg}" = createStylor fg bg;
-      };
-  colors = concatMapAttrs
-    (fg: fv:
-      concatMapAttrs
-        (bg: bv: colorStylor fg bg)
-        vivid_palette
     )
-    vivid_palette;
+    palette;
+  combinationColors = combiner: palette: concatMapAttrs (
+    n: v: {
+        "${n}" = combiner "${n}" palette;
+      }
+  ) palette;
+  paletteColors = palette: {
+    uniform = uniformColors palette;
+    withFg = combinationColors colorsWithFg palette;
+    withBg = combinationColors colorsWithBg palette;
+  };
+  colors = paletteColors vivid_palette;
 
   # ========================================
   repeatSym = sym: n: concatStrings (replicate n sym);
@@ -135,35 +161,32 @@ in
   programs.starship =
   let
     bold = emphasize "bold";
-
-    c = with colors; {
-      alert = bold red;
-      warning = bold peach;
-      info = bold sunny;
-      ok = bold lime;
-      attn = bold flamingo;
-      dir = (bold colors.green);
-      git = lassi;
-      gitlabel = bold lassi;
-      canvas = black;
-      host = ice;
-      user = teal;
-      plain = dimwhite;
-      default = white;
-      timeTortoise = bold grey;
+    style = let c = colors.withBg.black; in {
+      canvas = colors.uniform.black;
+      alert = bold c.red;
+      warning = bold c.peach;
+      info = bold c.white;
+      ok = bold c.lime;
+      attn = bold c.flamingo;
+      dir = bold c.green;
+      git = c.beige;
+      gitLabel = bold c.beige;
+      nix = c.sapphire;
+      nixLabel = bold c.sapphire;
+      host = bold c.blue;
+      hostUserAt = colors.uniform.tealblue1;
+        # let
+        #   cu = colors.uniform;
+        # in
+        #   x: (cu.tealblue2 " ") + (cu.tealblue1 x) + (cu.tealblue0 " ");
+      user = bold c.teal;
+      plain = c.dimwhite;
+      default = c.white;
+      neutral = c.grey;
+      diverged = bold c.peach;
     };
-
-    timeTortoise = tortoise c.timeTortoise;
-    blank = c.canvas (gap 1);
-
-
-    # op: string -> string
-    # x: string -> string (an attrset that is a functor), OR string
-    f = op: x:
-      if builtins.isString x then
-        op x
-      else
-        z: op (x (f z));
+    timeTortoise = tortoise style.neutral;
+    blank = style.canvas (gap 1);
 
     pre = prefix: x: "${prefix}${x}";
     suf = suffix: x: "${x}${suffix}";
@@ -176,9 +199,29 @@ in
     opt = (x: sufParen (preParen x));
     optPreSep = x: opt (preSep x);
     optSufSep = x: opt (sufSep x);
-    newLine = (x: pre "\n" x);
+    newLine = (x: suf "\n" x);
+    optNewLine = x: opt (newLine x);
     concatStrSep = f: parts: builtins.concatStringsSep (f "") parts;
     concatStrMap = f: parts: concatStrings (map f parts);
+
+
+    labelMid = stylor: swapFgBg stylor;
+    labelStart = symL: stylor: x:
+      (stylor symL) + (labelMid stylor x);
+    labelEnd = symR: stylor: x:
+      (labelMid stylor x) + (stylor symR);
+    label = syms: stylor: x:
+      (labelStart syms.l stylor x) + (labelEnd syms.r stylor "");
+
+    #capsule = shell_stylor: content_stylor: x: "" "" shell_stylor
+    #(content_stylor x);
+
+    rounded = symPair "" "";
+    roundedStart = labelStart rounded.l;
+    roundedWrap = label rounded; #(shell "" "") shell_stylor content_stylor x;
+    roundedEnd = labelEnd rounded.r;
+    diamond = symPair "" "";
+    diamondWrap = label diamond;
   in
   {
     enable = true;
@@ -199,85 +242,84 @@ in
       format =
         let
           host_user = concatStrings [
-            (c.host "$hostname")
-            (c.plain "@")
-            (c.user "$username")
+            (roundedStart style.host "$hostname ")
+            #(style.hostUserAt " ")
+            (roundedEnd style.user " $username")
           ];
           sudo = sufSep "$sudo";
           time_host_user_dir =
-            concatStrings
             (
-              [
-                (opt sudo)
-                "$time"
-                (newLine host_user)
-              ]
-             ) +
+              "\n" + (opt sudo) + concatStrSep preSep
+                [
+                  host_user
+                  "$directory"
+                ]
+            ) +
             (
-              concatStrMap
-              optPreSep
-              [
-                "$directory"
-                (c.default "$envVar")
-                (c.default "$jobs")
-              ]
-            );
+              concatStrMap optPreSep
+                [
+                  (style.default "$envVar")
+                  (style.default "$jobs")
+                ]
+            ) + concatStrings [ "$fill" "$time" ];
           git_info =
-            opt (
-              concatStrSep
-              optPreSep
-              [
+              (
+                concatStrSep
+                optPreSep
+                [
                 "$git_branch"
                 "$git_commit"
                 "$git_status"
                 "$git_metrics"
                 "$git_state"
+                ]
+              ) + style.gitLabel (preSep diamond.l + rounded.r);
+          in
+            concatStrMap
+            optNewLine
+            (
+              [
+                "$cmd_duration"
+                time_host_user_dir
+                git_info
+                "$nix_shell"
+              ] ++
+              [
+                "$character"
               ]
             );
-        in
-          concatStrSep
-          newLine
-          [
-            "$cmd_duration"
-            ""
-            time_host_user_dir
-            (opt git_info)
-            (opt "$nix_shell")
-            "$character"
-          ];
 
       cmd_duration = {
-        format = c.default "󱞩  took $duration ✦";
+        format = style.default "󱞩  took $duration ✦";
         show_notifications = true;
         min_time = 2000;
         notification_timeout = 3500;
       };
 
-
       time =
       {
-        format = timeTortoise (bold c.timeTortoise) "$time";
+        format = timeTortoise style.neutral "$time";
         use_12hr = false;
         disabled = false;
       };
 
       hostname = {
-        format = c.host "$hostname";
+        format = "$hostname";
         ssh_only = false;
         disabled = false;
       };
 
       username = {
-        format = c.user "$user";
+        format = "$user";
         show_always = true;
       };
 
       directory =
       let
-        read_only = optSufSep (c.attn "$read_only");
+        read_only = optSufSep (style.attn "$read_only");
       in
       {
-        format = read_only + (c.dir "$path");
+        format = read_only + (style.dir "$path");
         read_only = "🔒";
         truncation_symbol = "…/";
         truncate_to_repo = false;
@@ -285,22 +327,22 @@ in
 
       git_branch =
       let
-        git_sym = c.gitlabel "$symbol";
-        branch = bold c.gitlabel "$branch";
-        remote = opt (c.gitlabel ":$remote_branch");
+        git_sym = roundedStart style.gitLabel "$symbol";
+        branch = style.gitLabel "$branch";
+        remote = opt (style.git ":$remote_branch");
       in {
         format = concatStrSep preSep [
           git_sym
           branch
           remote
         ];
-        symbol = "";
+        symbol = "git";
         only_attached = false;
       };
 
       git_commit = let
-        hash = colors.grey "$hash";
-        tag = optSufSep (colors.grey "$tag");
+        hash = style.neutral "$hash";
+        tag = optSufSep (style.neutral "$tag");
       in {
         format = hash + tag;
         tag_symbol = "󰃀";
@@ -311,14 +353,15 @@ in
       let
         defaultCount = "$count";
         _countSym = count: color: sym: color (pre sym count);
+        _revCountSym = count: color: sym: color (pre count sym);
         countSym = _countSym defaultCount;
         aheadArrow = "🠙";
         behindArrow = "🠛";
-        sync = preSep (c.gitlabel "󰓦");
-        local = c.gitlabel "\n󱞩 󰋞";
-        ahead_behind = opt "${sync} $ahead_behind";
+        web = preSep (diamondWrap style.gitLabel "󰖟");
+        local = (diamondWrap style.gitLabel "󰋞");
+        ahead_behind = opt "${web} $ahead_behind";
         status = opt (
-          "${local}" + (
+          (preSep "${local}") + (
         concatStrMap
           optPreSep
           [
@@ -334,22 +377,25 @@ in
         ));
         symbols =
         {
-          ahead = countSym c.ok aheadArrow;
-          behind = countSym c.alert behindArrow;
-          diverged = concatStrSep preSep [
-            (_countSym "$ahead_count" c.ok aheadArrow)
-            (c.info "")
-            (_countSym "$behind_count" c.alert behindArrow)
+          ahead = countSym style.ok aheadArrow;
+          behind = countSym style.alert behindArrow;
+          diverged = concatStrings [
+            (style.info "$ahead_count ")
+            (style.ok aheadArrow)
+            (style.alert behindArrow)
+            (style.info " $behind_count")
+            # (_revCountSym "$ahead_count" style.ok aheadArrow)
+            # (_revCountSym "$behind_count" style.alert behindArrow)
           ];
-          up_to_date = c.ok "";
-          conflicted = countSym c.alert "↹";
-          stashed = countSym c.info "";
-          deleted = countSym c.attn "";
-          renamed = countSym c.attn "";
-          staged = countSym c.ok "󰚧";
-          typechanged = countSym c.info "󱡓";
-          modified = countSym c.attn "●";
-          untracked = countSym c.alert "?";
+          up_to_date = style.ok "󰓦";
+          conflicted = countSym style.alert "↹";
+          stashed = countSym style.info "";
+          deleted = countSym style.attn "";
+          renamed = countSym style.attn "";
+          staged = countSym style.ok "⭱";
+          typechanged = countSym style.info "󱎖";
+          modified = countSym style.attn "●";
+          untracked = countSym style.alert "?";
         };
       in {
         format = "${ahead_behind}${status}";
@@ -357,25 +403,25 @@ in
 
       git_state = {
         format = opt (
-          c.info "\\($state( $progress_current/$progress_total)\\)"
+          style.info "\\($state( $progress_current/$progress_total)\\)"
         );
       };
 
       git_metrics = {
         format = concatStrSep preSep [
-          (c.ok "$+$added")
-          (c.attn"-$deleted")
+          (style.ok "$+$added")
+          (style.attn"-$deleted")
         ];
       };
 
       nix_shell =
       let
-        impure_msg = c.alert "impure";
-        pure_msg = c.ok "pure";
-        unknown_msg = c.attn "unkown status";
+        impure_msg = style.alert "impure";
+        pure_msg = style.ok "pure";
+        unknown_msg = style.attn "unkown status";
       in {
-        symbol = sufSep (bold colors.sky "nix ");
-        format = bold colors.sapphire "$symbol(${preSep "$state"})( \($name\))";
+        symbol = roundedWrap style.nixLabel "nix";
+        format = "$symbol(${preSep "$state"})( ${style.nix "\($name\)"})";
         inherit impure_msg pure_msg unknown_msg;
       };
     }; # // starship_config;
