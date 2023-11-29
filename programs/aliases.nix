@@ -9,8 +9,8 @@
     {
       sy = "sway";
       _conf = "hx ~/nixos-conf";
-      _core = "hx ~/nixos-conf/core/default.nix";
-      _usr = "hx ~/nixos-conf/core/usr.nix";
+      _core = "hx ~/nixos-conf/core/";
+      _usr = "hx ~/nixos-conf/programs/";
       _wez = "hx ~/nixos-conf/home-common/.config/wezterm";
       _hx = "hx ~/nixos-conf/home-common/.config/helix/config.toml";
       _sy = "hx ~/nixos-conf/home-common/.config/sway";
@@ -25,7 +25,7 @@
       ls = "lsd -a";
       cat = "bat";
       gs = "ls ; git status";
-      gc = "git commit";
+      gc = "git commit --message=";
       "gc.a" = "git commit --amend";
       gf = "git fetch";
       gm = "git merge";

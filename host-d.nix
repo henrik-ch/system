@@ -32,7 +32,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@"];
+    options = ["subvol=@" "compress=zstd" ];
   };
 
   fileSystems."/boot" = {
@@ -50,7 +50,7 @@
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@nix"];
+    options = ["subvol=@nix" "compress=zstd" ];
   };
 
   # fileSystems."/home" = {
