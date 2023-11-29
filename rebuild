@@ -3,7 +3,7 @@ set -euo pipefail
 
 cleanup() {
 if [ -f configuration ]; then
-    rm configuration.nix
+    rm ~bzm3r/nixos-conf/configuration.nix
 fi
 }
 
@@ -12,12 +12,12 @@ trap cleanup EXIT
 host=$(hostname)
 echo "Executing rebuild..."
 # nix-instantiate --eval has no raw mode yet
-nixpkgsPath=$(nix-instantiate --eval --read-write-mode nixpkgs/path.nix | tr -d \")
+nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixpkgs/path.nix | tr -d \")
 # Get the ./root.nix relative to this script
 configPath=$(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/root.nix")
 
-cp --remove-destination config-template.nix configuration.nix
-sd -F 'MISSING' $host ./configuration.nix
+cp --remove-destination ~bzm3r/nixos-conf/config-template.nix ~bzm3r/nixos-conf/configuration.nix
+sd -F 'MISSING' $host ~bzm3r/nixos-conf/configuration.nix
 # nixos-rebuild always reads Nixpkgs from the NIX_PATH,
 # so we need to set it explicitly to our pinned version
 NIX_PATH=nixpkgs=$nixpkgsPath:nixos-config=$configPath
