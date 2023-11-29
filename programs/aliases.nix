@@ -12,7 +12,7 @@
       __re = ___re " --show-trace";
       _re = ___re "";
       _up = cmdBuilder [
-        "npins -d ~bzm3r/nixos-conf/npins/ update"
+        "npins -d ~bzm3r/nixos-conf/npins/ update -f"
         "${_re}"
       ];
     in

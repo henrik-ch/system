@@ -1,6 +1,6 @@
 let
   sources = import ./npins;
-  pkgs = import source.nixpkgs {}; 
+  pkgs = import sources.nixpkgs {};
 in
 pkgs.mkShell {
   packages = with pkgs; [
