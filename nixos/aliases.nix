@@ -18,13 +18,12 @@
     in
     {
       wm = "sway";
-      _conf = "hx ~/nixos-conf";
-      _core = "hx ~/nixos-conf/core/";
-      _usr = "hx ~/nixos-conf/programs/";
-      _wez = "hx ~/nixos-conf/home-common/.config/wezterm";
-      _hx = "hx ~/nixos-conf/home-common/.config/helix/config.toml";
-      _sy = "hx ~/nixos-conf/home-common/.config/sway";
-      _nsy = "hx ~/nixos-conf/programs/gui.nix";
+      _conf = "hx ~/nixos-conf/nixos/";
+      _pkg = "hx ~/nixos-conf/nixos/pkg.nix";
+      _wez = "hx ~/nixos-conf/home/common/.config/wezterm";
+      _hx = "hx ~/nixos-conf/home/common/.config/helix/config.toml";
+      _sw = "hx ~/nixos-conf/home/common/.config/sway";
+      __sw = "hx ~/nixos-conf/nixos/gui.nix";
       inherit _re __re _up;
       gpg-import = "gpg --import-options restore --import";
       _wipe = "sudo nix-collect-garbage -d";

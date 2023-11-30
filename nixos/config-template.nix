@@ -1,12 +1,16 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-{
-  ...
+{ ...
 }:
 {
- imports = [
+  imports = [
+    ./aliases.nix
+    ./base.nix
+    #./drvs/btrfs-rec.nix
+    ./default-dirs.nix
+    ./gui.nix
     ./host-MISSING.nix
-    ./core
-    ./programs
+    ./packages.nix
+    ./starship.nix
   ];
 }

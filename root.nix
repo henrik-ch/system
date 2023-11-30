@@ -2,7 +2,7 @@
 {
   imports = [
     # Import your main configuration
-    ./configuration.nix
+    ./nixos/configuration.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -12,17 +12,17 @@
 
   # Use the Nixpkgs config and overlays from the local files for this NixOS build
   nixpkgs = {
-    config = import ./nixpkgs/config.nix;
-    overlays = import ./nixpkgs/overlays.nix;
+    config = import ./nixos/nixpkgs/config.nix;
+    overlays = import ./nixos/nixpkgs/overlays.nix;
   };
 
   # Makes commands default to the same Nixpkgs, config, overlays and NixOS configuration
   nix.nixPath = [
     "nixpkgs=${pkgs.path}"
     "nixos-config=${toString ./root.nix}"
-    "nixpkgs-overlays=${toString ./nixpkgs/overlays.nix}"
+    "nixpkgs-overlays=${toString ./nixos/nixpkgs/overlays.nix}"
   ];
-  environment.variables.NIXPKGS_CONFIG = lib.mkForce (toString ./nixpkgs/config.nix);
+  environment.variables.NIXPKGS_CONFIG = lib.mkForce (toString ./nixos/nixpkgs/config.nix);
 
   # Remove the stateful nix-channel command
   environment.extraSetup = ''

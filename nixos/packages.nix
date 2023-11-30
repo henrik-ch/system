@@ -143,8 +143,8 @@
     brightnessctl
     wev
 
-    (callPackage ./custom-derivations/btrfs-rec.nix {})
-    (callPackage ./custom-derivations/de-aetna.nix {})
+    #(callPackage ./drvs/btrfs-rec.nix {})
+    (callPackage ./drvs/de-aetna.nix {})
     #new pkg
   ];
 }

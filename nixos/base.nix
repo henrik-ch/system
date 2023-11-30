@@ -1,28 +1,22 @@
-inputs@{
-  lib,
-  pkgs,
-  config,
-  ...
+inputs@{ lib
+, pkgs
+, config
+, ...
 }: {
-  imports = [
-    ./audio.nix
-    ./default-dirs.nix
-  ];
-
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
-  nix.nixPath = ["/etc/nix/path"];
+  nix.nixPath = [ "/etc/nix/path" ];
   environment.etc =
     lib.mapAttrs'
-    (name: value: {
-      name = "nix/path/${name}";
-      value.source = value.flake;
-    })
-    config.nix.registry;
+      (name: value: {
+        name = "nix/path/${name}";
+        value.source = value.flake;
+      })
+      config.nix.registry;
 
 
   nix.settings = {
@@ -37,7 +31,7 @@ inputs@{
   console = with pkgs; {
     earlySetup = true;
     font = "${terminus_font}/share/consolefonts/ter-122n.psf.gz";
-    packages = [terminus_font];
+    packages = [ terminus_font ];
     keyMap = "us";
   };
 
@@ -55,14 +49,14 @@ inputs@{
   # should set up one-time auto-detect (perhaps on startup/login)
   time.timeZone = "America/Vancouver";
 
-  system.stateVersion = "23.11"; # Apparently, no need to change, in order to make it robust to syntax issues...
+  system.stateVersion = "24.05"; # Apparently, no need to change, in order to make it robust to syntax issues...
 
   users = {
     defaultUserShell = "${pkgs.zsh}/bin/zsh";
     users.bzm3r = {
       isNormalUser = true;
       home = "/home/bzm3r";
-      extraGroups = ["wheel" "networkmanager" "video" "rcontent_block" "libvirtd"];
+      extraGroups = [ "wheel" "networkmanager" "video" "rcontent_block" "libvirtd" ];
       useDefaultShell = true;
     };
   };
