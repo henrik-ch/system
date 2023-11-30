@@ -1,4 +1,4 @@
-{ pkgs, ...}: {
+{ pkgs, ... }: {
   imports = [
     ./starship.nix
     ./aliases.nix
@@ -21,11 +21,11 @@
     enableCompletion = true;
     enableGlobalCompInit = true;
     syntaxHighlighting = {
-      highlighters = ["main"];
+      highlighters = [ "main" ];
     };
     autosuggestions = {
       enable = true;
-      strategy = ["history" "completion"];
+      strategy = [ "history" "completion" ];
       async = true;
       highlightStyle = "fg=3";
     };
@@ -121,6 +121,7 @@
     nixpkgs-fmt
 
     vscode
+    vscodium
     discord
     element-desktop
     ffmpeg
@@ -144,7 +145,9 @@
     wev
 
     #(callPackage ./drvs/btrfs-rec.nix {})
-    (callPackage ./drvs/de-aetna.nix {})
+    (callPackage ./drvs/de-aetna.nix { })
+    sile
+    libreoffice
     #new pkg
   ];
 }
