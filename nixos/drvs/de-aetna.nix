@@ -13,9 +13,8 @@ stdenvNoCC.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -D DeAetna_font/DeAetna_license.txt -t $out/share/doc/${pname}
-    install -D DeAetna_font/DeAetna_V${version}/* -t $out/share/fonts/opentype
-
+    install --target $out/share/doc/${pname} -D DeAetna_font/DeAetna_license.txt
+    install -m644 --target $out/share/fonts/opentype/${pname} -D DeAetna_font/DeAetna_V${version}/*.otf
     runHook postInstall
   '';
 

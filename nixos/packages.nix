@@ -121,7 +121,7 @@
     nixpkgs-fmt
 
     vscode
-    vscodium
+    # vscodium <--- keep this for later, as it clashes with VS code
     discord
     element-desktop
     ffmpeg
@@ -145,7 +145,6 @@
     wev
 
     #(callPackage ./drvs/btrfs-rec.nix {})
-    (callPackage ./drvs/de-aetna.nix { })
     sile
     libreoffice
     #new pkg

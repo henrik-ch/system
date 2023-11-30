@@ -44,7 +44,8 @@ in {
     inter
     source-sans
     source-serif
-    (nerdfonts.override {fonts = ["Inconsolata"];})
+    (nerdfonts.override {fonts = [ "Inconsolata" "SourceCodePro" ];})
+    (callPackage ./drvs/de-aetna.nix { })
   ];
 
   fonts.fontconfig = {
@@ -52,7 +53,7 @@ in {
     defaultFonts = {
       monospace = [
         "Inconsolata"
-        "Fira Code"
+        "Source Code Pro Nerd Font"
         "Source Code Pro"
       ];
       serif = [
