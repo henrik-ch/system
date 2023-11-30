@@ -262,7 +262,7 @@ in
             git_info =
               (
                 concatStrSep
-                  optPreSep
+                  preSep
                   [
                     "$git_branch"
                     "$git_commit"
@@ -353,7 +353,6 @@ in
           let
             defaultCount = "$count";
             _countSym = count: color: sym: color (pre sym count);
-            _revCountSym = count: color: sym: color (pre count sym);
             countSym = _countSym defaultCount;
             aheadArrow = "🠙";
             behindArrow = "🠛";
@@ -378,8 +377,8 @@ in
             );
             symbols =
               {
-                ahead = countSym style.ok aheadArrow;
-                behind = countSym style.alert behindArrow;
+                ahead = countSym style.ok aheadArrow; #🟘
+                behind = countSym style.alert behindArrow;#🟗
                 diverged = concatStrings [
                   (style.info "$ahead_count ")
                   (style.ok aheadArrow)
@@ -388,26 +387,39 @@ in
                   # (_revCountSym "$ahead_count" style.ok aheadArrow)
                   # (_revCountSym "$behind_count" style.alert behindArrow)
                 ];
-                up_to_date = style.ok "󰓦";
-                conflicted = countSym style.alert "↹";
-                stashed = countSym style.info "";
-                deleted = countSym style.attn "";
-                renamed = countSym style.attn "";
-                staged = countSym style.ok "⭱";
-                typechanged = countSym style.info "󱎖";
-                modified = countSym style.attn "●";
-                untracked = countSym style.alert "?";
+                up_to_date = style.ok "󰓦";#🙫
+                conflicted = countSym style.alert "⪤";#⩙⮺🗗 ⮼⧉❐❏
+                stashed = countSym style.info "";#⧈🞔
+                deleted = countSym style.attn "";#⊠⬚
+                renamed = countSym style.attn "";#⛋
+                staged = countSym style.ok "⭱";#▤▧▩⛶🞏
+                typechanged = countSym style.info "󱎖";#◨
+                modified = countSym style.attn "●";#⊡▩
+                untracked = countSym style.alert "?";#⌑⛶
               };
           in
           {
             format = "${ahead_behind}${status}";
           } // symbols;
 
-        git_state = {
-          format = opt (
-            style.info "\\($state( $progress_current/$progress_total)\\)"
-          );
-        };
+        git_state =
+          let
+            state_symbol = diamondWrap style.gitLabel "󰇘";
+            state = preSep (style.warning "$state");
+            progress = opt (
+              preSep (style.warning "$progress_current/$progress_total")
+            );
+          in
+          {
+            format = opt (
+              concatStrings
+                [
+                  state_symbol
+                  state
+                  progress
+                ]
+            );
+          };
 
         git_metrics = {
           format = concatStrSep preSep [
