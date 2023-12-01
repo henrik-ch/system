@@ -1,5 +1,8 @@
 {
     "window.titleBarStyle": "custom",
+    "editor.rulers": [
+        80
+    ],
     /*
     ===============================
         FILES
@@ -50,9 +53,6 @@
         "debug.saveBeforeStart": "nonUntitledEditorsInActiveGroup",
         "editor.semanticHighlighting.enabled": false,
         "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
-        "editor.rulers": [
-            80
-        ]
     },
     /*
     ===============================
@@ -60,9 +60,6 @@
     ===============================
     */
     "[rust]": {
-        "editor.rulers": [
-            80
-        ],
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
         "editor.wrappingStrategy": "advanced",
@@ -147,7 +144,7 @@
             "editorBracketHighlight.unexpectedBracket.foreground": "#ffffff",
             "editorError.background": "#ff00004f",
             "editorError.foreground": "#ffffff00",
-            "editorRuler.foreground": "#312e2f",
+            "editorRuler.foreground": "#89495e",
             "editor.background": "#060606",
             "editor.selectionBackground": "#002f61a4",
             "editor.selectionHighlightBackground": "#000000",
@@ -564,7 +561,7 @@
     "git.autorefresh": false,
     "git.postCommitCommand": "push",
     "githubRepositories.indexing.cacheSizeLimit": 500,
-    "workbench.editor.showTabs": "multiple",
+    "workbench.editor.showTabs": "none",
     "rust-analyzer.debug.engine": "vadimcn.vscode-lldb",
     "rust-analyzer.debug.openDebugPane": true,
     "editor.wordWrap": "wordWrapColumn",
@@ -646,7 +643,6 @@
     },
     "workbench.activityBar.location": "hidden",
     "editor.codeLensFontFamily": "Atkinson Hyperlegible",
-    "window.zoomLevel": 2,
     "files.associations": {
         "start": "shellscript",
         "config": "shellscript",
@@ -661,4 +657,7 @@
         "inputs(d)": "shellscript",
         "inputs(l)": "shellscript"
     },
+    "window.zoomLevel": 2,
+    "editor.fontSize": 17,
+    "search.showLineNumbers": true,
 }
