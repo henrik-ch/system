@@ -10,5 +10,6 @@ include ./outputs
 include ./inputs
 include ./bar
 
-
 include @sysconfdir@/sway/config.d/*
+
+font pango:"Atkinson Hyperlegible 10"
