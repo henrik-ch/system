@@ -27,5 +27,7 @@
     easyeffects
     pavucontrol
     pamixer
+    # codecs
+    ffmpeg
   ];
 }

@@ -29,7 +29,6 @@ let
   #       "${head}${tail}";
 
   # ========================================
-  test = hello: world: hello + world;
   fgFmt = fg: prefixIfNonEmpty "fg:" fg;
   bgFmt = bg: prefixIfNonEmpty " bg:" bg;
   emphasesFmt = emphases: prefixIfNonEmpty " " emphases;
@@ -232,7 +231,6 @@ in
         right_format = ''
       '';
 
-
         palette = "vivid";
         palettes.vivid = vivid_palette;
 
@@ -260,17 +258,16 @@ in
                   ]
               ) + concatStrings [ "$fill" "$time" ];
             git_info =
-              (
-                concatStrSep
-                  preSep
-                  [
-                    "$git_branch"
-                    "$git_commit"
-                    "$git_status"
-                    "$git_metrics"
-                    "$git_state"
-                  ]
-              ) + style.gitLabel (preSep diamond.l + rounded.r);
+              concatStrSep
+                preSep
+                [
+                  "$git_branch"
+                  "$git_commit"
+                  "$git_status"
+                  "$git_metrics"
+                  "$git_state"
+                ]
+              + style.gitLabel (preSep diamond.l + rounded.r);
           in
           concatStrMap
             optNewLine
@@ -289,7 +286,7 @@ in
         cmd_duration = {
           format = style.default "󱞩  took $duration ✦";
           show_notifications = true;
-          min_time = 2000;
+          min_time = 0;
           notification_timeout = 3500;
         };
 
@@ -298,17 +295,20 @@ in
             format = timeTortoise style.neutral "$time";
             use_12hr = false;
             disabled = false;
+            style = "";
           };
 
         hostname = {
           format = "$hostname";
           ssh_only = false;
           disabled = false;
+          style = "";
         };
 
         username = {
           format = "$user";
           show_always = true;
+          style_user = "";
         };
 
         directory =
@@ -320,6 +320,7 @@ in
             read_only = "🔒";
             truncation_symbol = "…/";
             truncate_to_repo = false;
+            style = "";
           };
 
         git_branch =
@@ -336,6 +337,7 @@ in
             ];
             symbol = "git";
             only_attached = false;
+            style = "";
           };
 
         git_commit =
@@ -347,12 +349,13 @@ in
             format = hash + tag;
             tag_symbol = "󰃀";
             only_detached = false;
+            style = "";
           };
 
         git_status =
           let
             defaultCount = "$count";
-            _countSym = count: color: sym: color (pre sym count);
+            _countSym = count: color: sym: color "${sym}${count}";
             countSym = _countSym defaultCount;
             aheadArrow = "🠙";
             behindArrow = "🠛";
@@ -362,7 +365,7 @@ in
             status = opt (
               (preSep "${local}") + (
                 concatStrMap
-                  optPreSep
+                  preSep
                   [
                     "$conflicted"
                     "$stashed"
@@ -378,7 +381,7 @@ in
             symbols =
               {
                 ahead = countSym style.ok aheadArrow; #🟘
-                behind = countSym style.alert behindArrow;#🟗
+                behind = countSym style.alert behindArrow; #🟗
                 diverged = concatStrings [
                   (style.info "$ahead_count ")
                   (style.ok aheadArrow)
@@ -387,45 +390,47 @@ in
                   # (_revCountSym "$ahead_count" style.ok aheadArrow)
                   # (_revCountSym "$behind_count" style.alert behindArrow)
                 ];
-                up_to_date = style.ok "󰓦";#🙫
-                conflicted = countSym style.alert "⪤";#⩙⮺🗗 ⮼⧉❐❏
-                stashed = countSym style.info "";#⧈🞔
-                deleted = countSym style.attn "";#⊠⬚
-                renamed = countSym style.attn "";#⛋
-                staged = countSym style.ok "⭱";#▤▧▩⛶🞏
-                typechanged = countSym style.info "󱎖";#◨
-                modified = countSym style.attn "●";#⊡▩
-                untracked = countSym style.alert "?";#⌑⛶
+                up_to_date = style.ok "󰓦"; #🙫
+                conflicted = countSym style.alert "⮻"; #⩙⪤1⮺🗗 ⮼⧉❐❏⧉⮻
+                stashed = countSym style.info ""; #⧈🞔
+                deleted = countSym style.attn ""; #⊠⬚
+                renamed = countSym style.attn ""; #⛋
+                staged = countSym style.ok "⭱"; #▤▧▩⛶🞏
+                typechanged = countSym style.info "󱡔"; #◨󱎖
+                modified = countSym style.attn "●"; #⊡▩
+                untracked = countSym style.alert "?"; #⌑⛶
               };
           in
           {
             format = "${ahead_behind}${status}";
+            style = "";
           } // symbols;
 
         git_state =
           let
             state_symbol = diamondWrap style.gitLabel "󰇘";
             state = preSep (style.warning "$state");
-            progress = opt (
-              preSep (style.warning "$progress_current/$progress_total")
-            );
+            progress =
+              opt (preSep (style.warning "$progress_current/$progress_total"));
           in
           {
-            format = opt (
-              concatStrings
-                [
-                  state_symbol
-                  state
-                  progress
-                ]
-            );
+            format =
+              opt (
+                concatStrings
+                  [
+                    state_symbol
+                    state
+                    progress
+                  ]
+              );
+            style = "";
           };
 
         git_metrics = {
-          format = concatStrSep preSep [
+          format = opt (concatStrSep preSep [
             (style.ok "$+$added")
             (style.attn "-$deleted")
-          ];
+          ]);
         };
 
         nix_shell =
@@ -438,6 +443,7 @@ in
             symbol = roundedWrap style.nixLabel "nix";
             format = "$symbol(${preSep "$state"})( ${style.nix "\($name\)"})";
             inherit impure_msg pure_msg unknown_msg;
+            style = "";
           };
       }; # // starship_config;
     };

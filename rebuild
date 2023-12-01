@@ -12,7 +12,7 @@ trap cleanup EXIT
 host=$(hostname)
 echo "Executing rebuild..."
 # nix-instantiate --eval has no raw mode yet
-nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixos/nixpkgs/path.nix | tr -d \")
+nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixpkgs/path.nix | tr -d \")
 # Get the ./root.nix relative to this script
 configPath=$(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/root.nix")
 

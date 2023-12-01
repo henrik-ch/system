@@ -2,7 +2,7 @@
 [
   (
     let
-      sources = ../npins/source.json;
+      sources = ./npins/source.json;
     in
     self: _super: {
       inherit (sources) nixpkgs;
