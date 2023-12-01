@@ -63,7 +63,7 @@ in
     };
   };
 
-  # uses temp files to enforce volatility of symlinks?
+  # uses temp files to enforce volatility of symlinks
   # https://search.nixos.org/options?channel=unstable&show=systemd.user.tmpfiles.users.%3Cname%3E.rules
   config.systemd.user.tmpfiles.users.${_user}.rules =
     let
