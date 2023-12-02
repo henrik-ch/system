@@ -78,12 +78,14 @@ let
     peach = "#ff9500";
     beige = "#ffd191";
     flamingo = "#ff8686";
+    orange = "#ffa844";
     sky = "#00b7ff";
     plumdim = "#812ba8";
     plum = "#a538d7";
     plumbright = "#c23eff";
     sapphire = "#209fb5";
     brown = "#D06B20";
+    purplegrey = "#73528b";
   };
   colorsWith = with builtins;
     focusDef: palette:
@@ -164,22 +166,25 @@ in
         info = bold c.white;
         ok = bold c.lime;
         attn = bold c.flamingo;
-        dir = bold c.green;
+        dir = bold c.purplegrey;
         git = c.beige;
         gitLabel = bold c.beige;
-        nix = c.sapphire;
-        nixLabel = bold c.sapphire;
-        host = bold c.blue;
+        nix = c.teal;
+        nixLabel = bold c.teal;
+        host = bold c.grey;
         hostUserAt = colors.uniform.tealblue1;
         # let
         #   cu = colors.uniform;
         # in
         #   x: (cu.tealblue2 " ") + (cu.tealblue1 x) + (cu.tealblue0 " ");
-        user = bold c.teal;
+        user = bold c.dimwhite;
         plain = c.dimwhite;
         default = c.white;
         neutral = c.grey;
         diverged = bold c.peach;
+        prompt = bold colors.withFg.black.white;
+        promptS = bold colors.withFg.black.green;
+        promptF = bold colors.withFg.black.red;
       };
       timeTortoise = tortoise style.neutral;
       blank = style.canvas (gap 1);
@@ -214,10 +219,11 @@ in
 
       rounded = symPair "" "";
       roundedStart = labelStart rounded.l;
-      roundedWrap = label rounded; #(shell "" "") shell_stylor content_stylor x;
+      # roundedWrap = label rounded; #(shell "" "") shell_stylor content_stylor x;
       roundedEnd = labelEnd rounded.r;
       diamond = symPair "" "";
       diamondWrap = label diamond;
+      diamondSlash = label { inherit (rounded) l; r = " "; };
     in
     {
       enable = true;
@@ -238,11 +244,25 @@ in
           let
             host_user = concatStrings [
               (roundedStart style.host "$hostname ")
-              #(style.hostUserAt " ")
               (roundedEnd style.user " $username")
             ];
             sudo = sufSep "$sudo";
-            time_host_user_dir =
+            git_info = opt (
+              "$git_branch" +
+              (
+                concatStrMap
+                  optPreSep
+                  [
+                    "$git_commit"
+                    "$git_status"
+                    "$git_metrics"
+                    "$git_state"
+                  ]
+              )
+              + style.gitLabel (preSep diamond.l + rounded.r)
+            );
+
+            host_user_git_time =
               (
                 "\n" + (opt sudo) + concatStrSep preSep
                   [
@@ -256,32 +276,29 @@ in
                     (style.default "$envVar")
                     (style.default "$jobs")
                   ]
-              ) + concatStrings [ "$fill" "$time" ];
-            git_info =
-              concatStrSep
-                preSep
-                [
-                  "$git_branch"
-                  "$git_commit"
-                  "$git_status"
-                  "$git_metrics"
-                  "$git_state"
-                ]
-              + style.gitLabel (preSep diamond.l + rounded.r);
+              ) + concatStrings [ "$fill" "${git_info}" "$fill" "$time" ];
           in
           concatStrMap
             optNewLine
             (
               [
                 "$cmd_duration"
-                time_host_user_dir
-                git_info
-                "$nix_shell"
-              ] ++
-              [
-                "$character"
+                host_user_git_time
+                ("$nix_shell" + "$character")
               ]
             );
+
+        character =
+          let
+            vimStyle = bold style.default;
+            optVim = x: opt (vimStyle " ${x} ");
+          in
+          {
+            vimcmd_symbol = optVim "NOR";
+            vimcmd_replace_one_symbol = optVim "RE1";
+            vimcmd_replace_symbol = optVim "REP";
+            vimcmd_visual_symbol = optVim "VIS";
+          };
 
         cmd_duration = {
           format = style.default "󱞩  took $duration ✦";
@@ -325,16 +342,16 @@ in
 
         git_branch =
           let
-            git_sym = roundedStart style.gitLabel "$symbol";
-            branch = style.gitLabel "$branch";
+            git_sym = roundedStart style.gitLabel "$symbol ";
+            branch = style.gitLabel " $branch";
             remote = opt (style.git ":$remote_branch");
           in
           {
-            format = concatStrSep preSep [
-              git_sym
-              branch
-              remote
-            ];
+            format =
+              git_sym + concatStrSep optPreSep [
+                branch
+                remote
+              ];
             symbol = "git";
             only_attached = false;
             style = "";
@@ -343,10 +360,10 @@ in
         git_commit =
           let
             hash = style.neutral "$hash";
-            tag = optSufSep (style.neutral "$tag");
+            tag = opt (style.neutral " $tag");
           in
           {
-            format = hash + tag;
+            format = opt (hash + tag);
             tag_symbol = "󰃀";
             only_detached = false;
             style = "";
@@ -359,13 +376,13 @@ in
             countSym = _countSym defaultCount;
             aheadArrow = "🠙";
             behindArrow = "🠛";
-            web = preSep (diamondWrap style.gitLabel "󰖟");
+            web = (diamondWrap style.gitLabel "󰖟");
             local = (diamondWrap style.gitLabel "󰋞");
             ahead_behind = opt "${web} $ahead_behind";
             status = opt (
               (preSep "${local}") + (
                 concatStrMap
-                  preSep
+                  optPreSep
                   [
                     "$conflicted"
                     "$stashed"
@@ -435,13 +452,13 @@ in
 
         nix_shell =
           let
-            impure_msg = style.alert "impure";
-            pure_msg = style.ok "pure";
-            unknown_msg = style.attn "unkown status";
+            impure_msg = style.warning "⏣";
+            pure_msg = style.warning "⬢";
+            unknown_msg = style.alert "⌬";
           in
           {
-            symbol = roundedWrap style.nixLabel "nix";
-            format = "$symbol(${preSep "$state"})( ${style.nix "\($name\)"})";
+            symbol = diamondSlash style.nixLabel "nix ";
+            format = style.nix "$symbol$state( \($name\)) ❯";
             inherit impure_msg pure_msg unknown_msg;
             style = "";
           };

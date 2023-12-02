@@ -15,9 +15,6 @@
       highlightStyle = "fg=3";
     };
     enableLsColors = true;
-    interactiveShellInit = ''
-      eval "$(direnv hook zsh)"
-    '';
     # loginShellInit = ''
     # if [ -z $WAYLAND ] && [ $XDG_VTNR -eq 1 ]; then
     #   exec sway

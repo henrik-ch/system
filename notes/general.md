@@ -8,3 +8,9 @@
   NixOS
 
 * make a Rust script which allows for easy nix-init from git repo
+
+## Nix related
+
+#### How does NixOS know that it should not delete the build artifacts needed to run a `shell.nix`?
+
+<https://nixos.org/manual/nix/stable/release-notes/rl-0.10.html#release-010-2006-10-06>

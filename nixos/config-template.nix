@@ -17,10 +17,10 @@ inputs@{ lib
     ./nix.nix
     ./productivity.nix
     ./security.nix
-    ./shell.nix
     ./starship.nix
     ./vm.nix
     ./zip.nix
+    ./zsh.nix
   ] ++
   [
     ./gui
