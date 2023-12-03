@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+
+echo "Making iso..."
+
+host="$(echo $HOSTNAME)" #$(hostname)
+
+exec ~bzm3r/nixos-conf/realize-template "~/bzm3r/nixos-conf/min-iso/specific-scripts" ${host}
+
+exec ~bzm3r/nixos-conf/min-iso/iso-scripts/gen-iso-${1}
+exec ~bzm3r/nixos-conf/min-iso/iso-scripts/iso-scripts/burn-iso ${1} ${2}

@@ -1,7 +1,7 @@
 { stdenv, ... }:
 
 stdenv.mkDerivation {
-  name = "l-nix-install";
+  name = "common-scripts";
   src = ./common;
   installPhase = "install -Dm 755 -t $out/bin ./*";
 }

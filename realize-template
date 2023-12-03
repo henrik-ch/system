@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-function realize_template {
-    cp --remove-destination $1/$2-template.nix $1/$2.nix
-    sd -F 'MISSING' $3 $1/$2
-}
+cp --remove-destination $1-template.nix $1.nix
+sd -F 'MISSING' $2 $1

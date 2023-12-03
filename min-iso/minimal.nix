@@ -10,7 +10,7 @@
 
   environment.systemPackages = with pkgs; [
     (callPackage ./common-scripts.nix {})
-    (callPackage ./MISSING-scripts.nix {})
+    (callPackage ./specific-scripts.nix {})
     git
   ];
 

@@ -1,7 +1,7 @@
 { stdenv, ... }:
 
 stdenv.mkDerivation {
-  name = "MISSING-nix-install";
-  src = ./.;
+  name = "specific-scripts";
+  src = ./MISSING;
   installPhase = "install -Dm 755 -t $out/bin ./MISSING/*";
 }
