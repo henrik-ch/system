@@ -56,7 +56,7 @@
   fileSystems."/home" = {
     device = "/dev/disk/by-label/3T";
     fsType = "btrfs";
-    options = [ "subvol=@home" "compress-zstd" ];
+    options = [ "subvol=@home" "compress=zstd" ];
   };
 
   # fileSystems."/home" = {

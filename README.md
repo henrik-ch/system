@@ -142,7 +142,7 @@ Here are some changes you can make:
 - Please point out mistakes you find and please suggest better alternatives for
   any existing process. This repository is very far from being elegant as it stands.
 - Replaces occurrences of `bzm3r` with your own string.
-- Change the NixOS configuration in `./nixos/config-template.nix`
+- Change the NixOS configuration in `./nixos/configuration-template.nix`
 - Update the pinned `nixpkgs`:
 
   ```sh

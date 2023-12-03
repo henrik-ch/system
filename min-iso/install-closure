@@ -2,7 +2,7 @@
 set -euo pipefail
 
 host="$(echo $HOSTNAME)" #$(hostname)
-echo "Executing rebuild..."
+echo "Creating install closure..."
 # nix-instantiate --eval has no raw mode yet
 nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixpkgs/path.nix | tr -d \")
 # Get the ./root.nix relative to this script
