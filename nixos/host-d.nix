@@ -44,7 +44,7 @@
   fileSystems."/root" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@root"];
+    options = ["subvol=@root" "compress=zstd" ];
   };
 
   fileSystems."/nix" = {
@@ -53,17 +53,17 @@
     options = ["subvol=@nix" "compress=zstd" ];
   };
 
+  fileSystems."/home" = {
+    device = "/dev/disk/by-label/3T";
+    fsType = "btrfs";
+    options = [ "subvol=@home" "compress-zstd" ];
+  };
+
   # fileSystems."/home" = {
-  #   device = "/dev/disk/by-label/3T";
+  #   device = "/dev/disk/by-label/FS";
   #   fsType = "btrfs";
   #   options = ["subvol=@home"];
   # };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-label/FS";
-    fsType = "btrfs";
-    options = ["subvol=@home"];
-  };
 
   fileSystems."/efi" = {
     device = "/dev/disk/by-label/EFI";
