@@ -1,0 +1,9 @@
+#!/bin/sh
+
+npins init
+cp ~/nixos-conf/templates/shell.nix .
+echo "use nix" >> .envrc
+direnv allow
+git init
+touch .gitignore
+gh repo create

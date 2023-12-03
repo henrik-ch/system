@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cp --recursive --symbolic-link --update=all --remove-dest -v --reflink=never --target-directory=$HOME $HOME/nixos-conf/home/common/.
+
+cp --recursive --symbolic-link --update=all --remove-dest -v --reflink=never --target-directory=$HOME $HOME/nixos-conf/home/$1/.
