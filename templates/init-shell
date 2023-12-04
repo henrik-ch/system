@@ -1,7 +1,7 @@
 #!/bin/sh
 
 npins init
-cp ~/nixos-conf/templates/shell.nix .
+cp ~bzm3r/nixos-conf/templates/shell.nix .
 echo "use nix" >> .envrc
 direnv allow
 git init

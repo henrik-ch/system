@@ -2,7 +2,7 @@
   programs.zsh = {
     enable = true;
     histSize = 1000;
-    histFile = "~/.histfile";
+    histFile = "~bzm3r/.histfile";
     enableCompletion = true;
     enableGlobalCompInit = true;
     syntaxHighlighting = {

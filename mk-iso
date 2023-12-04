@@ -6,10 +6,10 @@ echo "Making iso..."
 host="$(echo $HOSTNAME)" #$(hostname)
 
 echo "Creating specific-scripts.nix..."
-~/nixos-conf/realize-template ~/nixos-conf/min-iso/specific-scripts nix
+~bzm3r/nixos-conf/realize-template ~bzm3r/nixos-conf/min-iso/specific-scripts nix
 
 echo "Creating gen-iso.sh..."
-~/nixos-conf/realize-template ~/nixos-conf/min-iso/gen-iso sh
+~bzm3r/nixos-conf/realize-template ~bzm3r/nixos-conf/min-iso/gen-iso sh
 
 # nix-instantiate --eval has no raw mode yet
 nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixpkgs/path.nix | tr -d \")

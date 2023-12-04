@@ -5,26 +5,30 @@
     let
       repo_root = "$(git rev-parse --show-toplevel)";
       cmdBuilder = builtins.concatStringsSep ";";
-      ___re = rebuild_opts: cmdBuilder [
-        "sudo ~bzm3r/nixos-conf/rebuild switch${rebuild_opts}"
+      rebuildCmd = "sudo ~bzm3r/nixos-conf/rebuild";
+      __re_action_opts = action: opts: cmdBuilder [
+        "${rebuildCmd} ${action} ${opts}"
         "exec zsh"
       ];
-      __re = ___re " --show-trace";
-      _re = ___re "";
-      _up = cmdBuilder [
+      rebuildSwitch = __re_action_opts "switch" "";
+      rebuildBoot = __re_action_opts "boot" "";
+      upSwitch = cmdBuilder [
         "npins -d ~bzm3r/nixos-conf/npins/ update -f"
-        "${_re}"
+        "${rebuildSwitch}"
       ];
     in
     {
       wm = "sway";
-      _conf = "hx ~/nixos-conf/nixos/";
-      _pkg = "hx ~/nixos-conf/nixos/pkg.nix";
-      _wez = "hx ~/nixos-conf/home/common/.config/wezterm";
-      _hx = "hx ~/nixos-conf/home/common/.config/helix/config.toml";
-      _sw = "hx ~/nixos-conf/home/common/.config/sway";
-      __sw = "hx ~/nixos-conf/nixos/gui.nix";
-      inherit _re __re _up;
+      _conf = "hx ~bzm3r/nixos-conf/nixos/";
+      _pkg = "hx ~bzm3r/nixos-conf/nixos/pkg.nix";
+      _wez = "hx ~bzm3r/nixos-conf/home/common/.config/wezterm";
+      _hx = "hx ~bzm3r/nixos-conf/home/common/.config/helix/config.toml";
+      _sw = "hx ~bzm3r/nixos-conf/home/common/.config/sway";
+      __sw = "hx ~bzm3r/nixos-conf/nixos/gui.nix";
+      _up = upSwitch;
+      _re-s = rebuildSwitch;
+      _re-b = rebuildBoot;
+      __re = rebuildCmd;
       gpg-import = "gpg --import-options restore --import";
       _wipe = "sudo nix-collect-garbage -d";
       _reboot = "sudo reboot -h now";

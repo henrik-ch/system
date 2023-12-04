@@ -2,17 +2,43 @@
 set -euo pipefail
 
 host="$(echo $HOSTNAME)" #$(hostname)
+nixpkgsPath=~bzm3r/nixos-conf/nixpkgs/path.nix
+configTemplate=~bzm3r/nixos-conf/nixos/configuration
+
 echo "Executing rebuild..."
 # nix-instantiate --eval has no raw mode yet
-nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixpkgs/path.nix | tr -d \")
+nixpkgsPath=$(nix-instantiate --eval --read-write-mode $nixpkgsPath | tr -d \")
 # Get the ./root.nix relative to this script
 configPath=$(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/root.nix")
 
-cp --remove-destination ~bzm3r/nixos-conf/nixos/configuration-template.nix ~bzm3r/nixos-conf/nixos/configuration.nix
-sd -F 'MISSING' $host ~bzm3r/nixos-conf/nixos/configuration.nix
+~bzm3r/nixos-conf/realize-template $configTemplate "nix"
+
 # nixos-rebuild always reads Nixpkgs from the NIX_PATH,
 # so we need to set it explicitly to our pinned version
 NIX_PATH=nixpkgs=$nixpkgsPath:nixos-config=$configPath
 export NIX_PATH
 
+read -p "Generation label? " label
+
+# man test
+# NAME
+#        test - check file types and compare values
+
+# SYNOPSIS
+#        test EXPRESSION
+#        test
+#        [ EXPRESSION ]
+#        [ ]
+#        [ OPTION
+
+# EXPRESSIONS:
+    #    -z STRING
+    #           the length of STRING is zero
+
+if test -z "$label"; then
+    echo "No label provided."
+else
+    NIXOS_LABEL=${label}
+    export NIXOS_LABEL
+fi
 exec nixos-rebuild "$@"

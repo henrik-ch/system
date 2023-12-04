@@ -6,7 +6,7 @@
     gpgsign = true
 [core]
 	editor = hx
-	excludesFile = ~/.gitignore
+	excludesFile = ~bzm3r/.gitignore
 [init]
 	defaultBranch = main
 [filter "lfs"]
