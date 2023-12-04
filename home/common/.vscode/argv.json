@@ -17,5 +17,5 @@
 
 	// Unique id used for correlating crash reports sent from this instance.
 	// Do not edit this value.
-	"crash-reporter-id": "09db1ee0-7921-4a07-86cb-7aa091ad8ab3"
+    "crash-reporter-id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
 }

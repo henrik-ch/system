@@ -56,13 +56,24 @@
       "gr.." = "git restore " + repo_root;
       grs = "git restore --staged";
       "grs.." = "git restore --staged " + repo_root;
-      cd = "f() {
+      cd = "custom_cd() {
                 cd $1;
                 echo \"\";
                 git status 2> /dev/null;
                 echo \"\";
                 lsd -a;
-              };f";
+              };custom_cd";
+      _work = ''
+        workspace() {
+          if test -z $1; then
+            ws="rust_stable"
+          else
+            ws=$1
+          fi
+
+          code /home/bzm3r/.vscode/workspaces/''${ws}.code-workspace
+        };workspace
+      '';
     };
   };
 }

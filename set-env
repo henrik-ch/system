@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+host="$(echo $HOSTNAME)" #$(hostname)
+nixpkgsPath=~bzm3r/nixos-conf/nixpkgs/path.nix
+configTemplate=~bzm3r/nixos-conf/nixos/configuration
+
+echo "Executing rebuild..."
+# nix-instantiate --eval has no raw mode yet
+nixpkgsPath=$(nix-instantiate --eval --read-write-mode $nixpkgsPath | tr -d \")
+# Get the ./root.nix relative to this script
+configPath=$(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/root.nix")
+
+~bzm3r/nixos-conf/realize-template $configTemplate "nix"
+
+# nixos-rebuild always reads Nixpkgs from the NIX_PATH,
+# so we need to set it explicitly to our pinned version
+NIX_PATH=nixpkgs=$nixpkgsPath:nixos-config=$configPath
+export NIX_PATH
+

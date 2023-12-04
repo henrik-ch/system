@@ -8,6 +8,7 @@ in {
     ./editing.nix
     ./fonts.nix
     ./security.nix
+    ./shell-scripts.nix
     ./terminal.nix
     ./vm.nix
   ];
