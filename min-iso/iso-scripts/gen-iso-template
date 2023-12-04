@@ -1,3 +1,0 @@
-#!/bin/sh
-rm -rf result-MISSING
-nix-shell -p nixos-generators --run "nixos-generate --format iso --configuration ./minimal-MISSING.nix -o result-MISSING"

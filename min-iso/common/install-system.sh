@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
+
 nixos-install --root /mnt --system
 
 nixos-enter --command sudo passwd bzm3r ; echo "Password set. Login:" ; su bzm3r

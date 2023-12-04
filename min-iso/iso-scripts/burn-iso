@@ -1,3 +1,0 @@
-#!/bin/sh
-sudo cp ./result-$1/iso/*.iso $2
-sync

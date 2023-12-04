@@ -1,11 +1,6 @@
 configuration.nix
 *.log
 
-/min-iso/result*
-/min-iso/d-scripts.nix
-/min-iso/l-scripts.nix
-/min-iso/minimal-d.nix
-/min-iso/minimal-l.nix
-/min-iso/iso-scripts/gen-iso-d.nix
-/min-iso/iso-scripts/gen-iso-l.nix
-
+result-*
+/min-iso/gen-iso.sh
+/min-iso/specific-scripts.nix

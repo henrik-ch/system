@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cp --remove-destination $1-template.nix $1.nix
-sd -F 'MISSING' $2 $1
+template_path=$(echo $1-template.$2)
+realized_path=$(echo $1.$2)
+host=$(hostname)
+
+echo "template_path: $template_path"
+echo "realized_path: $realized_path"
+
+
+if  cp --remove-destination ${template_path} ${realized_path}; then
+    echo "Successfully copied ${template_path}"
+else
+    echo "Error copying ${template_path}!"
+fi
+
+if  sd -F 'MISSING' $host ${realized_path}; then
+    echo "Successfully templated ${realized_path}"
+else
+    echo "Error templating ${realized_path}!"
+fi
