@@ -11,5 +11,8 @@ echo "Creating specific-scripts.nix..."
 echo "Creating gen-iso.sh..."
 ~/nixos-conf/realize-template ~/nixos-conf/min-iso/gen-iso sh
 
-./min-iso/gen-iso.sh
+# nix-instantiate --eval has no raw mode yet
+nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixpkgs/path.nix | tr -d \")
+
+NIX_PATH=nixpkgs=$nixpkgsPath ./min-iso/gen-iso.sh
 ./min-iso/burn-iso.sh ${1}

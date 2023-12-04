@@ -8,8 +8,6 @@ nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/nixos-conf/nixpkgs
 # Get the ./root.nix relative to this script
 configPath=$(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/root.nix")
 
-n
-
 cp --remove-destination ~bzm3r/nixos-conf/nixos/configuration-template.nix ~bzm3r/nixos-conf/nixos/configuration.nix
 sd -F 'MISSING' $host ~bzm3r/nixos-conf/nixos/configuration.nix
 # nixos-rebuild always reads Nixpkgs from the NIX_PATH,

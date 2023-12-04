@@ -41,6 +41,8 @@ inputs@{ lib
       })
       config.nix.registry;
 
+  # enable some of the experimental commands for now
+  nix.settings.experimental-features = [ "nix-command" ];
 
   nix.settings = {
     # Deduplicate and optimize nix store
