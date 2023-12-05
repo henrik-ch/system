@@ -27,11 +27,11 @@ The following thoughts ultimately motivate this repository's approach:
         - believing that Nix ought to be profited from through commercialization of
             the current version regardless of its limitations, therefore it is better to invest in building attractive websites and beguiling graphical installers, rather than documentation/contributor/maintenance teams. 
     2. the production of a number of tools meant to "simplify" Nix/NixOS, without understanding that:
-         a) Nix/NixOS is [a fundamental repudiation of the "UNIX philosophy"](https://www.tweag.io/blog/2022-07-14-taming-unix-with-nix/);
-         b) if you only wish to give out free fish to attract new people, but
+         1. Nix/NixOS is [a fundamental repudiation of the "UNIX philosophy"](https://www.tweag.io/blog/2022-07-14-taming-unix-with-nix/);
+         2. if you only wish to give out free fish to attract new people, but
          refuse to teach them how to fish, then you are not building a
          community;
-         c) and it is not helpful for beginners, to watch as a tool pulls out magic rabbits from a hat.
+         3. and it is not helpful for beginners, to watch as a tool pulls out magic rabbits from a hat.
     3. the production of a large number of blog posts that do not expose the
     principles behind Nix/NixOS and instead meme-ify the usage (configuration) of
     Nix (NixOS) by presenting a recipe the user may follow. This memetization is
