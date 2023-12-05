@@ -1,11 +1,11 @@
-# Sane[^*], stable, and stateless NixOS setup
+# Sane[^1], stable, and stateless NixOS setup
 
 This is a fairly straightforward setup for making a NixOS system configuration
 stateless without relying on experimental Nix features or 3rd party Nix tools.
 Based on
 [infinisil/sane-stable-nixos](https://github.com/infinisil/sane-stable-nixos).
 
-[^*] where sanity is defined as: no flakes, no `home-manager`, and [no `flake-utils`](https://ayats.org/blog/no-flake-utils/).
+[^1]: Where sanity is defined as: no flakes, no `home-manager`, and [no `flake-utils`](https://ayats.org/blog/no-flake-utils/).
 
 ## Why?
 
@@ -23,18 +23,15 @@ The following thoughts ultimately motivate this repository's approach:
   is commonly believed. Instead, Nix/NixOS's learning curve is exacerbated by:
     1. power struggles within the Nix/NixOS community, due to powerful entities believing:
         - it is not possible to ease the use and documentation of a programming language
-                (and ultimately, the art of reasoning) through the use of conceptual and
-                mental aides;
-        - believing that Nix ought to be profited through commercialization of
-            its version, by investing in building attractive websites and beguiling
-            graphical installers.
-    2. the production of a number of tools meant to "simplify" Nix/NixOS, by creating *more* tools, rather than understanding:
+          (and ultimately, the art of reasoning) through the use of conceptual and mental aids and tools;
+        - believing that Nix ought to be profited from through commercialization of
+            the current version regardless of its limitations, therefore it is better to invest in building attractive websites and beguiling graphical installers, rather than documentation/contributor/maintenance teams. 
+    2. the production of a number of tools meant to "simplify" Nix/NixOS, without understanding that:
          a) Nix/NixOS is [a fundamental repudiation of the "UNIX philosophy"](https://www.tweag.io/blog/2022-07-14-taming-unix-with-nix/);
          b) if you only wish to give out free fish to attract new people, but
          refuse to teach them how to fish, then you are not building a
          community;
-         c) and it is not helpful to pull magic rabbits out of a hat, for a
-         variety of reasons.
+         c) and it is not helpful for beginners, to watch as a tool pulls out magic rabbits from a hat.
     3. the production of a large number of blog posts that do not expose the
     principles behind Nix/NixOS and instead meme-ify the usage (configuration) of
     Nix (NixOS) by presenting a recipe the user may follow. This memetization is
@@ -44,12 +41,11 @@ The following thoughts ultimately motivate this repository's approach:
 
 - No flakes: a pinned `nixpkgs` is used for the system and all Nix commands (including the
   `nixpkgs` version, config and overlays); but without the complexity of flakes
-  and instead through [a much simpler alternative]([npins](https://github.com/andir/npins) [^1] (note:
+  and instead through [a much simpler alternative]([npins](https://github.com/andir/npins) [^2] (note:
   infinisil uses `niv` instead))
+- `nix-channel` is disabled
 - No `home-manager`: for now, simple `./nixos/setup-scripts` are used to create
   symlinks from `./home` into the user's home.
-- `nix-channel` is disabled, and `nixpkgs` is managed with
-- .
 - Uses Rust-based tools wherever possible, in preference to Go or C
 - Uses Sway + Wayland for GUI
 - (suggested, hidden) mini-exercise: customize your shell prompt with Starship, but *do
@@ -58,21 +54,21 @@ The following thoughts ultimately motivate this repository's approach:
   will work for you too, or inspire you to create a similar project for
   yourself.)
 
-[^1]: Yes `npins` is a third-party tool, but it's essentially just a nice
+[^2]: Yes `npins` is a third-party tool, but it's essentially just a nice
     wrapper around `nix-prefetch-url` and co.
 
 ## TODO
 
-[ ] replace manual symlinking with a simple `systemd` based service ([see](https://gist.github.com/bzm3r/410fc1bcd1f22426a266a7af2b61bdf3))
-[ ] replace shell scripts with Rust
-    * [ ] convert into a system configuration template
-[ ] provide a template for quickly starting a "Rust CLI script" project
-[ ] clean the mess around which particular configuration (`d` or `l`) is
-generated.
-[ ] provide better instructions on how to switch from a flake based setup to a
+- [ ] replace manual symlinking with a simple `systemd` based service ([see](https://gist.github.com/bzm3r/410fc1bcd1f22426a266a7af2b61bdf3))
+- [ ] replace shell scripts with Rust
+- [ ] convert into a system configuration template
+- [ ] provide a template for quickly starting a "Rust CLI script" project
+- [ ] clean the mess around which particular configuration (`d` or `l`) is
+generated. (This is partially complete.)
+- [ ] provide better instructions on how to switch from a flake based setup to a
 sane setup
-[ ] provide links to relevant Nix lang programming resources in `starship.nix`,
-and a simple "blank canvas" that can be filled out
+- [ ] provide links to relevant Nix lang programming resources in `starship.nix`,
+and a simple "blank canvas" that can be filled out further.
 
 ## Usage
 
