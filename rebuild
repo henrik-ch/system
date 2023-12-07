@@ -1,18 +1,43 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 
-scriptDir=$(dirname -- "${BASH_SOURCE[0]}")
+function getRelative {
+    echo $(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/$1")
+}
 
-$scriptDir/set-env
+function realizeTemplate {
+    TEMPLATE_PATH="$(getRelative "${1}-template.${2}")"
+    REALIZED_PATH="$(getRelative "${1}.${2}")"
+    HOST="$(hostname)"
+
+    cp --remove-destination ${TEMPLATE_PATH} ${REALIZED_PATH}
+    sd -F "MISSING" ${HOST} ${REALIZED_PATH}
+}
+
+echo "Executing rebuild..."
+
+realizeTemplate "nixos/configuration" "nix"
+
+PINNED_NIXPKGS="$(getRelative nixpkgs/path.nix)"
+# nix-instantiate --eval has no raw mode yet
+NIXPKGS_PATH=$(nix-instantiate --eval --read-write-mode $PINNED_NIXPKGS | tr -d \")
+# Get the ./root.nix relative to this script
+ROOT_PATH="$(getRelative root.nix)"
+
+# nixos-rebuild always reads Nixpkgs from the NIX_PATH,
+# so we need to set it explicitly to our pinned version
+NIX_PATH=nixpkgs=$NIXPKGS_PATH:nixos-config=$ROOT_PATH
+export NIX_PATH
 
 read -p "Generation label? " label
 
 # test -z STRING: test if STRING has zero length
 # (test -n STRING for non-zero length test)
 if test -z "$label"; then
-    echo "No label provided."
+    NIXOS_LABEL=$(date +"%b%d_%H%M")
 else
     NIXOS_LABEL=${label}
-    export NIXOS_LABEL
 fi
+export NIXOS_LABEL
+
 exec nixos-rebuild "$@"

@@ -15,6 +15,7 @@ stdenvNoCC.mkDerivation rec {
 
     install --target $out/share/doc/${pname} -D DeAetna_font/DeAetna_license.txt
     install -m644 --target $out/share/fonts/opentype/${pname} -D DeAetna_font/DeAetna_V${version}/*.otf
+    
     runHook postInstall
   '';
 

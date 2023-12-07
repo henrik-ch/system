@@ -159,33 +159,38 @@ in
   programs.starship =
     let
       bold = emphasize "bold";
-      style = let c = colors.withBg.black; in {
-        canvas = colors.uniform.black;
-        alert = bold c.red;
-        warning = bold c.peach;
-        info = bold c.white;
-        ok = bold c.lime;
-        attn = bold c.flamingo;
-        dir = bold c.purplegrey;
-        git = c.beige;
-        gitLabel = bold c.beige;
-        nix = c.teal;
-        nixLabel = bold c.teal;
-        host = bold c.grey;
-        hostUserAt = colors.uniform.tealblue1;
-        # let
-        #   cu = colors.uniform;
-        # in
-        #   x: (cu.tealblue2 " ") + (cu.tealblue1 x) + (cu.tealblue0 " ");
-        user = bold c.dimwhite;
-        plain = c.dimwhite;
-        default = c.white;
-        neutral = c.grey;
-        diverged = bold c.peach;
-        prompt = bold colors.withFg.black.white;
-        promptS = bold colors.withFg.black.green;
-        promptF = bold colors.withFg.black.red;
-      };
+      style = (
+        let c = colors.withBg.black; in {
+          alert = bold c.red;
+          warning = bold c.peach;
+          info = bold c.white;
+          ok = bold c.lime;
+          attn = bold c.flamingo;
+          canvas = colors.uniform.black;
+          dir = bold c.purplegrey;
+          git = c.beige;
+          gitLabel = bold c.beige;
+          nix = c.teal;
+          nixLabel = bold c.teal;
+          host = bold c.grey;
+          hostusersep = colors.withFg.grey.dimwhite;
+          # let
+          #   cu = colors.uniform;
+          # in
+          #   x: (cu.tealblue2 " ") + (cu.tealblue1 x) + (cu.tealblue0 " ");
+          user = bold c.dimwhite;
+          plain = c.dimwhite;
+          default = c.white;
+          neutral = c.grey;
+          diverged = bold c.peach;
+        }
+      ) // (
+        let c = colors.withFg.black; in {
+          prompt = bold colors.white;
+          promptS = bold colors.green;
+          promptF = bold colors.red;
+        }
+      );
       timeTortoise = tortoise style.neutral;
       blank = style.canvas (gap 1);
 
@@ -243,23 +248,23 @@ in
         format =
           let
             host_user = concatStrings [
-              (roundedStart style.host "$hostname ")
-              (roundedEnd style.user " $username")
+              (roundedStart style.host "$hostname")
+              (labelMid style.hostusersep "")
+              (roundedEnd style.user "$username")
             ];
             sudo = sufSep "$sudo";
             git_info = opt (
-              "$git_branch" +
+              "$git_branch" + "$git_commit" +
               (
+                "$git_status" +
                 concatStrMap
                   optPreSep
                   [
-                    "$git_commit"
-                    "$git_status"
                     "$git_metrics"
                     "$git_state"
                   ]
               )
-              + style.gitLabel (preSep diamond.l + rounded.r)
+              + preSep (style.gitLabel (diamond.l + rounded.r))
             );
 
             host_user_git_time =
@@ -284,7 +289,7 @@ in
               [
                 "$cmd_duration"
                 host_user_git_time
-                ("$nix_shell" + "$character")
+                ("$nix_shell" + "$shell" + "$SHLVL" + "$character")
               ]
             );
 
@@ -300,6 +305,22 @@ in
             vimcmd_visual_symbol = optVim "VIS";
           };
 
+        shlvl = {
+          repeat = true;
+          repeat_offset = 0;
+          threshold = 4;
+          symbol = "❯";
+          disabled = false;
+        };
+
+        shell = {
+          zsh_indicator = "⚡"; #ζ
+          fish_indicator = "󰈺"; #φ
+          bash_indicator = "󱆃"; #β
+          nu_indicator = "ν";
+          disabled = false;
+        };
+
         cmd_duration = {
           format = style.default "󱞩  took $duration ✦";
           show_notifications = true;
@@ -309,7 +330,7 @@ in
 
         time =
           {
-            format = timeTortoise style.neutral "$time";
+            format = style.neutral "$time";
             use_12hr = false;
             disabled = false;
             style = "";
@@ -342,31 +363,29 @@ in
 
         git_branch =
           let
-            git_sym = roundedStart style.gitLabel "$symbol ";
-            branch = style.gitLabel " $branch";
+            git_sym = roundedStart style.gitLabel "$symbol";
+            branch = (style.gitLabel "$branch");
             remote = opt (style.git ":$remote_branch");
           in
           {
             format =
-              git_sym + concatStrSep optPreSep [
-                branch
-                remote
-              ];
-            symbol = "git";
+              git_sym + branch + remote;
+            symbol = "󰘬";
             only_attached = false;
             style = "";
           };
 
         git_commit =
           let
-            hash = style.neutral "$hash";
-            tag = opt (style.neutral " $tag");
+            hash = (style.default ".") + (style.neutral "$hash");
+            tag = opt ((style.default ".") + (style.neutral "$tag"));
           in
           {
             format = opt (hash + tag);
-            tag_symbol = "󰃀";
+            tag_symbol = "󰌕";
             only_detached = false;
             style = "";
+            commit_hash_length = 3;
           };
 
         git_status =
@@ -376,23 +395,25 @@ in
             countSym = _countSym defaultCount;
             aheadArrow = "🠙";
             behindArrow = "🠛";
-            web = (diamondWrap style.gitLabel "󰖟");
-            local = (diamondWrap style.gitLabel "󰋞");
-            ahead_behind = opt "${web} $ahead_behind";
+            web = (diamondWrap style.gitLabel ""); #󰖟
+            local = (diamondWrap style.gitLabel ""); #󰋞
+            ahead_behind = opt "${web} $ahead_behind ";
             status = opt (
-              (preSep "${local}") + (
+              "${local}" + (
                 concatStrMap
                   optPreSep
-                  [
-                    "$conflicted"
-                    "$stashed"
-                    "$deleted"
-                    "$renamed"
-                    "$modified"
-                    "$staged"
-                    "$untracked"
-                    "$typechanged"
-                  ]
+                  (
+                    [
+                      "$conflicted"
+                      "$stashed"
+                      #"$deleted"
+                      #"$renamed"
+                      "$modified"
+                      "$staged"
+                      "$untracked"
+                      #"$typechanged"
+                    ]
+                  )
               )
             );
             symbols =
@@ -408,18 +429,18 @@ in
                   # (_revCountSym "$behind_count" style.alert behindArrow)
                 ];
                 up_to_date = style.ok "󰓦"; #🙫
-                conflicted = countSym style.alert "⮻"; #⩙⪤1⮺🗗 ⮼⧉❐❏⧉⮻
+                conflicted = countSym style.alert "⩙"; #⮻⩙⪤1⮺🗗 ⮼⧉❐❏⧉⮻
                 stashed = countSym style.info ""; #⧈🞔
-                deleted = countSym style.attn ""; #⊠⬚
-                renamed = countSym style.attn ""; #⛋
+                #deleted = countSym style.attn ""; #⊠⬚
+                #renamed = countSym style.attn ""; #⛋
                 staged = countSym style.ok "⭱"; #▤▧▩⛶🞏
-                typechanged = countSym style.info "󱡔"; #◨󱎖
-                modified = countSym style.attn "●"; #⊡▩
+                #typechanged = countSym style.info "󱡔"; #◨󱎖
+                modified = countSym style.alert "●"; #⊡▩
                 untracked = countSym style.alert "?"; #⌑⛶
               };
           in
           {
-            format = "${ahead_behind}${status}";
+            format = "(${ahead_behind})(${status})";
             style = "";
           } // symbols;
 
