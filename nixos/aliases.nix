@@ -6,12 +6,12 @@
       repo_root = "$(git rev-parse --show-toplevel)";
       cmdBuilder = builtins.concatStringsSep ";";
       rebuildCmd = "sudo ~bzm3r/nixos-conf/rebuild";
-      __re_action_opts = action: opts: cmdBuilder [
-        "${rebuildCmd} ${action} ${opts}"
+      __re_action_opts = action: cmdBuilder [
+        "${rebuildCmd} ${action}"
         "exec zsh"
       ];
-      rebuildSwitch = __re_action_opts "switch" "";
-      rebuildBoot = __re_action_opts "boot" "";
+      rebuildSwitch = __re_action_opts "switch";
+      rebuildBoot = __re_action_opts "boot";
       upSwitch = cmdBuilder [
         "npins -d ~bzm3r/nixos-conf/npins/ update -f"
         "${rebuildSwitch}"

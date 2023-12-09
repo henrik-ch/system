@@ -304,7 +304,7 @@ in
                 (
                   concatStrMap
                     opt
-                    [ "$nix_shell" "$shell" "$shlvl" "$character" ]
+                    [ "$shell" "$nix_shell" "$shlvl" "$character" ]
                 )
               ]
             );
@@ -324,8 +324,8 @@ in
         shlvl = {
           repeat = true;
           format = bold style.extraShellChars "$symbol";
-          threshold = 3;
-          repeat_offset = 1;
+          threshold = 0;
+          repeat_offset = 2;
           symbol = "❯";
           disabled = false;
         };
@@ -395,15 +395,15 @@ in
 
         git_commit =
           let
-            hash = (style.default ".") + (style.neutral "$hash");
-            tag = opt ((style.default ".") + (style.neutral "$tag"));
+            hash = (style.neutral "#$hash");
+            tag = opt (style.neutral "$tag");
           in
           {
             format = opt (hash + tag);
             tag_symbol = "󰌕";
             only_detached = false;
             style = "";
-            commit_hash_length = 3;
+            commit_hash_length = 4;
           };
 
         git_status =

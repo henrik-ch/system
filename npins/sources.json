@@ -3,8 +3,20 @@
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre555839.0c6d8c783336/nixexprs.tar.xz",
-      "hash": "04dykgz00bfnbxlaw00x2s5jzzh0jjqpgkb1z0ibkd1qkfq0cfcr"
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre556102.09ec6a0881e1/nixexprs.tar.xz",
+      "hash": "1kggk5vqagpp269744k6qmialb0p9r79b7x6s588myvlmp6jrwj1"
+    },
+    "rust-shell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "bzm3r",
+        "repo": "rust-shell"
+      },
+      "branch": "main",
+      "revision": "143272170a886fd4db90d9a3d9bffa675e104d11",
+      "url": "https://github.com/bzm3r/rust-shell/archive/143272170a886fd4db90d9a3d9bffa675e104d11.tar.gz",
+      "hash": "1pf50plcxx4fpsslxygn74lbykkgfc5fx8xnrqggirag7nsn67a6"
     }
   },
   "version": 3
