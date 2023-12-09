@@ -1,6 +1,4 @@
-inputs@{ lib
-, pkgs
-, config
+{ pkgs
 , ...
 }: {
   imports = [
@@ -8,7 +6,7 @@ inputs@{ lib
     ./audio.nix
     ./basics.nix
     ./default-dirs.nix
-    ./editing.nix
+    ./dev.nix
     ./git.nix
     # MISSING is the "template string" which will
     # be replaced with this host's name
@@ -17,7 +15,7 @@ inputs@{ lib
     ./nix.nix
     ./productivity.nix
     ./security.nix
-    ./starship.nix
+    ./starship
     ./vm.nix
     ./zip.nix
     ./zsh.nix

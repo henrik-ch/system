@@ -12,8 +12,18 @@ let
   concatMapAttrs = lib.attrsets.concatMapAttrs;
 
   # ========================================
+
+  strMerger = import ./mergers.nix
+    {
+      inherit lib;
+      isTerminal = builtins.isString;
+      isIdentity = builtins.stringLength == 0;
+    };
+
+  # ========================================
   # ifThenElse = p: x: y: if p then x else y;
-  isStrNonEmpty = with builtins; s: (stringLength s) > 0;
+  isStrNonEmpty = with builtins;
+    s: (stringLength s) > 0;
   ifNotEmptyThen = f: s: optionalString (isStrNonEmpty s) (f s);
   prefixIfNonEmpty = pre: ifNotEmptyThen (s: "${pre}${s}");
   # intoNewFunctor = existing_attrs: new_attrs: __functor:
@@ -40,21 +50,25 @@ let
     ifNotEmptyThen (s: "[${txt}]${styleFmt stylor}")
       txt;
 
-  createStylor = fg: bg: {
+  __createStylor = fg: bg: {
     inherit fg bg;
     emphases = "";
     __functor = self: txt:
       fmt self txt;
   };
-  swapFgBg = stylor:
-    (createStylor stylor.bg stylor.fg) // { inherit (stylor) emphases; };
+  createStylor = fg: bg: (__createStylor fg bg) // { swap = __createStylor bg fg; };
 
-  emphasize = emphasis: stylor@{ emphases, ... }:
-    stylor //
-    {
-      emphases =
-        "${emphases}${prefixIfNonEmpty " " emphasis}";
-    };
+  emphasize = emphasis: stylor:
+    let
+      new_emphases = current: "${current}${prefixIfNonEmpty " " emphasis}";
+    in
+    lib.attrsets.recursiveUpdate stylor
+      {
+        emphases = new_emphases stylor.emphases;
+        swap = {
+          emphases = new_emphases stylor.swap.emphases;
+        };
+      };
 
   # ========================================
   vivid_palette = {
@@ -148,10 +162,9 @@ let
 
   # ========================================
   symPair = l: r: {
-    inherit l r;
+    l = if builtins.isAttrs l then l.l else l;
+    r = if builtins.isAttrs r then r.r else r;
   };
-  tortoise = shell_stylor: content_stylor: x: (shell_stylor "⦗ ") + (content_stylor x) + (shell_stylor " ⦘");
-
   # =============================================
   # timeCapStylor = bold colors.blackslate;
 in
@@ -183,52 +196,50 @@ in
           default = c.white;
           neutral = c.grey;
           diverged = bold c.peach;
+          extraShellChars = bold c.plumbright;
+          shell = c.sunny;
         }
       ) // (
         let c = colors.withFg.black; in {
-          prompt = bold colors.white;
-          promptS = bold colors.green;
-          promptF = bold colors.red;
+          prompt = bold c.white;
+          promptS = bold c.green;
+          promptF = bold c.red;
         }
       );
-      timeTortoise = tortoise style.neutral;
-      blank = style.canvas (gap 1);
+      space = style.canvas (gap 1);
 
-      pre = prefix: x: "${prefix}${x}";
-      suf = suffix: x: "${x}${suffix}";
+      pre = prefix: x: prefix + x;
+      suf = suffix: x: x + suffix;
 
       # concatenable functions
-      preSep = (x: pre blank x);
-      sufSep = (x: suf blank x);
+      preSpace = (x: pre space x);
+      sufSpace = (x: suf space x);
       preParen = (x: pre "(" x);
       sufParen = (x: suf ")" x);
       opt = (x: sufParen (preParen x));
-      optPreSep = x: opt (preSep x);
-      optSufSep = x: opt (sufSep x);
+      optSep = sep: x: (opt (sep (opt x)));
+      optPreSpace = optSep (pre space);
+      optSufSpace = optSep (suf space);
+
       newLine = (x: suf "\n" x);
       optNewLine = x: opt (newLine x);
       concatStrSep = f: parts: builtins.concatStringsSep (f "") parts;
       concatStrMap = f: parts: concatStrings (map f parts);
 
-
-      labelMid = stylor: swapFgBg stylor;
-      labelStart = symL: stylor: x:
-        (stylor symL) + (labelMid stylor x);
-      labelEnd = symR: stylor: x:
-        (labelMid stylor x) + (stylor symR);
-      label = syms: stylor: x:
-        (labelStart syms.l stylor x) + (labelEnd syms.r stylor "");
+      printLabelDelim = { tag, stylor, delimPair, tag_stylor ? stylor.swap }:
+        stylor (delimPair.l + (tag_stylor tag) + delimPair.r);
+      makeDelim = left: right: stylor: tag: printLabelDelim {
+        delimPair = (symPair left right);
+        inherit stylor tag;
+      };
 
       #capsule = shell_stylor: content_stylor: x: "" "" shell_stylor
       #(content_stylor x);
-
       rounded = symPair "" "";
-      roundedStart = labelStart rounded.l;
-      # roundedWrap = label rounded; #(shell "" "") shell_stylor content_stylor x;
-      roundedEnd = labelEnd rounded.r;
-      diamond = symPair "" "";
-      diamondWrap = label diamond;
-      diamondSlash = label { inherit (rounded) l; r = " "; };
+      # blank = symPair " " " ";
+      void = symPair "" "";
+      forwardSlash = symPair "" "";
+      # tortoise = symPair "⦗" "⦘";
     in
     {
       enable = true;
@@ -248,35 +259,36 @@ in
         format =
           let
             host_user = concatStrings [
-              (roundedStart style.host "$hostname")
-              (labelMid style.hostusersep "")
-              (roundedEnd style.user "$username")
+              (makeDelim rounded void style.host "$hostname")
+              ((createStylor style.host.fg style.user.fg) forwardSlash.r)
+              (makeDelim void rounded style.user "$username")
             ];
-            sudo = sufSep "$sudo";
-            git_info = opt (
-              "$git_branch" + "$git_commit" +
+            sudo = sufSpace "$sudo";
+            git_info = opt
               (
-                "$git_status" +
-                concatStrMap
-                  optPreSep
-                  [
-                    "$git_metrics"
-                    "$git_state"
-                  ]
-              )
-              + preSep (style.gitLabel (diamond.l + rounded.r))
-            );
+                "$git_branch" + "$git_commit" +
+                (
+                  "$git_status" +
+                  concatStrMap
+                    optPreSpace
+                    [
+                      "$git_metrics"
+                      "$git_state"
+                    ]
+                )
+                + preSpace (style.gitLabel (forwardSlash.l + rounded.r))
+              );
 
             host_user_git_time =
               (
-                "\n" + (opt sudo) + concatStrSep preSep
+                "\n" + (opt sudo) + concatStrSep preSpace
                   [
                     host_user
                     "$directory"
                   ]
               ) +
               (
-                concatStrMap optPreSep
+                concatStrMap optPreSpace
                   [
                     (style.default "$envVar")
                     (style.default "$jobs")
@@ -289,7 +301,11 @@ in
               [
                 "$cmd_duration"
                 host_user_git_time
-                ("$nix_shell" + "$shell" + "$SHLVL" + "$character")
+                (
+                  concatStrMap
+                    opt
+                    [ "$nix_shell" "$shell" "$shlvl" "$character" ]
+                )
               ]
             );
 
@@ -307,8 +323,9 @@ in
 
         shlvl = {
           repeat = true;
-          repeat_offset = 0;
-          threshold = 4;
+          format = bold style.extraShellChars "$symbol";
+          threshold = 3;
+          repeat_offset = 1;
           symbol = "❯";
           disabled = false;
         };
@@ -318,6 +335,7 @@ in
           fish_indicator = "󰈺"; #φ
           bash_indicator = "󱆃"; #β
           nu_indicator = "ν";
+          format = style.shell "$indicator";
           disabled = false;
         };
 
@@ -351,7 +369,7 @@ in
 
         directory =
           let
-            read_only = optSufSep (style.attn "$read_only");
+            read_only = optSufSpace (style.attn "$read_only");
           in
           {
             format = read_only + (style.dir "$path");
@@ -363,7 +381,7 @@ in
 
         git_branch =
           let
-            git_sym = roundedStart style.gitLabel "$symbol";
+            git_sym = makeDelim rounded forwardSlash style.gitLabel "$symbol";
             branch = (style.gitLabel "$branch");
             remote = opt (style.git ":$remote_branch");
           in
@@ -395,13 +413,13 @@ in
             countSym = _countSym defaultCount;
             aheadArrow = "🠙";
             behindArrow = "🠛";
-            web = (diamondWrap style.gitLabel ""); #󰖟
-            local = (diamondWrap style.gitLabel ""); #󰋞
-            ahead_behind = opt "${web} $ahead_behind ";
+            syncStatus = (makeDelim forwardSlash forwardSlash style.gitLabel ""); #󰖟
+            localStatus = (makeDelim forwardSlash forwardSlash style.gitLabel ""); #󰋞󰊢
+            ahead_behind = opt "${syncStatus} $ahead_behind";
             status = opt (
-              "${local}" + (
+              " ${localStatus}" + (
                 concatStrMap
-                  optPreSep
+                  optPreSpace
                   (
                     [
                       "$conflicted"
@@ -428,8 +446,8 @@ in
                   # (_revCountSym "$ahead_count" style.ok aheadArrow)
                   # (_revCountSym "$behind_count" style.alert behindArrow)
                 ];
-                up_to_date = style.ok "󰓦"; #🙫
-                conflicted = countSym style.alert "⩙"; #⮻⩙⪤1⮺🗗 ⮼⧉❐❏⧉⮻
+                up_to_date = style.ok ""; #🙫󰓦󰄭
+                conflicted = countSym style.alert ""; #⮻⩙⪤⮺🗗 ⮼⧉❐❏⧉⮻⩙󰡌
                 stashed = countSym style.info ""; #⧈🞔
                 #deleted = countSym style.attn ""; #⊠⬚
                 #renamed = countSym style.attn ""; #⛋
@@ -446,10 +464,10 @@ in
 
         git_state =
           let
-            state_symbol = diamondWrap style.gitLabel "󰇘";
-            state = preSep (style.warning "$state");
+            state_symbol = (makeDelim void void style.gitLabel "󰇘");
+            state = preSpace (style.warning "$state");
             progress =
-              opt (preSep (style.warning "$progress_current/$progress_total"));
+              opt (preSpace (style.warning "$progress_current/$progress_total"));
           in
           {
             format =
@@ -465,7 +483,7 @@ in
           };
 
         git_metrics = {
-          format = opt (concatStrSep preSep [
+          format = opt (concatStrSep preSpace [
             (style.ok "$+$added")
             (style.attn "-$deleted")
           ]);
@@ -478,8 +496,8 @@ in
             unknown_msg = style.alert "⌬";
           in
           {
-            symbol = diamondSlash style.nixLabel "nix ";
-            format = style.nix "$symbol$state( \($name\)) ❯";
+            symbol = makeDelim rounded forwardSlash style.nixLabel "nix";
+            format = style.nix "($symbol$state( \($name\)))";
             inherit impure_msg pure_msg unknown_msg;
             style = "";
           };
