@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, _user
-, ...
-}:
+{ config, lib, pkgs, _user, ... }:
 let
   inherit (builtins) replaceStrings;
   inherit (lib.attrsets) mapAttrsToList;
@@ -15,11 +10,7 @@ let
   _tmpfileType = prefix:
     # https://nixos.org/manual/nixos/unstable/#section-option-types-submodule
     # https://nixos.org/manual/nixos/unstable/#sec-option-types-composed
-    attrsOf (submodule ({ config
-                        , options
-                        , name
-                        , ...
-                        }: {
+    attrsOf (submodule ({ config, options, name, ... }: {
       options = {
         source = mkOption { type = path; };
         target = mkOption { type = str; };
@@ -30,20 +21,13 @@ let
       };
 
       config = {
-        source =
-          mkIf
-            (config.text != null)
-            (
-              mkDerivedConfig options.text (
-                pkgs.writeText
-                  "xdg-${prefix}-${replaceStrings ["/"] ["-"] name}"
-              )
-            );
+        source = mkIf (config.text != null) (mkDerivedConfig options.text
+          (pkgs.writeText
+            "xdg-${prefix}-${replaceStrings [ "/" ] [ "-" ] name}"));
         target = mkDefault name;
       };
     }));
-in
-{
+in {
   options = {
     home.file = mkOption {
       default = { };
@@ -65,16 +49,15 @@ in
 
   # uses temp files to enforce volatility of symlinks
   # https://search.nixos.org/options?channel=unstable&show=systemd.user.tmpfiles.users.%3Cname%3E.rules
-  config.systemd.user.tmpfiles.users.${_user}.rules =
-    let
-      # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
-      _tmpStr = prefix: _: file: "L+ '${prefix}/${file.target}' - - - - ${file.source}";
-    in
+  config.systemd.user.tmpfiles.users.${_user}.rules = let
+    # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
+    _tmpStr = prefix: _: file:
+      "L+ '${prefix}/${file.target}' - - - - ${file.source}";
     # see %h in the following table:
     # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html#Specifiers
-    flatten [
-      (mapAttrsToList (_tmpStr "%h") config.home.file)
-      (mapAttrsToList (_tmpStr "%h/.config") config.xdg.configFile)
-      (mapAttrsToList (_tmpStr "%h/.local/share") config.xdg.dataFile)
-    ];
+  in flatten [
+    (mapAttrsToList (_tmpStr "%h") config.home.file)
+    (mapAttrsToList (_tmpStr "%h/.config") config.xdg.configFile)
+    (mapAttrsToList (_tmpStr "%h/.local/share") config.xdg.dataFile)
+  ];
 }

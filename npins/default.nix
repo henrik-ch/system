@@ -4,15 +4,19 @@ let
   version = data.version;
 
   mkSource = spec:
-    assert spec ? type; let
-      path =
-        if spec.type == "Git" then mkGitSource spec
-        else if spec.type == "GitRelease" then mkGitSource spec
-        else if spec.type == "PyPi" then mkPyPiSource spec
-        else if spec.type == "Channel" then mkChannelSource spec
-        else builtins.throw "Unknown source type ${spec.type}";
-    in
-    spec // { outPath = path; };
+    assert spec ? type;
+    let
+      path = if spec.type == "Git" then
+        mkGitSource spec
+      else if spec.type == "GitRelease" then
+        mkGitSource spec
+      else if spec.type == "PyPi" then
+        mkPyPiSource spec
+      else if spec.type == "Channel" then
+        mkChannelSource spec
+      else
+        builtins.throw "Unknown source type ${spec.type}";
+    in spec // { outPath = path; };
 
   mkGitSource = { repository, revision, url ? null, hash, ... }:
     assert repository ? type;
@@ -23,11 +27,13 @@ let
         inherit url;
         sha256 = hash; # FIXME: check nix version & use SRI hashes
       })
-    else assert repository.type == "Git"; builtins.fetchGit {
-      url = repository.url;
-      rev = revision;
-      # hash = hash;
-    };
+    else
+      assert repository.type == "Git";
+      builtins.fetchGit {
+        url = repository.url;
+        rev = revision;
+        # hash = hash;
+      };
 
   mkPyPiSource = { url, hash, ... }:
     builtins.fetchurl {
@@ -40,8 +46,9 @@ let
       inherit url;
       sha256 = hash;
     };
-in
-if version == 3 then
+in if version == 3 then
   builtins.mapAttrs (_: mkSource) data.pins
 else
-  throw "Unsupported format version ${toString version} in sources.json. Try running `npins upgrade`"
+  throw "Unsupported format version ${
+    toString version
+  } in sources.json. Try running `npins upgrade`"

@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    virt-manager
-  ];
-}
+{ pkgs, ... }: { environment.systemPackages = with pkgs; [ virt-manager ]; }

@@ -1,7 +1,4 @@
-{ pkgs
-, ...
-}:
-{
+{ pkgs, ... }: {
   imports = [
     ./aliases.nix
     ./audio.nix
@@ -20,10 +17,7 @@
     ./vm.nix
     ./zip.nix
     ./zsh.nix
-  ] ++
-  [
-    ./gui
-  ];
+  ] ++ [ ./gui ];
 
   # options = {
   #   custom.mkHome = lib.options.mkOption {
@@ -39,8 +33,7 @@
   #   };
   # };
 
-  config =
-  {
+  config = {
     nix.settings = {
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
@@ -61,7 +54,7 @@
     };
 
     security = {
-      sudo.extraConfig = ''Defaults lecture = never '';
+      sudo.extraConfig = "Defaults lecture = never ";
       polkit.enable = true;
     };
 
@@ -74,13 +67,15 @@
     # should set up one-time auto-detect (perhaps on startup/login)
     time.timeZone = "America/Vancouver";
 
-    system.stateVersion = "24.05"; # Apparently, no need to change, in order to make it robust to syntax issues...
+    system.stateVersion =
+      "24.05"; # Apparently, no need to change, in order to make it robust to syntax issues...
 
     users = {
       defaultUserShell = "${pkgs.zsh}/bin/zsh";
       users.bzm3r = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "video" "rcontent_block" "libvirtd" ];
+        extraGroups =
+          [ "wheel" "networkmanager" "video" "rcontent_block" "libvirtd" ];
         useDefaultShell = true;
       };
     };

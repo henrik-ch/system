@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    wezterm
-  ];
-}
+{ pkgs, ... }: { environment.systemPackages = with pkgs; [ wezterm ]; }

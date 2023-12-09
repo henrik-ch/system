@@ -1,19 +1,13 @@
 # based on the auto-generated hardware-configuration.nix
-{
-  config,
-  lib,
-  modulesPath,
-  ...
-}: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+{ config, lib, modulesPath, ... }: {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
     initrd = {
       systemd.enable = true;
-      availableKernelModules = ["xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-      kernelModules = ["kvm-intel"];
+      availableKernelModules =
+        [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+      kernelModules = [ "kvm-intel" ];
     };
 
     loader = {
@@ -32,25 +26,25 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@" "compress=zstd" ];
+    options = [ "subvol=@" "compress=zstd" ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@boot"];
+    options = [ "subvol=@boot" ];
   };
 
   fileSystems."/root" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@root" "compress=zstd" ];
+    options = [ "subvol=@root" "compress=zstd" ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@nix" "compress=zstd" ];
+    options = [ "subvol=@nix" "compress=zstd" ];
   };
 
   fileSystems."/home" = {
@@ -70,9 +64,7 @@
     fsType = "vfat";
   };
 
-  swapDevices = [
-    {device = "/dev/disk/by-label/SWAP";}
-  ];
+  swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
 
   services.logind = {
     powerKey = "hibernate";
@@ -121,9 +113,11 @@
   networking.hostName = "d"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

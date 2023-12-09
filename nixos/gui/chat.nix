@@ -1,11 +1,6 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    discord
-    element-desktop
-  ];
+  environment.systemPackages = with pkgs; [ discord element-desktop ];
 
   # IRC
-  services = {
-    convos.enable = true;
-  };
+  services = { convos.enable = true; };
 }

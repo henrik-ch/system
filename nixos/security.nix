@@ -2,9 +2,7 @@
   # gnome keyring works through tty too
   security.pam.services.bzm3r.enableGnomeKeyring = true;
 
-  services = {
-    gnome.gnome-keyring.enable = true;
-  };
+  services = { gnome.gnome-keyring.enable = true; };
 
   programs.gnupg = {
     agent = {
@@ -13,9 +11,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    gnupg
-    libsecret
-    lssecret
-  ];
+  environment.systemPackages = with pkgs; [ gnupg libsecret lssecret ];
 }

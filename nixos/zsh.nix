@@ -5,9 +5,7 @@
     histFile = "~bzm3r/.histfile";
     enableCompletion = true;
     enableGlobalCompInit = true;
-    syntaxHighlighting = {
-      highlighters = [ "main" ];
-    };
+    syntaxHighlighting = { highlighters = [ "main" ]; };
     autosuggestions = {
       enable = true;
       strategy = [ "history" "completion" ];

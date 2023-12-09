@@ -1,13 +1,11 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   services = {
     # audio
     pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
-      wireplumber = {
-        enable = true;
-      };
+      wireplumber = { enable = true; };
     };
     # how to handle alsa-plugins?
     xserver.libinput.enable = true;

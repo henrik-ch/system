@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
-let
-  sources = import ../npins;
-in
-{
+let sources = import ../npins;
+in {
   options = {
     dev.cargoHomeBase = lib.options.mkOption {
       type = lib.types.path;

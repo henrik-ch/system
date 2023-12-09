@@ -1,7 +1,5 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    xdg-user-dirs
-  ];
+{ pkgs, ... }: {
+  environment.systemPackages = with pkgs; [ xdg-user-dirs ];
 
   environment.etc."xdg/user-dirs.defaults".text = ''
     XDG_DESKTOP_DIR="$HOME"

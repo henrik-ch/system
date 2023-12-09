@@ -15,15 +15,16 @@ stdenvNoCC.mkDerivation rec {
 
     install --target $out/share/doc/${pname} -D DeAetna_font/DeAetna_license.txt
     install -m644 --target $out/share/fonts/opentype/${pname} -D DeAetna_font/DeAetna_V${version}/*.otf
-    
+
     runHook postInstall
   '';
 
   meta = with lib; {
     homepage = "https://www.designingtyperevivals.com/";
-    description = "A font revival of the roman cut by by Francesco Griffo for the De Aetna (1496)";
+    description =
+      "A font revival of the roman cut by by Francesco Griffo for the De Aetna (1496)";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

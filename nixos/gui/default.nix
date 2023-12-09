@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   config-gtk = import ./gtk.nix { inherit pkgs; };
   dbus-sway = import ./dbus-sway.nix { inherit pkgs; };
@@ -14,11 +14,7 @@ in {
   ];
 
   nixpkgs.config.allowUnfreePredicate = package:
-    builtins.elem (pkgs.lib.getName package) [
-      "vscode"
-      "discord"
-      "gitkraken"
-    ];
+    builtins.elem (pkgs.lib.getName package) [ "vscode" "discord" "gitkraken" ];
 
   # List packages installed in system profile
   environment.systemPackages = with pkgs; [
@@ -35,14 +31,12 @@ in {
     gnome.nautilus
   ];
 
-  security.pam.loginLimits = [
-    {
-      domain = "@users";
-      item = "rtprio";
-      type = "-";
-      value = 1;
-    }
-  ];
+  security.pam.loginLimits = [{
+    domain = "@users";
+    item = "rtprio";
+    type = "-";
+    value = 1;
+  }];
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
   # known as portals under a well-known name
@@ -55,7 +49,7 @@ in {
     enable = true;
     wlr.enable = true;
     # gtk portal needed to make gtk apps happy
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   # enable sway window manager

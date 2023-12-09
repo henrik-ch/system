@@ -1,23 +1,18 @@
-{ ... }:
-{
+{ ... }: {
   programs.zsh = {
-    shellAliases =
-    let
+    shellAliases = let
       repo_root = "$(git rev-parse --show-toplevel)";
       cmdBuilder = builtins.concatStringsSep ";";
       rebuildCmd = "sudo ~bzm3r/nixos-conf/rebuild";
-      __re_action_opts = action: cmdBuilder [
-        "${rebuildCmd} ${action}"
-        "exec zsh"
-      ];
+      __re_action_opts = action:
+        cmdBuilder [ "${rebuildCmd} ${action}" "exec zsh" ];
       rebuildSwitch = __re_action_opts "switch";
       rebuildBoot = __re_action_opts "boot";
       upSwitch = cmdBuilder [
         "npins -d ~bzm3r/nixos-conf/npins/ update -f"
         "${rebuildSwitch}"
       ];
-    in
-    {
+    in {
       wm = "sway";
       _conf = "hx ~bzm3r/nixos-conf/nixos/";
       _pkg = "hx ~bzm3r/nixos-conf/nixos/pkg.nix";
@@ -51,18 +46,19 @@
       ga = "git add";
       "ga.." = "git add " + repo_root;
       gp = "git push --recurse-submodules=check";
-      "gp.f"  = "git push --force";
+      "gp.f" = "git push --force";
       gr = "git restore";
       "gr.." = "git restore " + repo_root;
       grs = "git restore --staged";
       "grs.." = "git restore --staged " + repo_root;
-      cd = "custom_cd() {
-                cd $1;
-                echo \"\";
-                git status 2> /dev/null;
-                echo \"\";
-                lsd -a;
-              };custom_cd";
+      cd = ''
+        custom_cd() {
+                        cd $1;
+                        echo "";
+                        git status 2> /dev/null;
+                        echo "";
+                        lsd -a;
+                      };custom_cd'';
       _work = ''
         workspace() {
           if test -z $1; then

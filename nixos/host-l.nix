@@ -1,19 +1,13 @@
 # based on the auto-generated hardware-configuration.nix
-{
-  config,
-  lib,
-  modulesPath,
-  ...
-}: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+{ config, lib, modulesPath, ... }: {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
     initrd = {
       systemd.enable = true;
-      availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"];
-      kernelModules = ["kvm-amd"];
+      availableKernelModules =
+        [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+      kernelModules = [ "kvm-amd" ];
     };
 
     loader = {
@@ -32,31 +26,31 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@"];
+    options = [ "subvol=@" ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@boot"];
+    options = [ "subvol=@boot" ];
   };
 
   fileSystems."/root" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@root"];
+    options = [ "subvol=@root" ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@nix"];
+    options = [ "subvol=@nix" ];
   };
 
   fileSystems."/home" = {
     device = "/dev/disk/by-label/FS";
     fsType = "btrfs";
-    options = ["subvol=@home"];
+    options = [ "subvol=@home" ];
   };
 
   fileSystems."/efi" = {
@@ -64,9 +58,7 @@
     fsType = "vfat";
   };
 
-  swapDevices = [
-    {device = "/dev/disk/by-label/SWAP";}
-  ];
+  swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
 
   services.logind = {
     lidSwitch = "hibernate";
@@ -116,9 +108,11 @@
   networking.hostName = "l"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
