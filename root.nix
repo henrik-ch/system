@@ -30,9 +30,6 @@
       rm --force $out/bin/nix-channel
     '';
 
-    custom.mkHome = x: /home/${x};
-    custom.userName = "bzm3r";
-
     # This option is broken when set false, prevent people from setting it to false
     # And we implement the important bit above ourselves
     nix.channel.enable = true;

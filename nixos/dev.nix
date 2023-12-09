@@ -13,16 +13,18 @@ in
   };
 
   config = {
+    # dev.cargoHomeBase = /home/bzm3r;
+
     environment.systemPackages = with pkgs; [
       helix # no vim or emacs allowed
       shellcheck
       elfutils
-      (
-        callPackage sources.rust-shell {
-          cargoHomeBase = dev.cargoHomeBase;
-          name = "rust-shell";
-        }
-      )
+      # (
+      #   callPackage sources.rust-shell {
+      #     cargoHomeBase = dev.cargoHomeBase;
+      #     name = "rust-shell";
+      #   }
+      # )
     ];
   };
 }

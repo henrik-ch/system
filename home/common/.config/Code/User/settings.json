@@ -3,12 +3,18 @@
     "editor.rulers": [
         80
     ],
+    "editor.wordWrapColumn": 80,
+    "editor.wordWrap": "bounded",
+    "editor.wrappingStrategy": "advanced",
+    "diffEditor.wordWrap": "on",
+    "rewrap.autoWrap.enabled": true,
+    "rewrap.wrappingColumn": 80,
     /*
     ===============================
         FILES
     ===============================
     */
-    "files.autoSave": "onFocusChange",
+    "files.autoSave": "afterDelay",
     /*
     ===============================
         TELEMETRY
@@ -30,9 +36,7 @@
     "workbench.editorAssociations": {
         "*.pdf": "latex-workshop-pdf-hook"
     },
-    "[latex]": {
-        "editor.wordWrap": "on"
-    },
+    "[latex]": {},
     /*
     ===============================
         MARKDOWN
@@ -43,6 +47,8 @@
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
         "editor.formatOnType": true,
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+        "rewrap.autoWrap.enabled": false,
     },
     /*
     ===============================
@@ -62,25 +68,57 @@
     "[rust]": {
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
-        "editor.wrappingStrategy": "advanced",
-        "rewrap.wrappingColumn": 80,
-        "rewrap.autoWrap.enabled": true,
-        "editor.wordWrap": "bounded",
         "editor.language.brackets": [
-            [" ", "=>"],
-            [" ", "->"],
-            ["(", ")"],
-            ["{", "}"],
-            ["[", "]"],
-            ["<", ">"]
-         ],
+            [
+                " ",
+                "=>"
+            ],
+            [
+                " ",
+                "->"
+            ],
+            [
+                "(",
+                ")"
+            ],
+            [
+                "{",
+                "}"
+            ],
+            [
+                "[",
+                "]"
+            ],
+            [
+                "<",
+                ">"
+            ]
+        ],
         "editor.language.colorizedBracketPairs": [
-            [" ", "=>"],
-            [" ", "->"],
-            ["<", ">"],
-            ["{", "}"],
-            ["(", ")"],
-            ["[", "]"],
+            [
+                " ",
+                "=>"
+            ],
+            [
+                " ",
+                "->"
+            ],
+            [
+                "<",
+                ">"
+            ],
+            [
+                "{",
+                "}"
+            ],
+            [
+                "(",
+                ")"
+            ],
+            [
+                "[",
+                "]"
+            ],
         ]
     },
     "rust-analyzer.inlayHints.chainingHints.enable": true,
@@ -101,8 +139,8 @@
         TERMINAL
     ===============================
     */
-    "terminal.integrated.fontSize": 15,
-    "terminal.integrated.fontFamily": "'Inconsolata', 'monospace', monospace",
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontFamily": "'Inconsolata Nerd Font Mono', 'monospace', monospace",
     "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.explorerKind": "external",
     "terminal.external.windowsExec": "C:\\Program Files\\WezTerm\\wezterm-gui.exe",
@@ -135,7 +173,6 @@
     // Controls the default location of the panel (Terminal, Debug Console, Output, Problems) in a new workspace.
     // It can either show at the bottom, right, or left of the editor area.
     "workbench.panel.defaultLocation": "left",
-
     /**
     Theming
     */
@@ -144,7 +181,7 @@
             "editorBracketHighlight.unexpectedBracket.foreground": "#ffffff",
             "editorError.background": "#ff00004f",
             "editorError.foreground": "#ffffff00",
-            "editorRuler.foreground": "#89495e",
+            "editorRuler.foreground": "#aa4c6b",
             "editor.background": "#060606",
             "editor.selectionBackground": "#002f61a4",
             "editor.selectionHighlightBackground": "#000000",
@@ -360,7 +397,6 @@
     "errorLens.messageTemplate": "$message $code",
     "rust-analyzer.diagnostics.previewRustcOutput": true,
     "rust-analyzer.diagnostics.useRustcErrorCode": true,
-    "editor.multiCursorModifier": "ctrlCmd",
     "git.autoStash": true,
     "git.closeDiffOnOperation": true,
     "git.enableSmartCommit": true,
@@ -488,66 +524,9 @@
     "rust-analyzer.restartServerOnConfigChange": true,
     "rust-analyzer.completion.privateEditable.enable": true,
     "editor.inlayHints.fontFamily": "Atkinson Hyperlegible",
-    "editor.inlayHints.enabled": "on",
+    "editor.inlayHints.enabled": "off",
     "errorLens.excludeBySource": [
         "rustc(E0412)"
-    ],
-    "diffEditor.wordWrap": "on",
-    // Spellcheck ignore list
-    "cSpell.userWords": [
-        "Backline",
-        "blitting",
-        "Bloodlust",
-        "bytemuck",
-        "Carapaced",
-        "Clippy",
-        "Conal",
-        "Concotions",
-        "consts",
-        "Coolheaded",
-        "counterplay",
-        "criticals",
-        "debuffs",
-        "distrib",
-        "Featureful",
-        "fello",
-        "flac",
-        "Fontcraft",
-        "gilrs",
-        "gltf",
-        "Greataxe",
-        "Irresistable",
-        "Katamari",
-        "kurbo",
-        "libloading",
-        "linewidth",
-        "metavar",
-        "Multitarget",
-        "nonmagical",
-        "npch",
-        "overconsumption",
-        "Peekable",
-        "peniko",
-        "Polearm",
-        "Runeseeker's",
-        "rustfmt",
-        "simulationist",
-        "Slimoid",
-        "supercompression",
-        "Telemedicine",
-        "Threadbound",
-        "tonemapping",
-        "travelling",
-        "UASTC",
-        "Unmaker",
-        "UPSCALING",
-        "vello",
-        "Vorbis",
-        "wgpu",
-        "winit",
-        "worldspeaker",
-        "Zstandard",
-        "zstd"
     ],
     "editor.inlineSuggest.showToolbar": "always",
     "editor.quickSuggestionsDelay": 0,
@@ -561,13 +540,7 @@
     "git.autorefresh": false,
     "git.postCommitCommand": "push",
     "githubRepositories.indexing.cacheSizeLimit": 500,
-    "workbench.editor.showTabs": "none",
-    "rust-analyzer.debug.engine": "vadimcn.vscode-lldb",
     "rust-analyzer.debug.openDebugPane": true,
-    "editor.wordWrap": "wordWrapColumn",
-    "editor.wrappingStrategy": "advanced",
-    "rewrap.autoWrap.enabled": true,
-    "rewrap.wrappingColumn": 80,
     "errorLens.followCursor": "closestProblem",
     "errorLens.messageMaxChars": 0,
     "errorLens.searchForProblemQuery": "https://google.com/?q=$message",
@@ -590,76 +563,53 @@
     "peacock.affectStatusBar": false,
     "liveshare.showInStatusBar": "whileCollaborating",
     "workbench.layoutControl.enabled": false,
-    "window.enableMenuBarMnemonics": false,
     "terminal.integrated.scrollback": 10000,
-    "window.openFilesInNewWindow": "default",
-    "window.newWindowDimensions": "maximized",
     "diffEditor.experimental.showMoves": true,
     "diffEditor.maxComputationTime": 0,
-    "diffEditor.renderSideBySide": false,
-    "cmake.configureOnOpen": true,
     "terminal.integrated.tabStopWidth": 2,
-    "settingsSync.ignoredSettings": [
-        "-window.zoomLevel"
-    ],
-    "settingsSync.keybindingsPerPlatform": false,
     "vscode-color-picker.languages": [
-        "jsonc",
+        "toml",
     ],
-    "nix.enableLanguageServer": true,
-    "nix.serverPath": "nil",
+    "workbench.activityBar.location": "hidden",
+    "editor.codeLensFontFamily": "Atkinson Hyperlegible",
+    "window.zoomLevel": 2,
+    "editor.fontSize": 16,
+    "files.autoSaveDelay": 1500,
+    "[nix]": {
+        "editor.formatOnSave": true,
+    },
+    "nix.enableLanguageServer": true, // Enable LSP.
+    // The path to the LSP server executable.
+    "nix.serverPath": "/run/current-system/sw/bin/nil",
     "nix.serverSettings": {
-        "nix.serverSettings": {
-            "nil": {
-            "formatting": { "command": ["nixpkgs-fmt"] }
-        },
-        // settings for 'nixd' LSP
-        "nixd": {
-            "eval": {
-                // stuff
-            },
+        "nil": {
             "formatting": {
-                "command": "nixpkgs-fmt"
-            },
-            "options": {
-                "enable": true,
-                "target": {
-                    // tweak arguments here
-                    "args": [],
-                    // NixOS options
-                    "installable": "<flakeref>#nixosConfigurations.<name>.options"
-
-                    // Flake-parts options
-                    // "installable": "<flakeref>#debug.options"
-
-                    // Home-manager options
-                    // "installable": "<flakeref>#homeConfigurations.<name>.options"
-                    }
-                }
+                "command": [
+                    "/run/current-system/sw/bin/nixfmt"
+                ]
             }
         }
     },
-    "workbench.activityBar.location": "hidden",
-    "editor.codeLensFontFamily": "Atkinson Hyperlegible",
-    "files.associations": {
-        "start": "shellscript",
-        "config": "shellscript",
-        "theme": "shellscript",
-        "keys": "shellscript",
-        "variables": "shellscript",
-        "l-inputs": "shellscript",
-        "idle": "shellscript",
-        "sty": "shellscript",
-        "vars": "shellscript",
-        "bar": "shellscript",
-        "inputs(d)": "shellscript",
-        "inputs(l)": "shellscript"
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.formatOnSave": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "window.zoomLevel": 2,
-    "editor.fontSize": 17,
-    "search.showLineNumbers": true,
-    "window.customMenuBarAltFocus": false,
+    "editor.formatOnType": true,
+    "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "cSpell.userWords": [
+        "coreutils",
+        "diffutils",
+        "findutils",
+        "Flycheck",
+        "Keymap",
+        "pluggable",
+        "runFlycheck"
+    ],
+    "workbench.editor.pinnedTabSizing": "compact",
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.tabSizing": "shrink",
     "window.density.editorTabHeight": "compact",
-    "window.title": "${dirty}${profileName}${separator}${focusedView}${separator}${activeEditorLong}",
-    "window.titleSeparator": "",
+    "rust-analyzer.server.path": "rust-analyzer",
 }

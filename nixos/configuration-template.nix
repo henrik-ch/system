@@ -1,6 +1,4 @@
 { pkgs
-, lib
-, config
 , ...
 }:
 {
@@ -27,25 +25,21 @@
     ./gui
   ];
 
-  options = {
-    custom.mkHome = lib.options.mkOption {
-      type = lib.types.anything;
-      example = "x: /home/\${x}";
-      description = lib.mdDoc
-        "Function that takes a `userName` argument to produce the path of that user's home directory";
-    };
-    custom.userName = lib.options.mkOption {
-      type = lib.types.str;
-      example = "alice";
-      description = lib.mdDoc "Username of the primary user for this machine, as a string.";
-    };
-  };
+  # options = {
+  #   custom.mkHome = lib.options.mkOption {
+  #     type = lib.types.anything;
+  #     example = "x: /home/\${x}";
+  #     description = lib.mdDoc
+  #       "Function that takes a `userName` argument to produce the path of that user's home directory";
+  #   };
+  #   custom.userName = lib.options.mkOption {
+  #     type = lib.types.str;
+  #     example = "alice";
+  #     description = lib.mdDoc "Username of the primary user for this machine, as a string.";
+  #   };
+  # };
 
   config =
-  let
-    u = config.custom.userName;
-    h = config.custom.mkHome u;
-  in
   {
     nix.settings = {
       # Deduplicate and optimize nix store
@@ -84,14 +78,11 @@
 
     users = {
       defaultUserShell = "${pkgs.zsh}/bin/zsh";
-      users."${u}" = {
+      users.bzm3r = {
         isNormalUser = true;
-        home = h;
         extraGroups = [ "wheel" "networkmanager" "video" "rcontent_block" "libvirtd" ];
         useDefaultShell = true;
       };
     };
-
-    dev.cargoHomeBase = h;
   };
 }
