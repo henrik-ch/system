@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }: {
   imports = [
     ./aliases.nix
     ./audio.nix
@@ -6,34 +6,39 @@
     ./default-dirs.nix
     ./dev.nix
     ./git.nix
-    # MISSING is the "template string" which will
-    # be replaced with this host's name
-    ./host-MISSING.nix
     ./lua.nix
     ./nix.nix
     ./productivity.nix
     ./security.nix
-    ./starship
     ./vm.nix
     ./zip.nix
     ./zsh.nix
-  ] ++ [ ./gui ];
+  ] ++ [ ./gui ./starship ];
 
-  # options = {
-  #   custom.mkHome = lib.options.mkOption {
-  #     type = lib.types.anything;
-  #     example = "x: /home/\${x}";
-  #     description = lib.mdDoc
-  #       "Function that takes a `userName` argument to produce the path of that user's home directory";
-  #   };
-  #   custom.userName = lib.options.mkOption {
-  #     type = lib.types.str;
-  #     example = "alice";
-  #     description = lib.mdDoc "Username of the primary user for this machine, as a string.";
-  #   };
-  # };
+  options = {
+    singleUser = lib.options.mkOption {
+      type = lib.types.str;
+      example = "alice";
+      description =
+        lib.mdDoc "Username of the primary user for this machine, as a string.";
+    };
+    homeBase = lib.options.mkOption {
+      type = lib.types.str;
+      example = "/home";
+      default = "/home";
+      description = lib.mdDoc "Base directory where home values are placed.";
+    };
+    sources = lib.options.mkOption {
+      type = lib.types.attrsets;
+      example = "{ nixpkgs = { ... }; rust-shell = { ... }; }";
+      description = lib.mdDoc "Derivation of a rust-shell package";
+    };
+  };
 
-  config = {
+  config = let
+    userName = config.singleUser;
+    userHome = config.homeBase + "/" + userName;
+  in {
     nix.settings = {
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
@@ -68,16 +73,19 @@
     time.timeZone = "America/Vancouver";
 
     system.stateVersion =
-      "24.05"; # Apparently, no need to change, in order to make it robust to syntax issues...
+      "24.05"; # TODO: properly understand why this should not be changed in general.
 
     users = {
       defaultUserShell = "${pkgs.zsh}/bin/zsh";
-      users.bzm3r = {
+      users."${userName}" = {
         isNormalUser = true;
+        home = userHome;
         extraGroups =
           [ "wheel" "networkmanager" "video" "rcontent_block" "libvirtd" ];
         useDefaultShell = true;
       };
     };
+
+    # dev.cargoHomeBase = userHome;
   };
 }

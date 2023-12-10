@@ -4,7 +4,14 @@
     ./nixos/configuration.nix
   ];
 
-  config = {
+  config = let
+    genSpecialization = machineLabel: {
+      inheritParentConfig = true;
+      configuration = { config = { inherit machineLabel; }; };
+    };
+  in {
+    specialisation = lib.attrsets.genAttrs [ "d" "l" ] genSpecialization;
+
     environment.systemPackages = with pkgs;
       [
         # We're using niv to manage the systems Nixpkgs version, install it globally for ease
@@ -30,6 +37,9 @@
     environment.extraSetup = ''
       rm --force $out/bin/nix-channel
     '';
+
+    sources = (import ./npins);
+    singleUser = "bzm3r";
 
     # This option is broken when set false, prevent people from setting it to false
     # And we implement the important bit above ourselves
