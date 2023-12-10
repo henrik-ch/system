@@ -1,4 +1,4 @@
-#!/bin/sh
+#/usr/bin/env bash
 
 # the particular scripts referred to here will be placed
 # in the same output folder as where this script will be placed

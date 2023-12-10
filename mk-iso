@@ -14,14 +14,10 @@ function realizeTemplate {
     sd -F "MISSING" ${HOST} ${REALIZED_PATH}
 }
 
-echo "Making iso..."
-
 host="$(echo $HOSTNAME)" #$(hostname)
 
-echo "Creating specific-scripts.nix..."
 ~bzm3r/nixos-conf/realize-template ~bzm3r/nixos-conf/min-iso/specific-scripts nix
 
-echo "Creating gen-iso.sh..."
 ~bzm3r/nixos-conf/realize-template ~bzm3r/nixos-conf/min-iso/gen-iso sh
 
 # nix-instantiate --eval has no raw mode yet

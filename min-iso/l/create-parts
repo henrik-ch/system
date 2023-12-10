@@ -1,4 +1,4 @@
-#!/bin/sh
+#/usr/bin/env bash
 
 # parted --script /dev/nvme0n1 \
 #   mkpart EFI fat32 1MiB 1001MiB \

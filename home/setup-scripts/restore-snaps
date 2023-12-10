@@ -1,4 +1,4 @@
-#!/bin/sh
+#/usr/bin/env bash
 
 sudo btrfs subvolume delete /home
 sudo btrfs subvolume snapshot /snaps/$1/home

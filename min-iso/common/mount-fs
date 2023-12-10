@@ -1,6 +1,4 @@
-#!/bin/sh
-
-echo "Mounting file system..."
+#/usr/bin/env bash
 
 mount --mkdir -o subvol=@,compress=zstd -t btrfs /dev/disk/by-label/FS /mnt
 mount --mkdir -o subvol=@boot -t btrfs /dev/disk/by-label/FS /mnt/boot
