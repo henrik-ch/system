@@ -13,11 +13,11 @@ let
 
   # ========================================
 
-  strMerger = import ./mergers.nix {
-    inherit lib;
-    isTerminal = builtins.isString;
-    isIdentity = builtins.stringLength == 0;
-  };
+  # strMerger = import ./mergers.nix {
+  #   inherit lib;
+  #   isTerminal = builtins.isString;
+  #   isIdentity = builtins.stringLength == 0;
+  # };
 
   # ========================================
   # ifThenElse = p: x: y: if p then x else y;
