@@ -17,6 +17,7 @@ in {
       helix # no vim or emacs allowed
       shellcheck
       elfutils
+      statix
       # (
       #   callPackage sources.rust-shell {
       #     cargoHomeBase = dev.cargoHomeBase;

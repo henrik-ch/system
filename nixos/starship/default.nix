@@ -270,10 +270,10 @@ in {
       };
 
       shell = {
-        zsh_indicator = "⚡"; # ζ
-        fish_indicator = "󰈺"; # φ
-        bash_indicator = "󱆃"; # β
-        nu_indicator = "ν";
+        zsh_indicator = "z"; # ζ
+        fish_indicator = "f"; # φ
+        bash_indicator = "b"; # β
+        nu_indicator = "n";
         format = style.shell "$indicator";
         disabled = false;
       };
