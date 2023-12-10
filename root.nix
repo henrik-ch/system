@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, config, ... }: {
   imports = [
     # Import your main configuration
     ./nixos/configuration.nix
@@ -10,7 +10,8 @@
       configuration = { config = { inherit machineLabel; }; };
     };
   in {
-    specialisation = lib.attrsets.genAttrs [ "d" "l" ] genSpecialization;
+    specialisation =
+      lib.attrsets.genAttrs config.machineVariants genSpecialization;
 
     environment.systemPackages = with pkgs;
       [

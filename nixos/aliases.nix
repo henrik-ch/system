@@ -4,9 +4,17 @@
       repo_root = "$(git rev-parse --show-toplevel)";
       cmdBuilder = builtins.concatStringsSep ";";
       rebuildCmd = "sudo ~bzm3r/nixos-conf/rebuild";
-      __re_action_opts = action:
-        cmdBuilder [ "${rebuildCmd} ${action}" "exec zsh" ];
-      rebuildSwitch = __re_action_opts "switch";
+      __re_action_opts = action: opts:
+        let
+          optString = builtins.concatStringsSep
+            [ "--show-trace --specialisation '$HOST'" ];
+          sepPrefixedOpts =
+            if builtins.stringLength optString > 0 then " ${optString}" else "";
+        in cmdBuilder [
+          "${rebuildCmd} ${action}${sepPrefixedOpts}"
+          "exec zsh"
+        ];
+      rebuildSwitch = __re_action_opts "switch" " --show-trace";
       rebuildBoot = __re_action_opts "boot";
       upSwitch = cmdBuilder [
         "npins -d ~bzm3r/nixos-conf/npins/ update -f"

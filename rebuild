@@ -39,4 +39,4 @@ fi
 export NIXOS_LABEL
 
 HOST="$(hostname)"
-exec nixos-rebuild "$@" --specialisation $HOST
+exec nixos-rebuild "$@"
