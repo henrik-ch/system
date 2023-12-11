@@ -1,5 +1,5 @@
 { lib, pkgs, ... }: {
-  imports = [ ./nixos/configuration.nix ];
+  imports = [ ./nixos/hw-config.nix ./nixos/configuration.nix ];
 
   options = {
     sources = lib.options.mkOption {

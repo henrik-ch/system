@@ -1,36 +1,61 @@
 # based on the auto-generated hardware-configuration.nix
-{ config, lib, modulesPath, ... }: {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  config = let
-    machineSpecificSettings = {
-      d = {
-        availableKernelModules =
-          [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-        kernelModules = [ "kvm-intel" ];
-        homeDevice = "3T";
-        lidSwitch = "ignore";
-        cpuFreqGovernor = "performance";
-        firmwareFamily = "intel";
-      };
-      l = {
-        availableKernelModules =
-          [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
-        kernelModules = [ "kvm-amd" ];
-        homeDevice = "FS";
-        lidSwitch = "hibernate";
-        cpuFreqGovernor = "ondemand";
-        firmwareFamily = "amd";
+let
+  machineSpecificSettings = {
+    d = {
+      availableKernelModules =
+        [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+      kernelModules = [ "kvm-intel" ];
+      homeDevice = "3T";
+      lidSwitch = "ignore";
+      cpuFreqGovernor = "performance";
+      cpuFamily = "intel";
+    };
+    l = {
+      availableKernelModules =
+        [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+      kernelModules = [ "kvm-amd" ];
+      homeDevice = "FS";
+      lidSwitch = "hibernate";
+      cpuFreqGovernor = "ondemand";
+      cpuFamily = "amd";
+    };
+  };
+  devByLabel = label: "/dev/disk/by-label/${label}";
+  listOption = option: enable: if enable then [ option ] else [ ];
+  mkMountPoint =
+    { devLabel ? "FS", fsPath, fsType ? "btrfs", enableCompression ? true }: {
+      "/${fsPath}" = {
+        device = devByLabel devLabel;
+        fsType = "btrfs";
+        options = if fsType == "btrfs" then
+          [ "subvol=@${fsPath}" ]
+          ++ (listOption "compress=zstd" enableCompression)
+        else
+          [ ];
       };
     };
-    thisMachineSettings = machineSpecificSettings."${config.machineLabel}";
-    getSettings = attrs: lib.attrsets.getAttrs attrs thisMachineSettings;
-    getValue = attr: thisMachineSettings."${attr}";
-  in ({
+in { config, lib, modulesPath, ... }:
+let
+  machineSettings = machineSpecificSettings.${config.machineLabel};
+  machineInitrd =
+    lib.attrsets.getAttrs [ "availableKernelModules" "kernelModules" ]
+    machineSettings;
+in {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
+  options = {
+    testOption = lib.mkOption {
+      type = lib.types.str;
+      default = "undefined";
+    };
+  };
+
+  config = {
+    testOption = devByLabel machineSettings.homeDevice;
+
     boot = {
-      initrd = {
-        systemd.enable = true;
-      } // getSettings [ "availableKernelModules" "kernelModules" ];
+      initrd = { systemd.enable = true; } // machineInitrd;
 
       loader = {
         systemd-boot.enable = true;
@@ -45,50 +70,58 @@
       resumeDevice = "/dev/disk/by-label/SWAP";
     };
 
-    fileSystems = let
-      btrfsMntPoint = diskLabel: subVolLabel:
-        { extraOptions ? [ "compress=zstd" ] }: {
-          device = "/dev/disk/by-label/${diskLabel}";
-          fsType = "btrfs";
-          options = [ "subvol=@${subVolLabel}" ] ++ extraOptions;
-        };
-    in {
-      "/" = btrfsMntPoint "FS" "" { };
-      "/boot" = btrfsMntPoint "FS" "boot" { extraOptions = [ ]; };
-      "/root" = btrfsMntPoint "FS" "root" { };
-      "/nix" = btrfsMntPoint "FS" "nix" { };
-      "/home" = btrfsMntPoint (getValue "homeDevice") "home" { };
-      "/efi" = {
-        device = "/dev/disk/by-label/EFI";
+    fileSystems = lib.attrsets.mergeAttrsList ((map mkMountPoint [
+      {
+        devLabel = "FS";
+        fsPath = "";
+      }
+      {
+        devLabel = "FS";
+        fsPath = "boot";
+        enableCompression = false;
+      }
+      {
+        devLabel = "FS";
+        fsPath = "root";
+      }
+      {
+        devLabel = "FS";
+        fsPath = "nix";
+      }
+      {
+        devLabel = machineSettings.homeDevice;
+        fsPath = "home";
+      }
+      {
+        devLabel = "EFI";
+        fsPath = "efi";
         fsType = "vfat";
-      };
-    };
+      }
+    ]));
 
     swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
 
     services.logind = {
       powerKey = "hibernate";
       powerKeyLongPress = "poweroff";
-      lidSwitch = getValue "lidSwitch";
+      inherit (machineSettings) lidSwitch;
     };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
     # (the default) this is the recommended approach. When using systemd-networkd it's
     # still possible to use this option, but it's recommended to use it in conjunction
     # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-    networking.useDHCP = lib.mkDefault true;
+    networking.useDHCP = true;
     # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
     networking.hostName = config.machineLabel; # Define your hostname.
     # Pick only one of the below networking options.
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.sudo dmidecode -t 2
     networking.networkmanager.enable =
       true; # Easiest to use and most distros use this by default.
 
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    powerManagement.cpuFreqGovernor =
-      lib.mkDefault (getValue "cpuFreqGovernor");
-    hardware.cpu."${getValue "firmwareFamily"}".updateMicrocode =
-      lib.mkDefault config.hardware.enableRedistributableFirmware;
-  });
+    nixpkgs.hostPlatform = "x86_64-linux";
+    powerManagement = { inherit (machineSettings) cpuFreqGovernor; };
+    hardware.enableAllFirmware = true;
+  };
 }

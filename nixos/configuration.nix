@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }: {
-  imports = [ ./hw-config.nix ] ++ [
+  imports = [
     ./aliases.nix
     ./audio.nix
     ./basics.nix

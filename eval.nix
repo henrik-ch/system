@@ -1,12 +1,12 @@
-let
-  # pkgs = import <nixpkgs> {
-  #   config = { };
-  #   overlays = [ ];
-  # };
-  evalConfig = import <nixpkgs/nixos/lib/eval-config.nix>;
+let evalConfig = import <nixpkgs/nixos/lib/eval-config.nix>;
 in evalConfig {
   modules = [ ./entry-point.nix ];
 }
+
+# pkgs = import <nixpkgs> {
+#   config = { };
+#   overlays = [ ];
+# };
 
 # { configuration ? import ./lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
 # , system ? builtins.currentSystem
