@@ -1,17 +1,30 @@
-{ lib, pkgs, config, ... }: {
-  imports = [
-    # Import your main configuration
-    ./nixos/configuration.nix
-  ];
+{ lib, pkgs, ... }: {
+  imports = [ ./nixos/configuration.nix ];
 
-  config = let
-    genSpecialization = machineLabel: {
-      inheritParentConfig = true;
-      configuration = { config = { inherit machineLabel; }; };
+  options = {
+    sources = lib.options.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      example = "{ nixpkgs = { ... }; rust-shell = { ... }; }";
+      description = lib.mdDoc "Derivation of a rust-shell package";
     };
-  in {
-    specialisation =
-      lib.attrsets.genAttrs config.machineVariants genSpecialization;
+    singleUser = lib.options.mkOption {
+      type = lib.types.str;
+      example = "alice";
+      description =
+        lib.mdDoc "Username of the primary user for this machine, as a string.";
+    };
+    homeBase = lib.options.mkOption {
+      type = lib.types.str;
+      example = "/home";
+      default = "/home";
+      description = lib.mdDoc "Base directory where home values are placed.";
+    };
+  };
+
+  config = {
+    singleUser = "bzm3r";
+    sources = import ./npins;
+    homeBase = "/home";
 
     environment.systemPackages = with pkgs;
       [
@@ -38,9 +51,6 @@
     environment.extraSetup = ''
       rm --force $out/bin/nix-channel
     '';
-
-    sources = (import ./npins);
-    singleUser = "bzm3r";
 
     # This option is broken when set false, prevent people from setting it to false
     # And we implement the important bit above ourselves

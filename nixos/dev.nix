@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }: {
   options = {
-    dev.cargoHomeBase = lib.options.mkOption {
+    cargoHomeBase = lib.options.mkOption {
       type = lib.types.str;
       example = "/home/alice";
       description = lib.mdDoc
@@ -11,7 +11,7 @@
   config = let
     rust-shell = (import config.sources.rust-shell) {
       name = "rust-shell";
-      cargoHomeBase = config.dev.cargoHomeBase;
+      inherit (config) cargoHomeBase;
     };
   in {
     environment.systemPackages = with pkgs; [

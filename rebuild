@@ -19,12 +19,13 @@ function getRelative {
 PINNED_NIXPKGS="$(getRelative nixpkgs/path.nix)"
 # nix-instantiate --eval has no raw mode yet
 NIXPKGS_PATH=$(nix-instantiate --eval --read-write-mode $PINNED_NIXPKGS | tr -d \")
+HOST="$(hostname)"
 # Get the ./root.nix relative to this script
-ROOT_PATH="$(getRelative root.nix)"
+ENTRY_POINT="$(getRelative entry-point.nix)"
 
 # nixos-rebuild always reads Nixpkgs from the NIX_PATH,
 # so we need to set it explicitly to our pinned version
-NIX_PATH=nixpkgs=$NIXPKGS_PATH:nixos-config=$ROOT_PATH
+NIX_PATH=nixpkgs=$NIXPKGS_PATH:nixos-config=$ENTRY_POINT
 export NIX_PATH
 
 read -p "Generation label? " label
@@ -38,5 +39,4 @@ else
 fi
 export NIXOS_LABEL
 
-HOST="$(hostname)"
-exec nixos-rebuild "$@"
+sudo nixos-rebuild "$@" --show-trace

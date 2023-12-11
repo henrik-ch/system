@@ -6,8 +6,7 @@
       rebuildCmd = "sudo ~bzm3r/nixos-conf/rebuild";
       __re_action_opts = action: opts:
         let
-          optString = builtins.concatStringsSep
-            [ "--show-trace --specialisation '$HOST'" ];
+          optString = builtins.concatStringsSep " " [ "--show-trace" ];
           sepPrefixedOpts =
             if builtins.stringLength optString > 0 then " ${optString}" else "";
         in cmdBuilder [
@@ -15,7 +14,7 @@
           "exec zsh"
         ];
       rebuildSwitch = __re_action_opts "switch" " --show-trace";
-      rebuildBoot = __re_action_opts "boot";
+      rebuildBoot = __re_action_opts "boot" " --show-trace";
       upSwitch = cmdBuilder [
         "npins -d ~bzm3r/nixos-conf/npins/ update -f"
         "${rebuildSwitch}"
