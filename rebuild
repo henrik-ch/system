@@ -13,8 +13,8 @@ ENTRY_POINT="$(getRelative 'entry-point.nix')"
 
 # nixos-rebuild always reads Nixpkgs from the NIX_PATH,
 # so we need to set it explicitly to our pinned version
-NIX_PATH=nixpkgs=$NIXPKGS_PATH:nixos-config=$ENTRY_POINT
-export NIX_PATH
+#NIX_PATH=nixpkgs=$NIXPKGS_PATH:nixos-config=$ENTRY_POINT
+#export NIX_PATH
 
 read -p "Generation label? " label
 
@@ -27,4 +27,4 @@ else
 fi
 export NIXOS_LABEL
 
-exec nixos-rebuild "$@"
+exec nixos-rebuild "$@" -I nixpkgs=$NIXPKGS_PATH -I nixos-config=$ENTRY_POINT
