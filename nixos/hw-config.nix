@@ -68,7 +68,10 @@ in {
       pathSpecific = {
         "/home" = { dev = machineSettings.homeDevice; };
         "/boot" = { enableCompression = false; };
-        "/efi" = { fsType = "vfat"; };
+        "/efi" = {
+          dev = "EFI";
+          fsType = "vfat";
+        };
       };
       mkMountPoint = fsPath:
         _mkMountPoint fsPath (pathSpecific.${fsPath} or { });
