@@ -8,18 +8,16 @@
     };
   };
 
-  config = let
-    rust-shell = (import config.sources.rust-shell) {
-      name = "rust-shell";
-      inherit (config) cargoHomeBase;
-    };
-  in {
+  config = {
     environment.systemPackages = with pkgs; [
       helix # no vim or emacs allowed
       shellcheck
       elfutils
       statix
-      rust-shell
+      (callPackage config.sources.rust-shell {
+        name = "rust-shell";
+        inherit (config) cargoHomeBase;
+      })
     ];
   };
 }
