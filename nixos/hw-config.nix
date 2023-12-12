@@ -111,17 +111,17 @@ in {
     # (the default) this is the recommended approach. When using systemd-networkd it's
     # still possible to use this option, but it's recommended to use it in conjunction
     # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-    networking.useDHCP = true;
+    networking.useDHCP = lib.mkDefault true;
     # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
     networking.hostName = config.machineLabel; # Define your hostname.
     # Pick only one of the below networking options.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.sudo dmidecode -t 2
     networking.networkmanager.enable =
-      true; # Easiest to use and most distros use this by default.
+      lib.mkDefault true; # Easiest to use and most distros use this by default.
 
     nixpkgs.hostPlatform = "x86_64-linux";
     powerManagement = { inherit (machineSettings) cpuFreqGovernor; };
-    hardware.enableAllFirmware = true;
+    hardware.enableRedistributableFirmware = lib.mkDefault true;
   };
 }
