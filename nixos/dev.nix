@@ -15,7 +15,7 @@
       elfutils
       statix
       (callPackage config.sources.rust-shell {
-        name = "rust-shell";
+        name = "rust";
         inherit (config) cargoHomeBase;
       })
     ];
