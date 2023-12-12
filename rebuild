@@ -9,7 +9,7 @@ PINNED_NIXPKGS="$(getRelative nixpkgs/path.nix)"
 # nix-instantiate --eval has no raw mode yet
 NIXPKGS_PATH=$(nix-instantiate --eval --read-write-mode $PINNED_NIXPKGS | tr -d \")
 # Get the ./root.nix relative to this script
-ENTRY_POINT="$(getRelative 'entry-point.nix')"
+ENTRY_POINT="$(getRelative '../entry-point.nix')"
 
 # nixos-rebuild always reads Nixpkgs from the NIX_PATH,
 # so we need to set it explicitly to our pinned version
@@ -28,3 +28,4 @@ fi
 export NIXOS_LABEL
 
 exec nixos-rebuild "$@" -I nixpkgs=$NIXPKGS_PATH -I nixos-config=$ENTRY_POINT
+exec ../mk-symlinks

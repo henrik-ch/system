@@ -16,12 +16,12 @@ function realizeTemplate {
 
 host="$(echo $HOSTNAME)" #$(hostname)
 
-~bzm3r/system/realize-template ~bzm3r/system/min-iso/specific-scripts nix
+~bzm3r/system/system/realize-template ~bzm3r/system/system/min-iso/specific-scripts nix
 
-~bzm3r/system/realize-template ~bzm3r/system/min-iso/gen-iso sh
+~bzm3r/system/system/realize-template ~bzm3r/system/system/min-iso/gen-iso sh
 
 # nix-instantiate --eval has no raw mode yet
-nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/system/nixpkgs/path.nix | tr -d \")
+nixpkgsPath=$(nix-instantiate --eval --read-write-mode ~bzm3r/system/system/nixpkgs/path.nix | tr -d \")
 
 NIX_PATH=nixpkgs=$nixpkgsPath ./min-iso/gen-iso.sh
 ./min-iso/burn-iso.sh ${1}
