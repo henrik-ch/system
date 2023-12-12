@@ -279,7 +279,7 @@ in {
       };
 
       cmd_duration = {
-        format = style.default "󱞩  took $duration ✦";
+        format = bold style.default "󱞩  took $duration ✦";
         show_notifications = true;
         min_time = 0;
         notification_timeout = 3500;
@@ -316,7 +316,7 @@ in {
 
       git_branch = let
         git_sym = makeDelim rounded forwardSlash style.gitLabel "$symbol";
-        branch = (style.gitLabel "$branch");
+        branch = optPreSpace (style.gitLabel "$branch");
         remote = opt (style.git ":$remote_branch");
       in {
         format = git_sym + branch + remote;
@@ -346,8 +346,8 @@ in {
           (makeDelim forwardSlash forwardSlash style.gitLabel ""); # 󰖟
         localStatus =
           (makeDelim forwardSlash forwardSlash style.gitLabel ""); # 󰋞󰊢
-        ahead_behind = opt "${syncStatus} $ahead_behind";
-        status = opt (" ${localStatus}" + (concatStrMap optPreSpace ([
+        ahead_behind = optPreSpace "${syncStatus} $ahead_behind";
+        status = optPreSpace ("${localStatus}" + (concatStrMap optPreSpace ([
           "$conflicted"
           "$stashed"
           #"$deleted"
