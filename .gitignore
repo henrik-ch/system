@@ -1,5 +1,5 @@
 *.log
 
-result-*
+result*
 /min-iso/gen-iso.sh
 /min-iso/specific-scripts.nix

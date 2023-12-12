@@ -24,7 +24,6 @@
       auto-optimise-store = true;
       # enable some of the experimental commands for now
       experimental-features = [ "nix-command" ];
-
     };
 
     hardware.opengl.enable = true;

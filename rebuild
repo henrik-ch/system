@@ -5,23 +5,11 @@ function getRelative {
     echo $(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/$1")
 }
 
-# function realizeTemplate {
-#     TEMPLATE_PATH="$(getRelative "${1}-template.${2}")"
-#     REALIZED_PATH="$(getRelative "${1}.${2}")"
-#     HOST="$(hostname)"
-
-#     cp --remove-destination ${TEMPLATE_PATH} ${REALIZED_PATH}
-#     sd -F "MISSING" ${HOST} ${REALIZED_PATH}
-# }
-
-# realizeTemplate "nixos/configuration" "nix"
-
 PINNED_NIXPKGS="$(getRelative nixpkgs/path.nix)"
 # nix-instantiate --eval has no raw mode yet
 NIXPKGS_PATH=$(nix-instantiate --eval --read-write-mode $PINNED_NIXPKGS | tr -d \")
-HOST="$(hostname)"
 # Get the ./root.nix relative to this script
-ENTRY_POINT="$(getRelative entry-point.nix)"
+ENTRY_POINT="$(getRelative 'entry-point.nix')"
 
 # nixos-rebuild always reads Nixpkgs from the NIX_PATH,
 # so we need to set it explicitly to our pinned version
@@ -39,4 +27,4 @@ else
 fi
 export NIXOS_LABEL
 
-sudo nixos-rebuild "$@" --show-trace
+exec nixos-rebuild "$@"

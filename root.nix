@@ -19,6 +19,11 @@
       default = "/home";
       description = lib.mdDoc "Base directory where home values are placed.";
     };
+    machineLabel = lib.options.mkOption {
+      type = lib.types.enum [ "d" "l" ];
+      example = "d";
+      description = lib.mdDoc "Host machine selection.";
+    };
   };
 
   config = {

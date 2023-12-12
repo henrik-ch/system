@@ -9,7 +9,6 @@ let
       homeDevice = "3T";
       lidSwitch = "ignore";
       cpuFreqGovernor = "performance";
-      cpuFamily = "intel";
     };
     l = {
       availableKernelModules =
@@ -18,25 +17,20 @@ let
       homeDevice = "FS";
       lidSwitch = "hibernate";
       cpuFreqGovernor = "ondemand";
-      cpuFamily = "amd";
     };
   };
-  devByLabel = label: "/dev/disk/by-label/${label}";
-  listOption = option: enable: if enable then [ option ] else [ ];
-  mkMountPoint =
-    { devLabel ? "FS", fsPath, fsType ? "btrfs", enableCompression ? true }: {
-      "/${fsPath}" = {
-        device = devByLabel devLabel;
-        fsType = "btrfs";
-        options = if fsType == "btrfs" then
-          [ "subvol=@${fsPath}" ]
-          ++ (listOption "compress=zstd" enableCompression)
-        else
-          [ ];
-      };
-    };
 in { config, lib, modulesPath, ... }:
 let
+  devPath = label: "/dev/disk/by-label/${label}";
+  _mkMountPoint = fsPath:
+    { dev ? "FS", fsType ? "btrfs", enableCompression ? true }:
+    {
+      device = devPath dev;
+      inherit fsType;
+    } // lib.optionalAttrs (fsType == "btrfs") {
+      options = [ "subvol=${builtins.replaceStrings [ "/" ] [ "@" ] fsPath}" ]
+        ++ lib.optional enableCompression "compress=zstd";
+    };
   machineSettings = machineSpecificSettings.${config.machineLabel};
   machineInitrd =
     lib.attrsets.getAttrs [ "availableKernelModules" "kernelModules" ]
@@ -52,7 +46,7 @@ in {
   };
 
   config = {
-    testOption = devByLabel machineSettings.homeDevice;
+    testOption = devPath machineSettings.homeDevice;
 
     boot = {
       initrd = { systemd.enable = true; } // machineInitrd;
@@ -70,34 +64,15 @@ in {
       resumeDevice = "/dev/disk/by-label/SWAP";
     };
 
-    fileSystems = lib.attrsets.mergeAttrsList ((map mkMountPoint [
-      {
-        devLabel = "FS";
-        fsPath = "";
-      }
-      {
-        devLabel = "FS";
-        fsPath = "boot";
-        enableCompression = false;
-      }
-      {
-        devLabel = "FS";
-        fsPath = "root";
-      }
-      {
-        devLabel = "FS";
-        fsPath = "nix";
-      }
-      {
-        devLabel = machineSettings.homeDevice;
-        fsPath = "home";
-      }
-      {
-        devLabel = "EFI";
-        fsPath = "efi";
-        fsType = "vfat";
-      }
-    ]));
+    fileSystems = let
+      pathSpecific = {
+        "/home" = { dev = machineSettings.homeDevice; };
+        "/boot" = { enableCompression = false; };
+        "/efi" = { fsType = "vfat"; };
+      };
+      mkMountPoint = fsPath:
+        _mkMountPoint fsPath (pathSpecific.${fsPath} or { });
+    in lib.genAttrs [ "/" "/boot" "/root" "/nix" "/home" "/efi" ] mkMountPoint;
 
     swapDevices = [{ device = "/dev/disk/by-label/SWAP"; }];
 
