@@ -1,7 +1,19 @@
-let evalConfig = import <nixpkgs/nixos/lib/eval-config.nix>;
-in evalConfig {
-  modules = [ ./entry-point.nix ];
+let
+  sources = import ./npins;
+  nixpkgs = sources.nixpkgs.outPath;
+  pkgs = import sources.nixpkgs { };
+  evalModules = pkgs.lib.evalModules;
+in evalModules {
+  specialArgs.modulesPath = "${nixpkgs}/nixos/modules";
+
+  modules = [ ./entry-point.nix ]
+    ++ (import "${nixpkgs}/nixos/modules/module-list.nix");
 }
+
+# let evalConfig = import <nixpkgs/nixos/lib/eval-config.nix>;
+# in evalConfig {
+#   modules = [ ./entry-point.nix ];
+# }
 
 # pkgs = import <nixpkgs> {
 #   config = { };
