@@ -1,5 +1,17 @@
 {
   "pins": {
+    "create_script": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "bzm3r",
+        "repo": "create_script"
+      },
+      "branch": "main",
+      "revision": "e1b0b690a24d766118872a51934282ae9bee2f76",
+      "url": "https://github.com/bzm3r/create_script/archive/e1b0b690a24d766118872a51934282ae9bee2f76.tar.gz",
+      "hash": "1abjz167gn72wlv5g01ygc2k4xndwf1aqmydjwsjargas20xks90"
+    },
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
