@@ -3,7 +3,7 @@
     shellAliases = let
       repo_root = "$(git rev-parse --show-toplevel)";
       cmdBuilder = builtins.concatStringsSep ";";
-      rebuildCmd = "sudo ~bzm3r/nixos-conf/rebuild";
+      rebuildCmd = "sudo ~bzm3r/system/rebuild";
       __re_action_opts = action: opts:
         let
           optString = builtins.concatStringsSep " " [ "--show-trace" ];
@@ -16,17 +16,17 @@
       rebuildSwitch = __re_action_opts "switch" " --show-trace";
       rebuildBoot = __re_action_opts "boot" " --show-trace";
       upSwitch = cmdBuilder [
-        "npins -d ~bzm3r/nixos-conf/npins/ update -f"
+        "npins -d ~bzm3r/system/npins/ update -f"
         "${rebuildSwitch}"
       ];
     in {
       wm = "sway";
-      _conf = "hx ~bzm3r/nixos-conf/nixos/";
-      _pkg = "hx ~bzm3r/nixos-conf/nixos/pkg.nix";
-      _wez = "hx ~bzm3r/nixos-conf/home/common/.config/wezterm";
-      _hx = "hx ~bzm3r/nixos-conf/home/common/.config/helix/config.toml";
-      _sw = "hx ~bzm3r/nixos-conf/home/common/.config/sway";
-      __sw = "hx ~bzm3r/nixos-conf/nixos/gui.nix";
+      _conf = "hx ~bzm3r/system/nixos/";
+      _pkg = "hx ~bzm3r/system/nixos/pkg.nix";
+      _wez = "hx ~bzm3r/system/home/common/.config/wezterm";
+      _hx = "hx ~bzm3r/system/home/common/.config/helix/config.toml";
+      _sw = "hx ~bzm3r/system/home/common/.config/sway";
+      __sw = "hx ~bzm3r/system/nixos/gui.nix";
       _up = upSwitch;
       _re-s = rebuildSwitch;
       _re-b = rebuildBoot;
