@@ -8,9 +8,9 @@
         "repo": "mkscript"
       },
       "branch": "main",
-      "revision": "214d698168cbe67a3444d887c21c75bd2b2d6677",
-      "url": "https://github.com/bzm3r/mkscript/archive/214d698168cbe67a3444d887c21c75bd2b2d6677.tar.gz",
-      "hash": "1q35yp7q11xamy6hg72nk0axciw8471ji2rlykdrd6h8c6blxlq2"
+      "revision": "4bf87a8c48f196101b23e536090f0df68fed71f0",
+      "url": "https://github.com/bzm3r/mkscript/archive/4bf87a8c48f196101b23e536090f0df68fed71f0.tar.gz",
+      "hash": "1f8ldz310m5fqg46afg5x7l5171sa4cpwscsdx7y76xxpn7ziwxc"
     },
     "nixpkgs": {
       "type": "Channel",

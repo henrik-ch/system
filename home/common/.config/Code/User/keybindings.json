@@ -144,7 +144,7 @@
         "command": "togglePreserveCase",
         "when": "findWidgetVisible && inputFocus && !quickFixWidgetVisible && !renameInputVisible && !suggestWidgetVisible",
     },
-    // Find in a selection
+    // Find+Replace in a selection
     {
         "key": "ctrl+f s",
         "command": "runCommands",
@@ -155,9 +155,9 @@
                 "toggleFindInSelection"
             ]
         },
-        "when": "editorHasSelection && editorIsOpen",
+        "when": "editorHasSelection && (editorFocus || editorIsOpen) && !editorReadonly"
     },
-    // Find with a selection
+    // Find+Replace with a selection
     {
         "key": "ctrl+f f",
         "command": "runCommands",
@@ -168,9 +168,9 @@
                 "actions.findWithSelection"
             ]
         },
-        "when": "editorHasSelection && editorIsOpen"
+        "when": "editorHasSelection && (editorFocus || editorIsOpen) && !editorReadonly"
     },
-    // Get ready to find
+    // Open Find+Replace
     {
         "key": "ctrl+f f",
         "command": "runCommands",
@@ -180,7 +180,44 @@
                 "editor.action.startFindReplaceAction",
             ]
         },
-        "when": "!editorHasSelection && editorIsOpen"
+        "when": "!editorHasSelection && (editorFocus || editorIsOpen)  && !editorReadonly"
+    },
+    // Find in a selection
+    {
+        "key": "ctrl+f s",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "closeFindWidget",
+                "actions.find",
+                "toggleFindInSelection"
+            ]
+        },
+        "when": "editorHasSelection && (editorFocus || editorIsOpen) && editorReadonly"
+    },
+    // Find with a selection
+    {
+        "key": "ctrl+f f",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "closeFindWidget",
+                "actions.findWithSelection"
+            ]
+        },
+        "when": "editorHasSelection && (editorFocus || editorIsOpen) && editorReadonly"
+    },
+    // Open Find
+    {
+        "key": "ctrl+f f",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "closeFindWidget",
+                "actions.find",
+            ]
+        },
+        "when": "!editorHasSelection && (editorFocus || editorIsOpen)  editorReadonly"
     },
     /**
     * Hide Toaster Notifications
@@ -228,7 +265,8 @@
         "args": {
             "commands": [
                 "saveAll",
-                "rust-analyzer.runFlycheck"
+                "rust-analyzer.runFlycheck",
+                "editor.action.formatDocument.multiple"
             ]
         },
         "when": "editorTextFocus && editorLangId == 'rust'",
@@ -239,6 +277,7 @@
         "args": {
             "commands": [
                 "saveAll",
+                "editor.action.formatDocument.multiple"
             ]
         },
         "when": "editorTextFocus && editorLangId == 'nix'",
