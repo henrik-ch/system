@@ -1,9 +1,14 @@
-{ ... }: {
+{ lib, config, ... }:
+let
+  subSysConfig = subPath:
+    lib.strings.normalizePath
+    (lib.debug.traceVal "${config.sysConfigDir}/${subPath}");
+in {
   programs.zsh = {
     shellAliases = let
       repo_root = "$(git rev-parse --show-toplevel)";
       cmdBuilder = builtins.concatStringsSep ";";
-      rebuildCmd = "sudo ~bzm3r/system/system/rebuild";
+      rebuildCmd = "sudo ${subSysConfig "/rebuild"}";
       __re_action_opts = action: opts:
         let
           optString = builtins.concatStringsSep " " [ "--show-trace" ];
@@ -16,17 +21,17 @@
       rebuildSwitch = __re_action_opts "switch" " --show-trace";
       rebuildBoot = __re_action_opts "boot" " --show-trace";
       upSwitch = cmdBuilder [
-        "npins -d ~bzm3r/system/system/npins/ update -f"
+        "npins -d ${subSysConfig "/npins"} update -f"
         "${rebuildSwitch}"
       ];
     in {
       wm = "sway";
-      _conf = "hx ~bzm3r/system/system/nixos/";
-      _pkg = "hx ~bzm3r/system/system/nixos/pkg.nix";
-      _wez = "hx ~bzm3r/system/system/home/common/.config/wezterm";
-      _hx = "hx ~bzm3r/system/system/home/common/.config/helix/config.toml";
-      _sw = "hx ~bzm3r/system/system/home/common/.config/sway";
-      __sw = "hx ~bzm3r/system/system/nixos/gui.nix";
+      _conf = "hx ${subSysConfig "/nixos"}";
+      _pkg = "hx ${subSysConfig "/nixos/pkg.nix"}";
+      _wez = "hx ${subSysConfig "/home/common/.config/wezterm"}";
+      _hx = "hx ${subSysConfig "/home/common/.config/helix/config.toml"}";
+      _sw = "hx ${subSysConfig "/home/common/.config/sway"}";
+      __sw = "hx ${subSysConfig "/nixos/gui.nix"}";
       _up = upSwitch;
       _re-s = rebuildSwitch;
       _re-b = rebuildBoot;
@@ -74,7 +79,7 @@
             ws=$1
           fi
 
-          code /home/bzm3r/.vscode/workspaces/''${ws}.code-workspace
+          code ${config.userHome}/.vscode/workspaces/''${ws}.code-workspace
         };workspace
       '';
     };

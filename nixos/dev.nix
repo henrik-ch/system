@@ -2,9 +2,9 @@
   options = {
     cargoHomeBase = lib.options.mkOption {
       type = lib.types.str;
-      example = "/home/alice";
+      example = "/home/alfred";
       description = lib.mdDoc
-        "Directory where $CARGO_HOME and $SCCACHE_DIR will be placed for a Rust shell";
+        "Directory that will contain $CARGO_HOME and $SCCACHE_DIR for a Rust shell";
     };
   };
 

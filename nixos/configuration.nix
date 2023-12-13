@@ -15,10 +15,7 @@
     ./zsh.nix
   ] ++ [ ./gui ./starship ];
 
-  config = let
-    userName = config.singleUser;
-    userHome = config.homeBase + "/" + userName;
-  in {
+  config = {
     nix.settings = {
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
@@ -56,15 +53,15 @@
 
     users = {
       defaultUserShell = "${pkgs.zsh}/bin/zsh";
-      users."${userName}" = {
+      users."${config.singleUser}" = {
         isNormalUser = true;
-        home = userHome;
+        home = config.userHome;
         extraGroups =
           [ "wheel" "networkmanager" "video" "rcontent_block" "libvirtd" ];
         useDefaultShell = true;
       };
     };
 
-    cargoHomeBase = userHome;
+    cargoHomeBase = config.userHome;
   };
 }

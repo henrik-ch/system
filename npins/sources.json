@@ -1,16 +1,16 @@
 {
   "pins": {
-    "create_script": {
+    "mkscript": {
       "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "bzm3r",
-        "repo": "create_script"
+        "repo": "mkscript"
       },
       "branch": "main",
-      "revision": "e1b0b690a24d766118872a51934282ae9bee2f76",
-      "url": "https://github.com/bzm3r/create_script/archive/e1b0b690a24d766118872a51934282ae9bee2f76.tar.gz",
-      "hash": "1abjz167gn72wlv5g01ygc2k4xndwf1aqmydjwsjargas20xks90"
+      "revision": "214d698168cbe67a3444d887c21c75bd2b2d6677",
+      "url": "https://github.com/bzm3r/mkscript/archive/214d698168cbe67a3444d887c21c75bd2b2d6677.tar.gz",
+      "hash": "1q35yp7q11xamy6hg72nk0axciw8471ji2rlykdrd6h8c6blxlq2"
     },
     "nixpkgs": {
       "type": "Channel",
