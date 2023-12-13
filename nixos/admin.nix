@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, config, ... }: {
   config = {
     environment.systemPackages = with pkgs; [
-      (callPackage config.sources.create_script {})
+      (callPackage config.sources.mkscript {})
     ];
   };
 }

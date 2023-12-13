@@ -1,5 +1,6 @@
 { pkgs, lib, config, ... }: {
   imports = [
+    ./admin.nix
     ./aliases.nix
     ./audio.nix
     ./basics.nix
