@@ -1,8 +1,8 @@
 { lib, config, ... }:
 let
   subSysConfig = subPath:
-    lib.strings.normalizePath
-    (lib.debug.traceVal "${config.sysConfigDir}/${subPath}");
+    lib.debug.traceVal  (lib.strings.normalizePath
+    "${config.sysConfigDir}/${subPath}");
 in {
   programs.zsh = {
     shellAliases = let

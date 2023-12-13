@@ -34,6 +34,6 @@ export MK_SYMLINKS
 SYS_CONFIG_DIR="$SYS_ENTRY_DIR/system"
 export SYS_CONFIG_DIR
 
-sudo nixos-rebuild "$@" -I nixpkgs=$NIXPKGS_PATH -I nixos-config=$ENTRY_POINT
+nixos-rebuild "$@" -I nixpkgs=$NIXPKGS_PATH -I nixos-config=$ENTRY_POINT
 $MK_SYMLINKS
 exec zsh

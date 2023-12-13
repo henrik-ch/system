@@ -4,7 +4,7 @@
   options = {
     homeBase = lib.options.mkOption {
       type = lib.types.str;
-      default = lib.strings.normalizePath "/home";
+      default = "/home";
       description = lib.mdDoc
         "Default base directory used for [normal user homes](https://github.com/NixOS/nixpkgs/blob/90c3374749364dc58f7077e4cfb53caa0bd29350/nixos/modules/config/users-groups.nix#L364).";
     };
