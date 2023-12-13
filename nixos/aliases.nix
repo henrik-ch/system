@@ -8,7 +8,7 @@ in {
     shellAliases = let
       repo_root = "$(git rev-parse --show-toplevel)";
       cmdBuilder = builtins.concatStringsSep ";";
-      rebuildCmd = "sudo ${subSysConfig "/rebuild"}";
+      rebuildCmd = "${subSysConfig "/rebuild"}";
       __re_action_opts = action: opts:
         let
           optString = builtins.concatStringsSep " " [ "--show-trace" ];

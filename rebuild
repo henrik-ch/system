@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+trap "sudo -k" EXIT INT QUIT TERM
+
 function getRelative {
     echo $(realpath -- "$(dirname -- "${BASH_SOURCE[0]}")/$1")
 }
@@ -34,6 +36,7 @@ export MK_SYMLINKS
 SYS_CONFIG_DIR="$SYS_ENTRY_DIR/system"
 export SYS_CONFIG_DIR
 
-nixos-rebuild "$@" -I nixpkgs=$NIXPKGS_PATH -I nixos-config=$ENTRY_POINT
+sudo NIXOS_LABEL=$NIXOS_LABEL SYS_ENTRY_DIR=$SYS_ENTRY_DIR SYS_CONFIG_DIR=$SYS_CONFIG_DIR nixos-rebuild "$@" -I nixpkgs=$NIXPKGS_PATH -I nixos-config=$ENTRY_POINT
+sudo -k
 $MK_SYMLINKS
-exec zsh
+exec
