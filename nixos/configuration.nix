@@ -4,7 +4,7 @@
     ./aliases.nix
     ./audio.nix
     ./basics.nix
-    ./xdg-dirs.nix
+    ./boot.nix
     ./dev.nix
     ./git.nix
     ./lua.nix
@@ -12,6 +12,7 @@
     ./productivity.nix
     ./security.nix
     ./vm.nix
+    ./xdg-dirs.nix
     ./zip.nix
     ./zsh.nix
   ] ++ [ ./gui ./starship ];
