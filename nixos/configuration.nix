@@ -5,6 +5,7 @@
     ./audio.nix
     ./basics.nix
     ./boot.nix
+    ./xdg.nix
     ./dev.nix
     ./git.nix
     ./lua.nix
@@ -12,7 +13,7 @@
     ./productivity.nix
     ./security.nix
     ./vm.nix
-    ./xdg-dirs.nix
+    ./xdg.nix
     ./zip.nix
     ./zsh.nix
   ] ++ [ ./gui ./starship ];
@@ -31,7 +32,7 @@
     # a bigger, default tty font
     console = with pkgs; {
       earlySetup = true;
-      font = "${terminus_font}/share/consolefonts/ter-122n.psf.gz";
+      font = "${terminus_font}/share/consolefonts/ter-132n.psf.gz";
       packages = [ terminus_font ];
       keyMap = "us";
     };
