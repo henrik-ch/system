@@ -1,3 +1,5 @@
+- switch Sway to using the Vulkan backend for wlr
+
 - Rust script that allows for easy command line searching of various small notes
   (from a central note file)
 

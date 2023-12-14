@@ -1,6 +1,13 @@
 { pkgs, ... }: {
   documentation.man.man-db.enable = true;
 
+  services = {
+    tlp.enable = true;
+    thermald.enable = true;
+  };
+
+  hardware.acpilight.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search pkgname
   environment.systemPackages = with pkgs; [
@@ -15,16 +22,9 @@
     dosfstools
     e2fsprogs
 
-    #hardware
-    tlp
-    thermald
-    acpilight
-    brightnessctl
-
     # utilities
     wget
     curl
-    seatd
     ripgrep # recursively searches directories for a regex pattern
     bat # nicer cat
     lsd # nicer ls

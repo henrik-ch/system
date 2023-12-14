@@ -1,10 +1,11 @@
 {
     "folders": [
         {
-            "path": "../../../../../../admin_scripts/mkscript"
+            "path": "/home/bzm3r/admin_scripts/mkscript"
         },
         {
-            "path": "../../../../../../admin_scripts/rebuild"
+            "path": "/home/bzm3r/admin_scripts/sanix"
         }
-    ]
+    ],
+    "settings": {}
 }
