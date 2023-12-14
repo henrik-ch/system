@@ -6,7 +6,8 @@
     inter
     source-sans
     source-serif
-    (nerdfonts.override { fonts = [ "Inconsolata" "SourceCodePro" ]; })
+    inconsolata-nerdfont
+    (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
     (callPackage ./drvs/de-aetna.nix { })
   ];
 
