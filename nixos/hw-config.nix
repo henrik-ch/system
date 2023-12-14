@@ -1,25 +1,5 @@
 # based on the auto-generated hardware-configuration.nix
-
-let
-  machineSpecificSettings = {
-    d = {
-      availableKernelModules =
-        [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-      kernelModules = [ "kvm-intel" ];
-      homeDevice = "3T";
-      lidSwitch = "ignore";
-      cpuFreqGovernor = "performance";
-    };
-    l = {
-      availableKernelModules =
-        [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
-      kernelModules = [ "kvm-amd" ];
-      homeDevice = "FS";
-      lidSwitch = "hibernate";
-      cpuFreqGovernor = "ondemand";
-    };
-  };
-in { config, lib, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 let
   devPath = label: "/dev/disk/by-label/${label}";
   _mkMountPoint = fsPath:
@@ -31,25 +11,12 @@ let
       options = [ "subvol=${builtins.replaceStrings [ "/" ] [ "@" ] fsPath}" ]
         ++ lib.optional enableCompression "compress=zstd";
     };
-  machineSettings = machineSpecificSettings.${config.machineLabel};
-  machineInitrd =
-    lib.attrsets.getAttrs [ "availableKernelModules" "kernelModules" ]
-    machineSettings;
 in {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  options = {
-    testOption = lib.mkOption {
-      type = lib.types.str;
-      default = "undefined";
-    };
-  };
-
   config = {
-    testOption = devPath machineSettings.homeDevice;
-
     boot = {
-      initrd = { systemd.enable = true; } // machineInitrd;
+      initrd = { systemd.enable = true;} // config.machine.initrd;
 
       loader = {
         systemd-boot.enable = true;
@@ -66,7 +33,7 @@ in {
 
     fileSystems = let
       pathSpecific = {
-        "/home" = { dev = machineSettings.homeDevice; };
+        "/home" = { dev = config.machine.homeDevice; };
         "/boot" = { enableCompression = false; };
         "/efi" = {
           dev = "EFI";
@@ -82,7 +49,7 @@ in {
     services.logind = {
       powerKey = "hibernate";
       powerKeyLongPress = "poweroff";
-      inherit (machineSettings) lidSwitch;
+      inherit (config.machine) lidSwitch;
     };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -92,14 +59,14 @@ in {
     networking.useDHCP = lib.mkDefault true;
     # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
-    networking.hostName = config.machineLabel; # Define your hostname.
+    networking.hostName = config.machine.label; # Define your hostname.
     # Pick only one of the below networking options.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.sudo dmidecode -t 2
     networking.networkmanager.enable =
       lib.mkDefault true; # Easiest to use and most distros use this by default.
 
     nixpkgs.hostPlatform = "x86_64-linux";
-    powerManagement = { inherit (machineSettings) cpuFreqGovernor; };
+    powerManagement = { inherit (config.machine) cpuFreqGovernor; };
     hardware.enableRedistributableFirmware = lib.mkDefault true;
   };
 }

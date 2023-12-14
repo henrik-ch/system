@@ -1,4 +1,30 @@
-{ lib, pkgs, config, ... }: {
+{ lib, pkgs, config, ... }: let
+  machineSettings = {
+        d = {
+          initrd = {
+            availableKernelModules =
+              [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+            kernelModules = [ "kvm-intel" ];
+          };
+          homeDevice = "3T";
+          lidSwitch = "ignore";
+          cpuFreqGovernor = "performance";
+        };
+        l = {
+          initrd = {
+            availableKernelModules =
+              [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+            kernelModules = [ "kvm-amd" ];
+          };
+          homeDevice = "FS";
+          lidSwitch = "hibernate";
+          cpuFreqGovernor = "ondemand";
+        };
+      };
+  selectMachine = label: (builtins.getAttr label machineSettings) // {
+    inherit label;
+  };
+in {
   imports = [ ./nixos/hw-config.nix ./nixos/configuration.nix ];
 
   options = {
@@ -31,11 +57,17 @@
       example = "d";
       description = lib.mdDoc "Host machine selection.";
     };
+    machine = lib.options.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      example = "";
+      description = lib.mdDoc "Machine settings.";
+    };
   };
 
   config = {
     singleUser = lib.mkForce "bzm3r";
     sources = lib.mkForce (import ./npins);
+    machine = lib.mkForce (selectMachine config.machineLabel);
 
     environment.systemPackages = with pkgs;
       [
