@@ -1,8 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   # gnome keyring works through tty too
-  security.pam.services.bzm3r.enableGnomeKeyring = true;
-
-  services = { gnome.gnome-keyring.enable = true; };
+  #services = { gnome.gnome-keyring.enable = true; };
+  security.pam.services.${config.singleUser}.enableGnomeKeyring = true;
 
   programs.gnupg = {
     agent = {
