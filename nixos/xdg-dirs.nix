@@ -1,14 +1,27 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }:
+let
+  mapGenAttrs = inputs: inputToAttr: attrToVal:
+    lib.genAttrs (map inputToAttr inputs) attrToVal;
+
+  mkXdgDir = end: mid: "XDG_${mid}_${end}";
+
+  xdgSubDirs = mapGenAttrs [
+    "DESKTOP"
+    "DOCUMENTS"
+    "DOWNLOAD"
+    "MUSIC"
+    "PICTURES"
+    "PUBLICSHARE"
+    "TEMPLATES"
+    "VIDEOS"
+  ] (x: mkXdgDir x "DIR") (x: "$HOME");
+
+  xdgHomeDirs = builtins.listToAttrs (map (x: {
+    name = mkXdgDir x "HOME";
+    value = "$HOME/${x}";
+  }) [ "CACHE" "CONFIG" "DATA" "STATE"  ] );
+in {
   environment.systemPackages = with pkgs; [ xdg-user-dirs ];
 
-  environment.etc."xdg/user-dirs.defaults".text = ''
-    XDG_DESKTOP_DIR="$HOME"
-    XDG_DOCUMENTS_DIR="$HOME"
-    XDG_DOWNLOAD_DIR="$HOME/downloads"
-    XDG_MUSIC_DIR="$HOME"
-    XDG_PICTURES_DIR="$HOME"
-    XDG_PUBLICSHARE_DIR="$HOME"
-    XDG_TEMPLATES_DIR="$HOME"
-    XDG_VIDEOS_DIR="$HOME"
-  '';
+  environment.variables = xdgSubDirs // xdgHomeDirs;
 }

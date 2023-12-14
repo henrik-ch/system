@@ -31,25 +31,11 @@
       example = "d";
       description = lib.mdDoc "Host machine selection.";
     };
-    sysEntryDir = lib.options.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      example = "/home/alfred/system";
-      description = lib.mdDoc "Location of the system's `root.nix`.";
-    };
-    sysConfigDir = lib.options.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      example = "/home/alfred/system/system";
-      description = lib.mkDoc "Location of the system's `entry-point.nix`.";
-    };
   };
 
   config = {
     singleUser = lib.mkForce "bzm3r";
     sources = lib.mkForce (import ./npins);
-    sysEntryDir =
-      lib.mkForce (lib.strings.normalizePath (builtins.getEnv "SYS_ENTRY_DIR"));
-    sysConfigDir =
-      lib.mkForce (lib.strings.normalizePath (builtins.getEnv "SYS_CONFIG_DIR"));
 
     environment.systemPackages = with pkgs;
       [
@@ -73,7 +59,8 @@
     environment.variables = {
       NIXPKGS_CONFIG = lib.mkForce (toString ./nixpkgs/config.nix);
       NIX_PATH = lib.mkForce (builtins.getEnv "NIX_PATH");
-      NIX_SYS_CONFIG = lib.mkForce (toString ../.);
+      NIXOS_CONFIG_ENTRY = lib.mkForce (builtins.getEnv "NIXOS_CONFIG_ENTRY");
+      NIXOS_CONFIG_DIR = lib.mkForce (builtins.getEnv "NIXOS_CONFIG_DIR");
     };
 
     # Remove the stateful nix-channel command

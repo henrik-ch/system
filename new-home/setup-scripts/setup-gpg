@@ -1,0 +1,6 @@
+#/usr/bin/env bash
+
+gpg-import $1
+pass init
+gh auth login
+

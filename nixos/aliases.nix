@@ -2,7 +2,7 @@
 let
   subSysConfig = subPath:
     lib.debug.traceVal  (lib.strings.normalizePath
-    "${config.sysConfigDir}/${subPath}");
+    "${config.environment.variables.NIXOS_CONFIG_DIR}/${subPath}");
 in {
   programs.zsh = {
     shellAliases = let
