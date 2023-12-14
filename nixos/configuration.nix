@@ -44,24 +44,26 @@
       # hardware scanner + firmware recommender
       fwupd.enable = true;
       udisks2.enable = true;
-      kmscon = {
-        enable = true;
-        fonts = [
-          {
-            name = "Inconsolata";
-            package = pkgs.inconsolata-nerdfont;
-          }
-          {
-            name = "Source Code Pro";
-            package =
-              (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; });
-          }
-        ];
-        extraConfig = ''
-        font-size=18
-        '';
-        autologinUser = config.singleUser;
-      };
+      # kmscon = {
+      #   enable = true;
+      #   fonts = [
+      #     {
+      #       name = "Inconsolata";
+      #       package = pkgs.inconsolata-nerdfont;
+      #     }
+      #     {
+      #       name = "Source Code Pro";
+      #       package =
+      #         (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; });
+      #     }
+      #   ];
+      #   extraConfig = ''
+      #   font-size=16
+      #   font-dpi=121
+      #   '';
+      #   hwRender = true;
+      #   autologinUser = config.singleUser;
+      # };
     };
 
     # should set up one-time auto-detect (perhaps on startup/login)
