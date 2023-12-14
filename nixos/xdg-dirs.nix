@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 let
   mapGenAttrs = inputs: inputToAttr: attrToVal:
     lib.genAttrs (map inputToAttr inputs) attrToVal;
@@ -14,14 +14,14 @@ let
     "PUBLICSHARE"
     "TEMPLATES"
     "VIDEOS"
-  ] (x: mkXdgDir x "DIR") (x: "$HOME");
+  ] (mkXdgDir "DIR") (x: "$HOME");
 
   xdgHomeDirs = builtins.listToAttrs (map (x: {
-    name = mkXdgDir x "HOME";
+    name = mkXdgDir "HOME" x;
     value = "$HOME/${x}";
   }) [ "CACHE" "CONFIG" "DATA" "STATE"  ] );
 in {
   environment.systemPackages = with pkgs; [ xdg-user-dirs ];
 
-  environment.variables = xdgSubDirs // xdgHomeDirs;
+  environment.variables = lib.traceVal (xdgSubDirs // xdgHomeDirs);
 }
