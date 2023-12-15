@@ -58,7 +58,6 @@ in {
     wrapperFeatures.gtk = true;
     extraSessionCommands = ''
       export WLR_RENDERER=vulkan
-      export MOZ_ENABLE_WAYLAND=1
       export SDL_VIDEODRIVER=wayland
       dbus-update-activation-environment --all
       gnome-keyring-daemon --start --components=secrets
