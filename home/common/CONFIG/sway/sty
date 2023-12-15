@@ -2,8 +2,6 @@
 # THEMING
 # ===========================================
 
-seat seat0 xcursor_theme phinger-cursors 24
-
 ### Border
 default_border pixel 2
 default_floating_border pixel 2

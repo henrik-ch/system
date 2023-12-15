@@ -554,7 +554,7 @@
         "command": "errorLens.searchForProblem"
     },
     {
-        "key": "alt+/ w",
+        "key": "ctrl+/ w",
         "command": "rewrap.rewrapComment",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -1623,7 +1623,7 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "alt+/ /",
+        "key": "ctrl+/ /",
         "command": "editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -1633,7 +1633,7 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "alt+/ b",
+        "key": "ctrl+/ b",
         "command": "editor.action.blockComment",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -1811,11 +1811,11 @@
         "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
     {
-        "key": "alt+p s",
+        "key": "ctrl+p s",
         "command": "workbench.action.openGlobalSettings"
     },
     {
-        "key": "alt+p k",
+        "key": "ctrl+p k",
         "command": "workbench.action.openGlobalKeybindings"
     },
     {
@@ -2250,5 +2250,29 @@
     {
         "key": "ctrl+g c",
         "command": "cSpell.goToPreviousSpellingIssueAndSuggest"
+    },
+    {
+        "key": "ctrl+k ctrl+r",
+        "command": "-workbench.action.keybindingsReference"
+    },
+    {
+        "key": "ctrl+g j",
+        "command": "references-view.prev",
+        "when": "reference-list.hasResult && references-view.canNavigate"
+    },
+    {
+        "key": "shift+f4",
+        "command": "-references-view.prev",
+        "when": "reference-list.hasResult && references-view.canNavigate"
+    },
+    {
+        "key": "ctrl+g k",
+        "command": "references-view.next",
+        "when": "reference-list.hasResult && references-view.canNavigate"
+    },
+    {
+        "key": "f4",
+        "command": "-references-view.next",
+        "when": "reference-list.hasResult && references-view.canNavigate"
     }
 ]

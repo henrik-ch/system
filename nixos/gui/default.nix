@@ -72,15 +72,30 @@
         # show key code of key being pressed
         wev
         phinger-cursors
+        # gsettings
+        # pkgs.writeTextFile {
+        #   name = "sway-config-gtk";
+        #   destination = "/share/icons/default/index.theme";
+        #   executable = true;
+        #   text = let
+        #     schema = pkgs.gsettings-desktop-schemas;
+        #     datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+        #   in ''
+        #     export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+        #     gnome_schema=org.gnome.desktop.interface
+        #     gsettings set $gnome_schema gtk-theme 'Adwaita-dark'
+        #     gsettings set $gnome_schema color-scheme 'prefer-dark'
+        #     gsettings set $gnome_schema cursor-theme '
+        #   '';
+        # }
       ];
     };
     dconf = {
       enable = true;
       profiles.user.databases = [{
-        settings.org.gnome.desktop.interface = {
+        settings."org/gnome/desktop/interface" = {
           font-antialiasing = "rgba";
           font-hinting = "full";
-          gtk-im-module = "gtk-im-context-simple";
           gtk-theme = "Adwaita-dark";
           color-scheme = "prefer-dark";
           font-name = "Atkinson Hyperlegible 16";
@@ -90,10 +105,10 @@
         };
       }];
     };
-    qt = {
-      enable = true;
-      style = "gtk2";
-      platformTheme = "gtk2";
-    };
+  };
+  qt = {
+    enable = true;
+    style = "gtk2";
+    platformTheme = "gtk2";
   };
 }
