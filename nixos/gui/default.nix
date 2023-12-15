@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./chat.nix
     ./editing.nix
@@ -32,35 +32,30 @@
     value = 1;
   }];
 
-  # xdg-desktop-portal works by exposing a series of D-Bus interfaces
-  # known as portals under a well-known name
-  # (org.freedesktop.portal.Desktop) and object path
-  # (/org/freedesktop/portal/desktop).
-  # The portal interfaces include APIs for file access, opening URIs,
-  # printing and others.
-  services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   wlr.enable = true;
+  #   # gtk portal needed to make gtk apps happy
+  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  # };
 
   # enable sway window manager
   programs = {
+    zsh.loginShellInit = ''
+      if [ -z "''${WAYLAND_DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
+        exec sway
+      fi
+    '';
     sway = {
       enable = true;
       wrapperFeatures.gtk = true;
       extraSessionCommands = ''
-        export WLR_RENDERER=vulkan
+        #export WLR_RENDERER=vulkan
         export SDL_VIDEODRIVER=wayland
-        dbus-update-activation-environment --all
-        gnome-keyring-daemon --start --components=secrets
+        export LIBSEAT_BACKEND=logind
+        export _JAVA_AWT_WM_NONREPARENTING=1
       '';
       extraPackages = with pkgs; [
-        dbus-sway
-        config-gtk
-
         # eww-wayland
         waybar
         kickoff
@@ -76,19 +71,29 @@
 
         # show key code of key being pressed
         wev
+        phinger-cursors
       ];
     };
     dconf = {
       enable = true;
-      settings = {
-        "org/gnome/desktop/interface" = {
+      profiles.user.databases = [{
+        settings.org.gnome.desktop.interface = {
+          font-antialiasing = "rgba";
+          font-hinting = "full";
+          gtk-im-module = "gtk-im-context-simple";
+          gtk-theme = "Adwaita-dark";
           color-scheme = "prefer-dark";
           font-name = "Atkinson Hyperlegible 16";
-          monospace-font-name = "Inconsolata Nerd Font 16";
+          cursor-theme = "phinger-cursors";
+          monospace-font-name = "Inconsolata Nerd Font Mono 16";
           document-font-name = "Atkinson Hyperlegible 16";
         };
-        "org/freedesktop/appearance" = { color-scheme = 1; };
-      };
+      }];
+    };
+    qt = {
+      enable = true;
+      style = "gtk2";
+      platformTheme = "gtk2";
     };
   };
 }

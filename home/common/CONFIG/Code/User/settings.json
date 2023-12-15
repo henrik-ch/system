@@ -52,6 +52,15 @@
     },
     /*
     ===============================
+        MARKDOWN
+    ===============================
+    */
+    // Markdown settings
+    "[plaintext]": {
+        "editor.wordWrap": "off"
+    },
+    /*
+    ===============================
         POWERSHELL
     ===============================
     */
@@ -156,7 +165,7 @@
     "editor.glyphMargin": false,
     // https://github.com/microsoft/vscode/issues/15968
     "diffEditor.ignoreTrimWhitespace": false,
-    "editor.renderWhitespace": "none",
+    "editor.renderWhitespace": "all",
     /*
         Colors
     */
@@ -207,6 +216,7 @@
             "peekViewEditor.matchHighlightBorder": "#00000000",
             "editor.lineHighlightBackground": "#000000",
             "editor.lineHighlightBorder": "#ffffff2d",
+            "editorWhitespace.foreground": "#676767",
             // "breadcrumb.foreground": "#ff000000",
             // "breadcrumb.background": "#ff000000",
             // "breadcrumb.focusForeground": "#ff000000",
@@ -401,7 +411,6 @@
     "git.closeDiffOnOperation": true,
     "git.enableSmartCommit": true,
     "git.mergeEditor": true,
-    "workbench.sideBar.location": "right",
     "peacock.favoriteColors": [
         {
             "name": "Angular Red",
@@ -612,4 +621,6 @@
     "workbench.editor.tabSizing": "shrink",
     "window.density.editorTabHeight": "compact",
     "rust-analyzer.server.path": "rust-analyzer",
+    "workbench.sideBar.location": "right",
+    "workbench.editor.showTabs": "none",
 }
