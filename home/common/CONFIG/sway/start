@@ -1,2 +1,3 @@
-exec dbus-sway-environment
-exec configure-gtk
+exec {
+    systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK 
+}

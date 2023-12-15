@@ -1,8 +1,4 @@
-{ pkgs, ... }:
-let
-  config-gtk = import ./gtk.nix { inherit pkgs; };
-  dbus-sway = import ./dbus-sway.nix { inherit pkgs; };
-in {
+{ pkgs, ... }: {
   imports = [
     ./chat.nix
     ./editing.nix
@@ -26,8 +22,6 @@ in {
     google-fonts
     wayland
     glib
-    gnome.dconf-editor
-    gnome3.adwaita-icon-theme
     gnome.nautilus
   ];
 
@@ -53,34 +47,48 @@ in {
   };
 
   # enable sway window manager
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    extraSessionCommands = ''
-      export WLR_RENDERER=vulkan
-      export SDL_VIDEODRIVER=wayland
-      dbus-update-activation-environment --all
-      gnome-keyring-daemon --start --components=secrets
-    '';
-    extraPackages = with pkgs; [
-      dbus-sway
-      config-gtk
+  programs = {
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+      extraSessionCommands = ''
+        export WLR_RENDERER=vulkan
+        export SDL_VIDEODRIVER=wayland
+        dbus-update-activation-environment --all
+        gnome-keyring-daemon --start --components=secrets
+      '';
+      extraPackages = with pkgs; [
+        dbus-sway
+        config-gtk
 
-      # eww-wayland
-      waybar
-      kickoff
-      # wlr-which-key
-      # swayest-workstyle
-      swaylock
-      swayidle
-      grim # screenshot functionality
-      slurp # screenshot functionality
-      wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-      mako # notification system developed by swaywm maintainer
-      wdisplays # tool to configure displays
+        # eww-wayland
+        waybar
+        kickoff
+        # wlr-which-key
+        # swayest-workstyle
+        swaylock
+        swayidle
+        grim # screenshot functionality
+        slurp # screenshot functionality
+        wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+        mako # notification system developed by swaywm maintainer
+        wdisplays # tool to configure displays
 
-      # show key code of key being pressed
-      wev
-    ];
+        # show key code of key being pressed
+        wev
+      ];
+    };
+    dconf = {
+      enable = true;
+      settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+          font-name = "Atkinson Hyperlegible 16";
+          monospace-font-name = "Inconsolata Nerd Font 16";
+          document-font-name = "Atkinson Hyperlegible 16";
+        };
+        "org/freedesktop/appearance" = { color-scheme = 1; };
+      };
+    };
   };
 }
