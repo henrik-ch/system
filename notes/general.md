@@ -13,8 +13,8 @@
 
 - create script wrapper that allows for templat-ized application of a script (i.e. better xargs)
 
-## Nix related
+## Auditing
 
-#### How does NixOS know that it should not delete the build artifacts needed to run a `shell.nix`?
+<https://wiki.archlinux.org/title/Audit_framework>
+<https://search.nixos.org/options?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=audit>
 
-<https://nixos.org/manual/nix/stable/release-notes/rl-0.10.html#release-010-2006-10-06>

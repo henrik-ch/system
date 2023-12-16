@@ -3,6 +3,7 @@
     ./chat.nix
     ./editing.nix
     ./fonts.nix
+    ./gtk.nix
     ./security.nix
     ./shell-scripts.nix
     ./terminal.nix
@@ -32,13 +33,6 @@
     value = 1;
   }];
 
-  # xdg.portal = {
-  #   enable = true;
-  #   wlr.enable = true;
-  #   # gtk portal needed to make gtk apps happy
-  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  # };
-
   # enable sway window manager
   programs = {
     zsh.loginShellInit = ''
@@ -49,8 +43,8 @@
     sway = {
       enable = true;
       wrapperFeatures.gtk = true;
+      #export WLR_RENDERER=vulkan
       extraSessionCommands = ''
-        #export WLR_RENDERER=vulkan
         export SDL_VIDEODRIVER=wayland
         export LIBSEAT_BACKEND=logind
         export _JAVA_AWT_WM_NONREPARENTING=1
@@ -71,39 +65,7 @@
 
         # show key code of key being pressed
         wev
-        phinger-cursors
-        # gsettings
-        # pkgs.writeTextFile {
-        #   name = "sway-config-gtk";
-        #   destination = "/share/icons/default/index.theme";
-        #   executable = true;
-        #   text = let
-        #     schema = pkgs.gsettings-desktop-schemas;
-        #     datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-        #   in ''
-        #     export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-        #     gnome_schema=org.gnome.desktop.interface
-        #     gsettings set $gnome_schema gtk-theme 'Adwaita-dark'
-        #     gsettings set $gnome_schema color-scheme 'prefer-dark'
-        #     gsettings set $gnome_schema cursor-theme '
-        #   '';
-        # }
       ];
-    };
-    dconf = {
-      enable = true;
-      profiles.user.databases = [{
-        settings."org/gnome/desktop/interface" = {
-          font-antialiasing = "rgba";
-          font-hinting = "full";
-          gtk-theme = "Adwaita-dark";
-          color-scheme = "prefer-dark";
-          font-name = "Atkinson Hyperlegible 16";
-          cursor-theme = "phinger-cursors";
-          monospace-font-name = "Inconsolata Nerd Font Mono 16";
-          document-font-name = "Atkinson Hyperlegible 16";
-        };
-      }];
     };
   };
   qt = {
@@ -111,4 +73,6 @@
     style = "gtk2";
     platformTheme = "gtk2";
   };
+  explicitSwayGSettings = false;
+  createGtk3SettingsIni = true;
 }

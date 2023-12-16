@@ -13,3 +13,7 @@ include ./bar
 include @sysconfdir@/sway/config.d/*
 
 font pango:Atkinson Hyperlegible 12
+
+exec_always {
+   sway-config-gtk
+}
