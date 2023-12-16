@@ -1,48 +1,51 @@
 { pkgs, lib, config, ... }:
 let
-  interfaceKeySlashed = "org/gnome/desktop/interface";
-  interfaceKeyDotted =
-    builtins.replaceStrings [ "/" ] [ "." ] interfaceKeySlashed;
-  interfaceSettings = {
-    font-antialiasing = "rgba";
-    font-hinting = "full";
+  gSettingsKeySlashed = "org/gnome/desktop/interface";
+  gSettingsKeyDotted =
+    builtins.replaceStrings [ "/" ] [ "." ] gSettingsKeySlashed;
+  gSettings = {
     gtk-theme = "Adwaita";
-    color-scheme = "prefer-dark";
+    icon-theme = "Humanity-Dark";
     font-name = "Atkinson Hyperlegible 16";
     cursor-theme = "phinger-cursors";
+    cursor-size = "24";
+    toolbar-style = "icon";
+    toolbar-icon-size = "large";
+    font-antialiasing = "rgba";
+    font-hinting = "slight";
     monospace-font-name = "Inconsolata Nerd Font Mono 16";
     document-font-name = "Atkinson Hyperlegible 16";
+    enable-hot-corners = "false";
+    color-scheme = "prefer-dark";
+  };
+  gtk3SettingsIni = {
+    gtk-theme-name = "Adwaita";
+    gtk-icon-theme-name = "Humanity-Dark";
+    gtk-font-name = "Atkinson Hyperlegible 16";
+    gtk-cursor-theme-name = "phinger-cursors";
+    gtk-cursor-theme-size = builtins.toString 24;
+    gtk-toolbar-style = "GTK_TOOLBAR_ICONS";
+    gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
+    gtk-button-images = builtins.toString 0;
+    gtk-menu-images = builtins.toString 0;
+    gtk-enable-event-sounds = builtins.toString 1;
+    gtk-enable-input-feedback-sounds = builtins.toString 0;
+    gtk-xft-antialias = builtins.toString 1;
+    gtk-xft-hinting = builtins.toString 1;
+    gtk-xft-hintstyle = "hintslight";
+    gtk-xft-rgba = "rgb";
+    gtk-application-prefer-dark-theme = builtins.toString 1;
   };
 in {
-
-  options = {
-    explicitSwayGSettings = lib.mkEnableOption "explicitSwaySettings";
-    createGtk3SettingsIni = lib.mkEnableOption "createGtk3SettingsIni";
-  };
-
   config = {
     environment.systemPackages = with pkgs; [
       phinger-cursors
-      (if config.explicitSwayGSettings then
-        (let
-          # https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/blob/master/schemas/org.gnome.desktop.interface.gschema.xml.in?ref_type=heads
-          schema = pkgs.gsettings-desktop-schemas;
-          datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-        in writeScriptBin "sway-config-gtk" ''
-          export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-          gnome_schema=org.gnome.desktop.interface
-          ${builtins.concatStringsSep "\n" (map
-            ({ name, value }: "gsettings set $gnome_schema ${name} '${value}'")
-            (lib.attrsToList interfaceKeyDotted))}
-        '')
-      else
-        writeScriptBin "sway-config-gtk" "")
     ];
 
     programs.dconf = {
       enable = true;
       profiles.user.databases = [{
-        settings.${interfaceKeySlashed} = interfaceSettings;
+        settings.${gSettingsKeySlashed} = gSettings;
         # lockAll prevents a user's settings from overriding the system's settings
         # https://help.gnome.org/admin/system-admin-guide/stable/dconf-lockdown.html.en
         # https://github.com/NixOS/nixpkgs/blob/a9bf124c46ef298113270b1f84a164865987a91c/nixos/modules/programs/dconf.nix#L123
@@ -50,31 +53,23 @@ in {
       }];
     };
 
-    environment.etc = lib.mkMerge [
-      # ({
-      #   "dconf/db/local.d/locks/prefer-system" = let
-      #     lockEntries = map
-      #       (name: builtins.concatStringsSep "/" [ interfaceKeySlashed name ])
-      #       (builtins.attrNames interfaceSettings);
-      #   in { text = "${builtins.concatStringsSep "\n" lockEntries}"; };
-
-      # })
-      (lib.mkIf config.createGtk3SettingsIni {
-
-        "xdg/gtk-3.0/settings.ini".text = ''
-          [Settings]
-          gtk-cursor-theme-name=phinger-cursors
-          gtk-font-name=SF Pro Text 12
-          gtk-icon-theme-name=Flat-Remix-Purple-Dark
-          gtk-theme-name=mountain
-        '';
-      })
-      {
-        # this is for qt compat
-        "xdg/gtk-2.0/gtkrc".text = ''
-          gtk-theme-name = "mountain"
-        '';
-      }
-    ];
+    environment.etc = {
+      "xdg/gtk-3.0/settings.ini".text = ''
+        [Settings]
+        ${builtins.concatStringsSep "\n"
+        (map ({ name, value }: "${name}=${value}")
+          (lib.attrsToList gtk3SettingsIni))}
+      '';
+      "gtk-3.0/settings.ini".text = ''
+        [Settings]
+        ${builtins.concatStringsSep "\n"
+        (map ({ name, value }: "${name}=${value}")
+          (lib.attrsToList gtk3SettingsIni))}
+      '';
+      # this is for qt compat
+      "xdg/gtk-2.0/gtkrc".text = ''
+        gtk-theme-name = "Adwaita"
+      '';
+    };
   };
 }

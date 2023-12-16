@@ -19,11 +19,11 @@
     wezterm
     firefox
     okular
-    bibata-cursors
     google-fonts
     wayland
     glib
-    gnome.nautilus
+    xfce.thunar
+    humanity-icon-theme
   ];
 
   security.pam.loginLimits = [{
@@ -73,6 +73,4 @@
     style = "gtk2";
     platformTheme = "gtk2";
   };
-  explicitSwayGSettings = false;
-  createGtk3SettingsIni = true;
 }

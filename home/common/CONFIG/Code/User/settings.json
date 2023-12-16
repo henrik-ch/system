@@ -52,10 +52,10 @@
     },
     /*
     ===============================
-        MARKDOWN
+        PLAIN TEXT
     ===============================
     */
-    // Markdown settings
+    // Plain text settings
     "[plaintext]": {
         "editor.wordWrap": "off"
     },

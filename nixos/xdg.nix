@@ -29,7 +29,7 @@ in {
     mime = {
       enable = true;
       defaultApplications = {
-        "inode/directory" = "nautilus.desktop";
+        "inode/directory" = "thunar.desktop";
         "image/gif" = [ "firefox.desktop" ];
       };
     };
