@@ -12,4 +12,4 @@ include ./bar
 
 include @sysconfdir@/sway/config.d/*
 
-font pango:Atkinson Hyperlegible 16
+font pango:Atkinson Hyperlegible 12

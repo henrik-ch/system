@@ -533,7 +533,7 @@
     "rust-analyzer.restartServerOnConfigChange": true,
     "rust-analyzer.completion.privateEditable.enable": true,
     "editor.inlayHints.fontFamily": "Atkinson Hyperlegible",
-    "editor.inlayHints.enabled": "off",
+    "editor.inlayHints.enabled": "on",
     "errorLens.excludeBySource": [
         "rustc(E0412)"
     ],

@@ -4,7 +4,6 @@
     ./editing.nix
     ./fonts.nix
     ./gtk.nix
-    ./security.nix
     ./shell-scripts.nix
     ./terminal.nix
     ./vm.nix

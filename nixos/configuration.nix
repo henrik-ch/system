@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
   imports = [
     ./admin.nix
     ./aliases.nix
@@ -29,14 +29,6 @@
     hardware.opengl.enable = true;
     i18n.defaultLocale = "en_US.UTF-8";
 
-    # a bigger, default tty font
-    console = with pkgs; {
-      earlySetup = true;
-      font = "${terminus_font}/share/consolefonts/ter-132n.psf.gz";
-      packages = [ terminus_font ];
-      keyMap = "us";
-    };
-
     security = {
       sudo.extraConfig = "Defaults lecture = never ";
       polkit.enable = true;
@@ -46,26 +38,15 @@
       # hardware scanner + firmware recommender
       fwupd.enable = true;
       udisks2.enable = true;
-      # kmscon = {
-      #   enable = true;
-      #   fonts = [
-      #     {
-      #       name = "Inconsolata";
-      #       package = pkgs.inconsolata-nerdfont;
-      #     }
-      #     {
-      #       name = "Source Code Pro";
-      #       package =
-      #         (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; });
-      #     }
-      #   ];
-      #   extraConfig = ''
-      #   font-size=16
-      #   font-dpi=121
-      #   '';
-      #   hwRender = true;
-      #   autologinUser = config.singleUser;
-      # };
+    };
+
+    boot.plymouth.enable = lib.mkDefault false;
+
+    specialisation = lib.mkIf (config.machine.label == "d") {
+      withPlymouth.configuration = {
+          boot.plymouth.enable = lib.mkForce true;
+          quietBoot = lib.mkForce true;
+      };
     };
 
     # should set up one-time auto-detect (perhaps on startup/login)

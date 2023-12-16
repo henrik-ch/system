@@ -3,7 +3,7 @@
         d = {
           initrd = {
             availableKernelModules =
-              [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+              [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "amdgpu" ];
             kernelModules = [ "kvm-intel" ];
           };
           homeDevice = "3T";
@@ -13,7 +13,7 @@
         l = {
           initrd = {
             availableKernelModules =
-              [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+              [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" "amdgpu" ];
             kernelModules = [ "kvm-amd" ];
           };
           homeDevice = "FS";

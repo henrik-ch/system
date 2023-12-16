@@ -13,7 +13,7 @@ color_schemes.bzm3r = {
         -- Specifies the border color of the cursor when the cursor style is set
         -- to Block, or the color of the vertical or horizontal bar when the
         -- cursor style is set to Bar or Underline.
-        cursor_border = '#ffffff',
+        cursor_border = '#ff8f3f',
 
         -- the foreground color of selected text
         selection_fg = '#ffffff',
@@ -28,22 +28,22 @@ color_schemes.bzm3r = {
 
         ansi = {
             '#000000',
-            '#ff0400',
-            '#2bff00',
-            '#ff8400',
-            '#059fff',
-            '#de58ff',
-            '#ccccff',
-            '#ffffff',
+            '#ff5555',
+            '#55ff55',
+            '#ffff55',
+            '#5555ff',
+            '#ff55ff',
+            '#55ffff',
+            '#bbbbbb',
         },
         brights = {
-            '#000000',
-            '#ff0400',
-            '#2bff00',
-            '#ff8400',
-            '#059fff',
-            '#de58ff',
-            '#ccccff',
+            '#555555',
+            '#ff5555',
+            '#55ff55',
+            '#ffff55',
+            '#5555ff',
+            '#ff55ff',
+            '#55ffff',
             '#ffffff',
         },
 
