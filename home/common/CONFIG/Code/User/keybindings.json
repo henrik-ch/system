@@ -2274,5 +2274,9 @@
         "key": "f4",
         "command": "-references-view.next",
         "when": "reference-list.hasResult && references-view.canNavigate"
+    },
+    {
+        "key": "ctrl+q o",
+        "command": "workbench.action.closeEditorsInOtherGroups"
     }
 ]
