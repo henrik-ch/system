@@ -42,7 +42,8 @@
 
     boot.plymouth.enable = lib.mkDefault false;
 
-    specialisation = lib.mkIf (config.machine.label == "d") {
+    # original condition: config.machine.label == "d"
+    specialisation = lib.mkIf (false) {
       withPlymouth.configuration = {
           boot.plymouth.enable = lib.mkForce true;
           quietBoot = lib.mkForce true;
