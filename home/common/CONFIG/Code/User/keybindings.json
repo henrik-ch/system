@@ -217,7 +217,7 @@
                 "actions.find",
             ]
         },
-        "when": "!editorHasSelection && (editorFocus || editorIsOpen)  editorReadonly"
+        "when": "!editorHasSelection && (editorFocus || editorIsOpen) && editorReadonly"
     },
     /**
     * Hide Toaster Notifications
