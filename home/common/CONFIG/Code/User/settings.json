@@ -14,7 +14,7 @@
         FILES
     ===============================
     */
-    "files.autoSave": "afterDelay",
+    "files.autoSave": "onFocusChange",
     /*
     ===============================
         TELEMETRY
@@ -555,7 +555,7 @@
     "errorLens.searchForProblemQuery": "https://google.com/?q=$message",
     "errorLens.statusBarMessageEnabled": true,
     "errorLens.statusBarIconsAtZero": "hide",
-    "errorLens.messageEnabled": false,
+    "errorLens.messageEnabled": true,
     "errorLens.statusBarMessageTemplate": "$message",
     "errorLens.statusBarMessageType": "closestProblem",
     "errorLens.enabledDiagnosticLevels": [

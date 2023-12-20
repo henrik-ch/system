@@ -266,10 +266,10 @@
             "commands": [
                 "saveAll",
                 "rust-analyzer.runFlycheck",
-                "editor.action.formatDocument.multiple"
+                "editor.action.formatDocument"
             ]
         },
-        "when": "editorTextFocus && editorLangId == 'rust'",
+        "when": "editorLangId == 'rust'",
     },
     {
         "key": "ctrl+s",
@@ -277,10 +277,10 @@
         "args": {
             "commands": [
                 "saveAll",
-                "editor.action.formatDocument.multiple"
+                "editor.action.formatDocument"
             ]
         },
-        "when": "editorTextFocus && editorLangId == 'nix'",
+        "when": "editorLangId != 'rust'",
     },
     {
         "key": "ctrl+.",
@@ -2278,5 +2278,9 @@
     {
         "key": "ctrl+q o",
         "command": "workbench.action.closeEditorsInOtherGroups"
+    },
+    {
+        "key": "ctrl+e t",
+        "command": "errorLens.toggleInlineMessage"
     }
 ]

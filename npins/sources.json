@@ -8,15 +8,27 @@
         "repo": "mkscript"
       },
       "branch": "main",
-      "revision": "ff675d0bdc6d71dff3f91a0c3131681cdc33b2a7",
-      "url": "https://github.com/bzm3r/mkscript/archive/ff675d0bdc6d71dff3f91a0c3131681cdc33b2a7.tar.gz",
-      "hash": "0b87g3bsgcphjdzxzcz41vkx5960aqr0gljy34dyjj2k6zv4fsqz"
+      "revision": "29bfe2b7b6feaaba737b33b863d47a945f11c7ab",
+      "url": "https://github.com/bzm3r/mkscript/archive/29bfe2b7b6feaaba737b33b863d47a945f11c7ab.tar.gz",
+      "hash": "13y73j34zc39bvyj1hnm48sq4b4wrjdy2dzbvvmb2fl7kvwcvp28"
     },
     "nixpkgs": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre560865.886c9aee6ca9/nixexprs.tar.xz",
-      "hash": "0c0zsy2jj32yrda2ibv3ss9z2bjq7arg9gxpa0zna5ml54l7sl56"
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre561031.dd8e82f3b401/nixexprs.tar.xz",
+      "hash": "1hv00l13fac7pb5dvz8x07n56gpi5r5g3lnx6jd42g92kbjdbkhp"
+    },
+    "pmv": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "bzm3r",
+        "repo": "pmv"
+      },
+      "branch": "main",
+      "revision": "2cef0a63bd87ed704fc624cd2bea6cde8e30ef70",
+      "url": "https://github.com/bzm3r/pmv/archive/2cef0a63bd87ed704fc624cd2bea6cde8e30ef70.tar.gz",
+      "hash": "0frgh1ika22y8kdsa0z7jmkb42wxdsfzr59ndqvann7pxsx07h6v"
     },
     "rust-shell": {
       "type": "Git",
