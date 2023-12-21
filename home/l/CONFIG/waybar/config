@@ -98,6 +98,25 @@
 		"format": "Disk {percentage_used:2}%",
 		"path": "/"
 	},
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": " {ifname}",
+        "tooltip-format": " {ifname} via {gwaddr}",
+        "format-linked": " {ifname} (No IP)",
+        "format-disconnected": "Disconnected ⚠ {ifname}",
+        "format-alt": " {ifname}: {ipaddr}/{cidr}"
+    },
+	"battery": {
+		"format": "{icon} {capacity}%",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		]
+	},
 	"tray": {
 		"icon-size": 20
 	}

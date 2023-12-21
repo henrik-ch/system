@@ -14,7 +14,7 @@
         FILES
     ===============================
     */
-    "files.autoSave": "onFocusChange",
+    "files.autoSave": "afterDelay",
     /*
     ===============================
         TELEMETRY
@@ -44,21 +44,11 @@
     */
     // Markdown settings
     "[markdown]": {
-        "editor.rulers": [],
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
         "editor.formatOnType": true,
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
         "rewrap.autoWrap.enabled": false,
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
-    },
-    /*
-    ===============================
-        PLAIN TEXT
-    ===============================
-    */
-    // Plain text settings
-    "[plaintext]": {
-        "editor.wordWrap": "off"
     },
     /*
     ===============================
@@ -166,7 +156,7 @@
     "editor.glyphMargin": false,
     // https://github.com/microsoft/vscode/issues/15968
     "diffEditor.ignoreTrimWhitespace": false,
-    "editor.renderWhitespace": "all",
+    "editor.renderWhitespace": "none",
     /*
         Colors
     */
@@ -217,7 +207,6 @@
             "peekViewEditor.matchHighlightBorder": "#00000000",
             "editor.lineHighlightBackground": "#000000",
             "editor.lineHighlightBorder": "#ffffff2d",
-            "editorWhitespace.foreground": "#676767",
             // "breadcrumb.foreground": "#ff000000",
             // "breadcrumb.background": "#ff000000",
             // "breadcrumb.focusForeground": "#ff000000",
@@ -412,6 +401,7 @@
     "git.closeDiffOnOperation": true,
     "git.enableSmartCommit": true,
     "git.mergeEditor": true,
+    "workbench.sideBar.location": "right",
     "peacock.favoriteColors": [
         {
             "name": "Angular Red",
@@ -535,6 +525,9 @@
     "rust-analyzer.completion.privateEditable.enable": true,
     "editor.inlayHints.fontFamily": "Atkinson Hyperlegible",
     "editor.inlayHints.enabled": "off",
+    "errorLens.excludeBySource": [
+        "rustc(E0412)"
+    ],
     "editor.inlineSuggest.showToolbar": "always",
     "editor.quickSuggestionsDelay": 0,
     "editor.suggest.localityBonus": true,
@@ -553,7 +546,7 @@
     "errorLens.searchForProblemQuery": "https://google.com/?q=$message",
     "errorLens.statusBarMessageEnabled": true,
     "errorLens.statusBarIconsAtZero": "hide",
-    "errorLens.messageEnabled": true,
+    "errorLens.messageEnabled": false,
     "errorLens.statusBarMessageTemplate": "$message",
     "errorLens.statusBarMessageType": "closestProblem",
     "errorLens.enabledDiagnosticLevels": [
@@ -619,6 +612,4 @@
     "workbench.editor.tabSizing": "shrink",
     "window.density.editorTabHeight": "compact",
     "rust-analyzer.server.path": "rust-analyzer",
-    "workbench.sideBar.location": "right",
-    "workbench.editor.showTabs": "none",
 }
