@@ -44,11 +44,12 @@
     */
     // Markdown settings
     "[markdown]": {
+        "editor.rulers": [],
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
         "editor.formatOnType": true,
-        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
         "rewrap.autoWrap.enabled": false,
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     },
     /*
     ===============================
@@ -534,9 +535,6 @@
     "rust-analyzer.completion.privateEditable.enable": true,
     "editor.inlayHints.fontFamily": "Atkinson Hyperlegible",
     "editor.inlayHints.enabled": "off",
-    "errorLens.excludeBySource": [
-        "rustc(E0412)"
-    ],
     "editor.inlineSuggest.showToolbar": "always",
     "editor.quickSuggestionsDelay": 0,
     "editor.suggest.localityBonus": true,
