@@ -572,7 +572,7 @@
     ],
     "workbench.activityBar.location": "hidden",
     "editor.codeLensFontFamily": "Atkinson Hyperlegible",
-    "window.zoomLevel": 2,
+    "window.zoomLevel": 1,
     "editor.fontSize": 16,
     "files.autoSaveDelay": 1500,
     "[nix]": {

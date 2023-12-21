@@ -20,10 +20,10 @@ config.color_schemes = color_schemes
 config.color_scheme = 'bzm3r'
 config.font =  wezterm.font_with_fallback {
   'Inconsolata Nerd Font Mono',
-  'Source Code Pro',
-  'JetBrains Mono',
   'Nerd Font Symbols',
   'Noto Color Emoji',
+  'Source Code Pro',
+  'JetBrains Mono',
 }
 config.font_size = fontprops.size
 -- and finally, return the configuration to wezterm

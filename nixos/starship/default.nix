@@ -371,12 +371,12 @@ in {
           up_to_date = style.ok ""; # 🙫󰓦󰄭
           conflicted = countSym style.alert ""; # ⮻⩙⪤⮺🗗 ⮼⧉❐❏⧉⮻⩙󰡌
           stashed = countSym style.info ""; # ⧈🞔
-          #deleted = countSym style.attn ""; #⊠⬚
-          #renamed = countSym style.attn ""; #⛋
-          staged = countSym style.ok "⭱"; # ▤▧▩⛶🞏
+          deleted = countSym style.info ""; # ⊠⬚
+          renamed = countSym style.info ""; # ⛋
+          staged = countSym style.info ""; # ⭱▤▧▩⛶🞏
           #typechanged = countSym style.info "󱡔"; #◨󱎖
           modified = countSym style.alert "●"; # ⊡▩
-          untracked = countSym style.alert "?"; # ⌑⛶
+          untracked = countSym style.alert ""; # ⌑⛶?
         };
       in {
         format = "(${ahead_behind})(${status})";

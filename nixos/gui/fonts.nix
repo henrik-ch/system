@@ -6,16 +6,18 @@
     inter
     source-sans
     source-serif
-    inconsolata-nerdfont
-    (nerdfonts.override { fonts = [ "SourceCodePro" ]; })
+    (nerdfonts.override { fonts = [ "Inconsolata" "SourceCodePro" ]; })
     (callPackage ./drvs/de-aetna.nix { })
   ];
 
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace =
-        [ "Inconsolata" "Source Code Pro Nerd Font" "Source Code Pro" ];
+      monospace = [
+        "Inconsolata Nerd Font Mono"
+        "Source Code Pro Nerd Font"
+        "Source Code Pro"
+      ];
       serif = [ "Lora" "Vollkorn" "Source Serif Pro" ];
       sansSerif = [ "Atkinson Hyperlegible" "Inter" "Source Sans Pro" ];
     };
