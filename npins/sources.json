@@ -12,11 +12,11 @@
       "url": "https://github.com/bzm3r/mkscript/archive/29bfe2b7b6feaaba737b33b863d47a945f11c7ab.tar.gz",
       "hash": "13y73j34zc39bvyj1hnm48sq4b4wrjdy2dzbvvmb2fl7kvwcvp28"
     },
-    "nixpkgs": {
+    "nixos-unstable": {
       "type": "Channel",
-      "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.05pre561758.d6863cbcbbb8/nixexprs.tar.xz",
-      "hash": "0gxm9qvlaj202ngrvlnivypbiclxizyd6axq9ip5ddj6mf8mfpaj"
+      "name": "nixos-unstable",
+      "url": "https://releases.nixos.org/nixos/unstable/nixos-24.05pre561409.54aac082a4d9/nixexprs.tar.xz",
+      "hash": "1302k5sjvczi722m7s9jd1k2dhblwc3m5cflcwq57whhmjviq68f"
     },
     "pmv": {
       "type": "Git",
