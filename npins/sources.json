@@ -1,5 +1,17 @@
 {
   "pins": {
+    "haskell-shell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "bzm3r",
+        "repo": "haskell-shell"
+      },
+      "branch": "main",
+      "revision": "4b5b8d7050e4ea59541bfbdf72ec1252c75e4467",
+      "url": "https://github.com/bzm3r/haskell-shell/archive/4b5b8d7050e4ea59541bfbdf72ec1252c75e4467.tar.gz",
+      "hash": "1pkiwb62dmk7j9als7wj84l77cyrbx7gxxhzjpzgq00sfsyc6sq2"
+    },
     "mkscript": {
       "type": "Git",
       "repository": {
@@ -38,9 +50,9 @@
         "repo": "rust-shell"
       },
       "branch": "main",
-      "revision": "5a0c2d71807cdd384ce3baa0bed8365246a95e4d",
-      "url": "https://github.com/bzm3r/rust-shell/archive/5a0c2d71807cdd384ce3baa0bed8365246a95e4d.tar.gz",
-      "hash": "0izipsy9jjbi9d1160m5w1clvg2y0pzcp7a3rjl5s9wkiv94fb7x"
+      "revision": "65b5250d27466f0912399c8d9919dbd97371f183",
+      "url": "https://github.com/bzm3r/rust-shell/archive/65b5250d27466f0912399c8d9919dbd97371f183.tar.gz",
+      "hash": "1kawzl35k76xqdb9af4xwn3v77yndd1yji8rda1891m4hxg3hn5g"
     }
   },
   "version": 3

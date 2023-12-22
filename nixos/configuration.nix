@@ -45,8 +45,8 @@
     # original condition: config.machine.label == "d"
     specialisation = lib.mkIf (false) {
       withPlymouth.configuration = {
-          boot.plymouth.enable = lib.mkForce true;
-          quietBoot = lib.mkForce true;
+        boot.plymouth.enable = lib.mkForce true;
+        quietBoot = lib.mkForce true;
       };
     };
 
@@ -68,5 +68,6 @@
     };
 
     cargoHomeBase = config.userHome;
+    cabalHomeBase = config.userHome;
   };
 }
