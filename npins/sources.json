@@ -26,9 +26,9 @@
         "repo": "pmv"
       },
       "branch": "main",
-      "revision": "2cef0a63bd87ed704fc624cd2bea6cde8e30ef70",
-      "url": "https://github.com/bzm3r/pmv/archive/2cef0a63bd87ed704fc624cd2bea6cde8e30ef70.tar.gz",
-      "hash": "0frgh1ika22y8kdsa0z7jmkb42wxdsfzr59ndqvann7pxsx07h6v"
+      "revision": "bccf479e40d88007c00768897c1572ecc131457f",
+      "url": "https://github.com/bzm3r/pmv/archive/bccf479e40d88007c00768897c1572ecc131457f.tar.gz",
+      "hash": "1s5xajzpw1axdf9v0b19x4hmcsm2xpyx4v6bbf2a64w310dimabp"
     },
     "rust-shell": {
       "type": "Git",
