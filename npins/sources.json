@@ -50,9 +50,9 @@
         "repo": "rust-shell"
       },
       "branch": "main",
-      "revision": "0e45d0c56740aaa432a21afedda104f708bc32fd",
-      "url": "https://github.com/bzm3r/rust-shell/archive/0e45d0c56740aaa432a21afedda104f708bc32fd.tar.gz",
-      "hash": "00r3fh3dz3gmyl45vis4q909i0n1z9mca73fp0rqkzikx7hfdryr"
+      "revision": "65b5250d27466f0912399c8d9919dbd97371f183",
+      "url": "https://github.com/bzm3r/rust-shell/archive/65b5250d27466f0912399c8d9919dbd97371f183.tar.gz",
+      "hash": "1kawzl35k76xqdb9af4xwn3v77yndd1yji8rda1891m4hxg3hn5g"
     }
   },
   "version": 3

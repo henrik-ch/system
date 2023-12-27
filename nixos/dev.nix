@@ -19,7 +19,6 @@
       helix # no vim or emacs allowed
       shellcheck
       elfutils
-      statix
       (callPackage config.sources.rust-shell {
         name = "rust";
         inherit (config) cargoHomeBase;
