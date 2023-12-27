@@ -265,7 +265,7 @@
         "args": {
             "commands": [
                 "saveAll",
-                "rust-analyzer.runFlycheck",
+                // "rust-analyzer.runFlycheck",
                 "editor.action.formatDocument"
             ]
         },

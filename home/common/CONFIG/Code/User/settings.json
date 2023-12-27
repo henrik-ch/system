@@ -353,7 +353,7 @@
                     "foreground": "#92d7ff8f"
                 },
                 "comment.documentation": {
-                    "foreground": "#ff92f68f"
+                    "foreground": "#74b86a8f"
                 },
                 "unresolvedReference": {
                     "foreground": "#ff000090",
@@ -385,7 +385,7 @@
         "--message-format=json",
         "--all-targets",
     ],
-    "rust-analyzer.checkOnSave": false,
+    "rust-analyzer.checkOnSave": true,
     "terminal.sourceControlRepositoriesKind": "external",
     "errorLens.enabled": true,
     "audioCues.lineHasError": "off",
@@ -612,4 +612,5 @@
     "workbench.editor.tabSizing": "shrink",
     "window.density.editorTabHeight": "compact",
     "rust-analyzer.server.path": "rust-analyzer",
+    "workbench.editor.showTabs": "none",
 }

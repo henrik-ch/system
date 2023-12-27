@@ -2,6 +2,7 @@
 local wezterm = require 'wezterm'
 local fontprops  = require 'fontprops'
 local color_schemes = require 'color_schemes'
+local keybindings = require 'keybindings'
 
 -- This table will hold the configuration.
 local config = {}
@@ -18,13 +19,15 @@ config.default_cursor_style = 'SteadyBlock'
 -- For example, changing the color scheme:
 config.color_schemes = color_schemes
 config.color_scheme = 'bzm3r'
-config.font =  wezterm.font_with_fallback {
-  'Inconsolata Nerd Font Mono',
-  'Nerd Font Symbols',
-  'Noto Color Emoji',
-  'Source Code Pro',
-  'JetBrains Mono',
+
+fontprops.apply_to_config(config)
+keybindings.apply_to_config(config)
+
+config.unix_domains = {
+    {
+        name = 'unix',
+    },
 }
-config.font_size = fontprops.size
+
 -- and finally, return the configuration to wezterm
 return config

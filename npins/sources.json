@@ -8,9 +8,9 @@
         "repo": "haskell-shell"
       },
       "branch": "main",
-      "revision": "4b5b8d7050e4ea59541bfbdf72ec1252c75e4467",
-      "url": "https://github.com/bzm3r/haskell-shell/archive/4b5b8d7050e4ea59541bfbdf72ec1252c75e4467.tar.gz",
-      "hash": "1pkiwb62dmk7j9als7wj84l77cyrbx7gxxhzjpzgq00sfsyc6sq2"
+      "revision": "2bc7f222c87882fa3312381f947e245fa391d08c",
+      "url": "https://github.com/bzm3r/haskell-shell/archive/2bc7f222c87882fa3312381f947e245fa391d08c.tar.gz",
+      "hash": "1h9fclvqwifl8hc11lqmlc0ks469lbbzgi09j8zvx780ncbmpigh"
     },
     "mkscript": {
       "type": "Git",
@@ -20,15 +20,15 @@
         "repo": "mkscript"
       },
       "branch": "main",
-      "revision": "29bfe2b7b6feaaba737b33b863d47a945f11c7ab",
-      "url": "https://github.com/bzm3r/mkscript/archive/29bfe2b7b6feaaba737b33b863d47a945f11c7ab.tar.gz",
-      "hash": "13y73j34zc39bvyj1hnm48sq4b4wrjdy2dzbvvmb2fl7kvwcvp28"
+      "revision": "f2a9455c3be9fdb964903eca48ce698043fca876",
+      "url": "https://github.com/bzm3r/mkscript/archive/f2a9455c3be9fdb964903eca48ce698043fca876.tar.gz",
+      "hash": "0sb1iffwirza2i81i4rsvwbmr4n6w1ckpshx3rx7n1zr20c1plrr"
     },
     "nixos-unstable": {
       "type": "Channel",
       "name": "nixos-unstable",
-      "url": "https://releases.nixos.org/nixos/unstable/nixos-24.05pre561409.54aac082a4d9/nixexprs.tar.xz",
-      "hash": "1302k5sjvczi722m7s9jd1k2dhblwc3m5cflcwq57whhmjviq68f"
+      "url": "https://releases.nixos.org/nixos/unstable/nixos-24.05pre562833.5f64a12a7289/nixexprs.tar.xz",
+      "hash": "0b6fqpc9chscgy8w606fn3y35y1hrxljh7bvi8dji99v8lrygccc"
     },
     "pmv": {
       "type": "Git",
@@ -38,9 +38,9 @@
         "repo": "pmv"
       },
       "branch": "main",
-      "revision": "bccf479e40d88007c00768897c1572ecc131457f",
-      "url": "https://github.com/bzm3r/pmv/archive/bccf479e40d88007c00768897c1572ecc131457f.tar.gz",
-      "hash": "1s5xajzpw1axdf9v0b19x4hmcsm2xpyx4v6bbf2a64w310dimabp"
+      "revision": "a2ccff9870dbaf19aaa6d6e712d311719524db83",
+      "url": "https://github.com/bzm3r/pmv/archive/a2ccff9870dbaf19aaa6d6e712d311719524db83.tar.gz",
+      "hash": "16x817aa24ppb6sfyp2jjfjvavskk7bzslyb9cvasxx1v8iwf802"
     },
     "rust-shell": {
       "type": "Git",
@@ -50,9 +50,9 @@
         "repo": "rust-shell"
       },
       "branch": "main",
-      "revision": "65b5250d27466f0912399c8d9919dbd97371f183",
-      "url": "https://github.com/bzm3r/rust-shell/archive/65b5250d27466f0912399c8d9919dbd97371f183.tar.gz",
-      "hash": "1kawzl35k76xqdb9af4xwn3v77yndd1yji8rda1891m4hxg3hn5g"
+      "revision": "0e45d0c56740aaa432a21afedda104f708bc32fd",
+      "url": "https://github.com/bzm3r/rust-shell/archive/0e45d0c56740aaa432a21afedda104f708bc32fd.tar.gz",
+      "hash": "00r3fh3dz3gmyl45vis4q909i0n1z9mca73fp0rqkzikx7hfdryr"
     }
   },
   "version": 3
