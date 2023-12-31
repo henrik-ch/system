@@ -17,7 +17,7 @@ Based on
 The following thoughts ultimately motivate this repository's approach:
 
 - It is worth breaking out of the shackles of UNIX.
-- A small step, is good enough; and "good enough" is
+- A small step, is good enough; and "good enough" *is*.
 - Elegance can make a human being laugh.
 - Nix/NixOS is not easy to learn, but not because it has bad documentation, as
   is commonly believed. Instead, Nix/NixOS's learning curve is exacerbated by:
