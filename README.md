@@ -24,7 +24,7 @@ The following thoughts ultimately motivate this repository's approach:
     1. power struggles within the Nix/NixOS community, due to powerful entities believing:
         - it is not possible to ease the use and documentation of a programming language
           (and ultimately, the art of reasoning) through the use of conceptual and mental aids and tools;
-        - believing that Nix ought to be profited from through commercialization of
+        - that Nix ought to be profited from through commercialization of
             the current version regardless of its limitations, therefore it is better to invest in building attractive websites and beguiling graphical installers, rather than documentation/contributor/maintenance teams.
     2. the production of a number of tools meant to "simplify" Nix/NixOS, without understanding that:
          1. Nix/NixOS is [a fundamental repudiation of the "UNIX philosophy"](https://www.tweag.io/blog/2022-07-14-taming-unix-with-nix/);
