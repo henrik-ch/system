@@ -105,7 +105,8 @@
 		"states": {
 			"good": 95,
 			"warning": 30,
-			"critical": 15
+			"critical": 15,
+			"plugged_in": 
 		},
 		"format": "{icon} {capacity}%",
 		"format-icons": [

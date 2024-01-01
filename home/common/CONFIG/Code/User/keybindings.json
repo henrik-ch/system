@@ -98,7 +98,7 @@
         "when": "editorTextFocus",
     },
     {
-        "key": "ctrl+g t",
+        "key": "ctrl+g ctrl+s",
         "command": "workbench.action.showAllSymbols"
     },
     {
@@ -568,22 +568,22 @@
         "command": "-workbench.action.toggleSidebarVisibility"
     },
     {
-        "key": "ctrl+g down",
+        "key": "ctrl+g .",
         "command": "workbench.action.navigateForwardInNavigationLocations",
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+g right",
+        "key": "ctrl+g up",
         "command": "workbench.action.navigateForwardInEditLocations",
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+g left",
+        "key": "ctrl+g down",
         "command": "workbench.action.navigateBackInEditLocations",
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+g up",
+        "key": "ctrl+g ,",
         "command": "workbench.action.navigateBackInNavigationLocations",
         "when": "editorTextFocus"
     },
@@ -793,7 +793,7 @@
         "when": "remoteFileDialogVisible"
     },
     {
-        "key": "l",
+        "key": "right",
         "command": "editor.action.accessibleDiffViewer.next",
         "when": "isInDiffEditor"
     },
@@ -803,7 +803,7 @@
         "when": "isInDiffEditor"
     },
     {
-        "key": "ctrl+g h",
+        "key": "left",
         "command": "editor.action.accessibleDiffViewer.prev",
         "when": "isInDiffEditor"
     },
@@ -1519,7 +1519,7 @@
         "when": "inKeybindings && keybindingFocus"
     },
     {
-        "key": "ctrl+e i",
+        "key": "ctrl+g j",
         "command": "editor.action.goToBottomHover",
         "when": "editorHoverFocused"
     },
@@ -1534,7 +1534,7 @@
         "when": "editorHoverFocused"
     },
     {
-        "key": "ctrl+e u",
+        "key": "ctrl+g k",
         "command": "editor.action.goToTopHover",
         "when": "editorHoverFocused"
     },
@@ -1765,12 +1765,12 @@
         "when": "isMergeEditor"
     },
     {
-        "key": "ctrl+g i",
+        "key": "ctrl+g k",
         "command": "merge.goToNextUnhandledConflict",
         "when": "isMergeEditor"
     },
     {
-        "key": "ctrl+g u",
+        "key": "ctrl+g j",
         "command": "merge.goToPreviousUnhandledConflict",
         "when": "isMergeEditor"
     },
@@ -1783,12 +1783,12 @@
         "command": "-testing.runAll"
     },
     {
-        "key": "ctrl+t j",
+        "key": "ctrl+g k",
         "command": "testing.goToNextMessage",
         "when": "editorFocus && testing.isPeekVisible"
     },
     {
-        "key": "ctrl+t k",
+        "key": "ctrl+g j",
         "command": "testing.goToPreviousMessage",
         "when": "editorFocus && testing.isPeekVisible"
     },
@@ -1806,7 +1806,7 @@
         "when": "editorTextFocus && foldingEnabled"
     },
     {
-        "key": "ctrl+g r",
+        "key": "ctrl+g k",
         "command": "editor.action.goToReferences",
         "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
@@ -1978,12 +1978,7 @@
         "command": "editor.gotoParentFold"
     },
     {
-        "key": "ctrl+g k",
-        "command": "editor.gotoNextFold",
-        "when": "editorFocus"
-    },
-    {
-        "key": "ctrl+g j",
+        "key": "ctrl+g ctrl+j",
         "command": "editor.gotoPreviousFold"
     },
     {
@@ -2282,5 +2277,853 @@
     {
         "key": "ctrl+e t",
         "command": "errorLens.toggleInlineMessage"
+    },
+    {
+        "key": "ctrl+g right",
+        "command": "workbench.action.navigateForward",
+        "when": "canNavigateForward"
+    },
+    {
+        "key": "ctrl+shift+-",
+        "command": "-workbench.action.navigateForward",
+        "when": "canNavigateForward"
+    },
+    {
+        "key": "ctrl+g left",
+        "command": "workbench.action.navigateBack",
+        "when": "canNavigateBack"
+    },
+    {
+        "key": "ctrl+alt+-",
+        "command": "-workbench.action.navigateBack",
+        "when": "canNavigateBack"
+    },
+    {
+        "key": "ctrl+g k",
+        "command": "goToNextReference",
+        "when": "inReferenceSearchEditor || referenceSearchVisible"
+    },
+    {
+        "key": "f12",
+        "command": "-goToNextReference",
+        "when": "inReferenceSearchEditor || referenceSearchVisible"
+    },
+    {
+        "key": "f4",
+        "command": "-goToNextReference",
+        "when": "inReferenceSearchEditor || referenceSearchVisible"
+    },
+    {
+        "key": "ctrl+g j",
+        "command": "goToPreviousReference",
+        "when": "inReferenceSearchEditor || referenceSearchVisible"
+    },
+    {
+        "key": "shift+f12",
+        "command": "-goToPreviousReference",
+        "when": "inReferenceSearchEditor || referenceSearchVisible"
+    },
+    {
+        "key": "shift+f4",
+        "command": "-goToPreviousReference",
+        "when": "inReferenceSearchEditor || referenceSearchVisible"
+    },
+    {
+        "key": "ctrl+g j",
+        "command": "goToPreviousReferenceFromEmbeddedEditor",
+        "when": "editorHasReferenceProvider && isInEmbeddedEditor && !editorTextFocus && !inReferenceSearchEditor"
+    },
+    {
+        "key": "ctrl+g k",
+        "command": "goToNextReferenceFromEmbeddedEditor",
+        "when": "editorHasReferenceProvider && !editorTextFocus && !inReferenceSearchEditor && isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "-editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && isWeb && !isInEmbeddedEditor"
+    },
+    {
+        "key": "f12",
+        "command": "-editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+f12",
+        "command": "-editor.action.goToImplementation",
+        "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+g j",
+        "command": "editor.action.wordHighlight.next",
+        "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "f7",
+        "command": "-editor.action.wordHighlight.next",
+        "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "ctrl+g ctrl+k",
+        "command": "editor.gotoNextFold",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+g j",
+        "command": "editor.action.wordHighlight.prev",
+        "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "shift+f7",
+        "command": "-editor.action.wordHighlight.prev",
+        "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "ctrl+g k",
+        "command": "editor.action.nextCommentingRange",
+        "when": "accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments'"
+    },
+    {
+        "key": "ctrl+k ctrl+alt+down",
+        "command": "-editor.action.nextCommentingRange",
+        "when": "accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments'"
+    },
+    {
+        "key": "ctrl+g j",
+        "command": "editor.action.previousCommentingRange",
+        "when": "accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments'"
+    },
+    {
+        "key": "ctrl+k ctrl+alt+up",
+        "command": "-editor.action.previousCommentingRange",
+        "when": "accessibilityModeEnabled && commentFocused || accessibilityModeEnabled && editorFocus || accessibilityHelpIsShown && accessibilityModeEnabled && accessibleViewCurrentProviderId == 'comments'"
+    },
+    {
+        "key": "ctrl+g k",
+        "command": "workbench.action.terminal.accessibleBufferGoToNextCommand",
+        "when": "accessibleViewIsShown && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "alt+down",
+        "command": "-workbench.action.terminal.accessibleBufferGoToNextCommand",
+        "when": "accessibleViewIsShown && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "ctrl+g j",
+        "command": "workbench.action.terminal.accessibleBufferGoToPreviousCommand",
+        "when": "accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "alt+up",
+        "command": "-workbench.action.terminal.accessibleBufferGoToPreviousCommand",
+        "when": "accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "enter",
+        "command": "-editor.action.goToFocusedStickyScrollLine",
+        "when": "stickyScrollFocused"
+    },
+    {
+        "key": "ctrl+d k",
+        "command": "editor.debug.action.goToNextBreakpoint"
+    },
+    {
+        "key": "ctrl+d j",
+        "command": "editor.debug.action.goToPreviousBreakpoint"
+    },
+    {
+        "key": "ctrl+g ctrl+d",
+        "command": "editor.action.revealDeclaration"
     }
 ]
+// REFERENCE - WHEN CLAUSE
+// CppReferencesView.canMove: true
+// CppReferencesView.defaultViewLocation: true
+// CppSshTargetsView.canMove: true
+// CppSshTargetsView.defaultViewLocation: true
+// LinkedEditingInputVisible: false
+// PowerShellCommands.active: true
+// PowerShellCommands.canMove: true
+// PowerShellCommands.defaultViewLocation: true
+// PowerShellCommands.visible: true
+// ReposManagerStateContext: "RepositoriesLoaded"
+// acceptSuggestionOnEnter: true
+// accessibilityModeEnabled: false
+// activeAuxiliary: ""
+// activeCursorHasCommentingRange: false
+// activeCustomEditorId: ""
+// activeEditor: "workbench.editors.files.textFileEditor"
+// activeEditorAvailableEditorIds: "default"
+// activeEditorCanRevert: true
+// activeEditorCanSplitInGroup: true
+// activeEditorCanToggleReadonly: true
+// activeEditorGroupEmpty: false
+// activeEditorGroupIndex: 1
+// activeEditorGroupLast: true
+// activeEditorGroupLocked: false
+// activeEditorHasCommentingRange: false
+// activeEditorIsDirty: false
+// activeEditorIsFirstInGroup: true
+// activeEditorIsLastInGroup: false
+// activeEditorIsNotPreview: false
+// activeEditorIsPinned: false
+// activeEditorIsReadonly: false
+// activeLogOutput: false
+// activeOutputChannel: "tasks"
+// activePanel: ""
+// activeViewlet: "workbench.view.explorer"
+// activeWebviewPanelId: ""
+// atEndOfWord: false
+// autoSaveAfterShortDelayContext: false
+// auxiliaryBarFocus: false
+// auxiliaryBarVisible: false
+// breadcrumbsActive: false
+// breadcrumbsPossible: true
+// breadcrumbsVisible: true
+// breakpointWidgetVisible: false
+// breakpointsExist: false
+// callHierarchyVisible: false
+// canNavigateBack: true
+// canNavigateBackInEditLocations: false
+// canNavigateBackInNavigationLocations: true
+// canNavigateForward: false
+// canNavigateForwardInEditLocations: false
+// canNavigateForwardInNavigationLocations: false
+// canNavigateToLastEditLocation: false
+// canNavigateToLastNavigationLocation: true
+// canRedo: false
+// canReopenClosedEditor: false
+// canToggleWordWrap: true
+// canUndo: false
+// cancellableOperation: false
+// config.C_Cpp.debugShortcut: true
+// config.C_Cpp.intelliSenseEngine: "default"
+// config.breadcrumbs.enabled: true
+// config.debug.toolBarLocation: "floating"
+// config.editor.inlineSuggest.showToolbar: "always"
+// config.editor.renderControlCharacters: true
+// config.editor.renderWhitespace: "none"
+// config.extensions.autoUpdate: true
+// config.files.autoSave: "afterDelay"
+// config.git.enabled: true
+// config.latex-workshop.bind.enter.key: true
+// config.liveshare.accessibility.accessibilityFeaturesEnabled: "auto"
+// config.notebook.globalToolbar: true
+// config.notebook.navigation.allowNavigateToSurroundingCells: true
+// config.powershell.buttons.showRunButtons: true
+// config.powershell.sideBar.CommandExplorerVisibility: true
+// config.rust-analyzer.showDependenciesExplorer: true
+// config.security.workspace.trust.enabled: true
+// config.terminal.integrated.tabs.enabled: true
+// config.terminal.integrated.tabs.showActions: "singleTerminalOrNarrow"
+// config.terminal.integrated.tabs.showActiveTerminal: "singleTerminalOrNarrow"
+// config.window.menuBarVisibility: "classic"
+// config.window.titleBarStyle: "custom"
+// config.workbench.activityBar.location: "hidden"
+// config.workbench.editor.editorActionsLocation: "default"
+// config.workbench.editor.enablePreview: true
+// config.workbench.editor.showTabs: "multiple"
+// config.workbench.sideBar.location: "right"
+// config.workbench.statusBar.visible: true
+// currentProfile: "__default__profile__"
+// customExecutionSupported: true
+// debugExtensionAvailable: true
+// debugSetExpressionSupported: false
+// debugSetVariableSupported: false
+// debugState: "inactive"
+// debugUx: "simple"
+// debuggersAvailable: true
+// dirtyDiffVisible: false
+// dirtyWorkingCopies: false
+// disassembleRequestSupported: false
+// disassemblyViewFocus: false
+// downloadUrl: "https://code.visualstudio.com"
+// editSessionsCount: 0
+// editSessionsPending: false
+// editSessionsShowView: false
+// editSessionsSignedIn: false
+// editorColumnSelection: false
+// editorFocus: true
+// editorHasCallHierarchyProvider: true
+// editorHasCodeActionsProvider: true
+// editorHasCodeLensProvider: true
+// editorHasCompletionItemProvider: true
+// editorHasDeclarationProvider: true
+// editorHasDefinitionProvider: true
+// editorHasDocumentFormattingProvider: true
+// editorHasDocumentHighlightProvider: true
+// editorHasDocumentSelectionFormattingProvider: false
+// editorHasDocumentSymbolProvider: true
+// editorHasHoverProvider: true
+// editorHasImplementationProvider: true
+// editorHasInlayHintsProvider: true
+// editorHasMultipleDocumentFormattingProvider: false
+// editorHasMultipleDocumentSelectionFormattingProvider: false
+// editorHasMultipleSelections: false
+// editorHasReferenceProvider: true
+// editorHasRenameProvider: true
+// editorHasSelection: false
+// editorHasSignatureHelpProvider: true
+// editorHasTypeDefinitionProvider: true
+// editorHasTypeHierarchyProvider: false
+// editorHoverFocused: false
+// editorHoverVisible: false
+// editorId: "vs.editor.ICodeEditor:1"
+// editorIsOpen: true
+// editorLangId: "rust"
+// editorPartMaximizedEditorGroup: false
+// editorPartMultipleEditorGroups: false
+// editorPinnedAndUnpinnedTabsVisible: false
+// editorReadonly: false
+// editorSimpleInput: false
+// editorTabMovesFocus: false
+// editorTabsVisible: true
+// editorTextFocus: true
+// editorWordWrap: true
+// emptyWorkspaceSupport: true
+// enableSyncActivityViews: false
+// enableSyncConflictsView: false
+// enterMultiRootWorkspaceSupport: true
+// exceptionWidgetVisible: false
+// explorerResourceAvailableEditorIds: "default"
+// explorerResourceIsFolder: false
+// explorerResourceIsRoot: false
+// explorerResourceMoveableToTrash: true
+// explorerResourceReadonly: false
+// explorerViewletCompressedFirstFocus: true
+// explorerViewletCompressedFocus: false
+// explorerViewletCompressedLastFocus: true
+// explorerViewletVisible: true
+// expressionSelected: false
+// extensions.recommendedList.canMove: false
+// extensions.recommendedList.defaultViewLocation: true
+// fileListLayout:flat: false
+// findInputFocussed: false
+// findWidgetVisible: false
+// focusedCustomEditorIsEditable: false
+// focusedSessionIsAttach: false
+// focusedSessionIsNoDebug: false
+// focusedStackFrameHasInstructionReference: false
+// focusedView: ""
+// foldersViewVisible: true
+// foldingEnabled: true
+// forwardedPortsViewEnabled: true
+// git-base.gitEnabled: true
+// git.closedRepositoryCount: 0
+// git.mergeChanges: []
+// git.parentRepositoryCount: 0
+// git.state: "initialized"
+// git.unsafeRepositoryCount: 0
+// gitHubOpenRepositoryCount: 1
+// gitOpenRepositoryCount: "1"
+// gitVersion2.35: true
+// github-actions.current-branch.active: true
+// github-actions.current-branch.canMove: true
+// github-actions.current-branch.defaultViewLocation: true
+// github-actions.current-branch.visible: true
+// github-actions.empty-view.active: false
+// github-actions.empty-view.canMove: true
+// github-actions.empty-view.defaultViewLocation: true
+// github-actions.empty-view.visible: false
+// github-actions.has-repos: true
+// github-actions.internet-access: true
+// github-actions.settings.active: true
+// github-actions.settings.canMove: true
+// github-actions.settings.defaultViewLocation: true
+// github-actions.settings.visible: true
+// github-actions.signed-in: true
+// github-actions.workflows.active: true
+// github-actions.workflows.canMove: true
+// github-actions.workflows.defaultViewLocation: true
+// github-actions.workflows.visible: true
+// github.hasGitHubRepo: true
+// github:activePRCount: 0
+// github:activePullRequest.canMove: true
+// github:activePullRequest.defaultViewLocation: true
+// github:activePullRequest:welcome.canMove: true
+// github:activePullRequest:welcome.defaultViewLocation: true
+// github:authenticated: true
+// github:compareChangesCommits.canMove: true
+// github:compareChangesCommits.defaultViewLocation: true
+// github:compareChangesFiles.canMove: true
+// github:compareChangesFiles.defaultViewLocation: true
+// github:createPullRequestWebview.canMove: true
+// github:createPullRequestWebview.defaultViewLocation: true
+// github:focusedReview: true
+// github:hasGitHubRemotes: true
+// github:inReviewMode: false
+// github:initialized: true
+// github:login.canMove: true
+// github:login.defaultViewLocation: true
+// github:reposInReviewMode: []
+// github:reposNotInReviewMode: ['file:///home/bzm3r/bpaf']
+// github:stateValidated: true
+// github:unviewedFiles: []
+// github:viewedFiles: []
+// groupEditorsCount: 5
+// hasChatProvider: false
+// hasConflicts: false
+// hasDebugged: false
+// hasGallery: true
+// hasLocalServer: true
+// hasMultipleNewFileEntries: false
+// hasOtherSuggestions: false
+// hasOutdatedExtensions: false
+// hasProfiles: false
+// hasRemoteServer: false
+// hasSpeechProvider: false
+// hasSymbols: false
+// hasWebFileSystemAccess: true
+// hasWebServer: false
+// hasWordHighlights: false
+// inCommandsPicker: false
+// inDebugMode: false
+// inDiffEditor: false
+// inKeybindings: false
+// inKeybindingsSearch: false
+// inQuickOpen: false
+// inRustProject: true
+// inTerminalRunCommandPicker: false
+// inZenMode: false
+// inlineChatHasActiveRequest: false
+// inlineChatHasProvider: false
+// inlineChatLastFeedbackKind: ""
+// inlineChatSupportIssueReporting: false
+// inlineSuggestionHasIndentation: false
+// inlineSuggestionHasIndentationLessThanTabSize: true
+// inlineSuggestionVisible: false
+// inputFocus: true
+// interactiveWindowOpen: false
+// isAuxiliaryEditorPart: false
+// isAuxiliaryWindowFocusedContext: false
+// isCenteredLayout: false
+// isComposing: false
+// isCurrentProfileTransient: false
+// isDevelopment: false
+// isDominatedByLongLines: false
+// isFileSystemResource: true
+// isFullscreen: false
+// isIOS: false
+// isInEmbeddedEditor: false
+// isIssueTroubleshootActive: false
+// isLinux: true
+// isMac: false
+// isMacNative: false
+// isMobile: false
+// isProfileExportInProgress: false
+// isProfileImportInProgress: false
+// isWeb: false
+// isWindows: false
+// isWordWrapMinified: false
+// isWorkspaceTrustEnabled: true
+// isWorkspaceTrusted: true
+// issues:github.active: true
+// issues:github.canMove: true
+// issues:github.defaultViewLocation: true
+// issues:github.visible: true
+// jsBrowserBreakpoints.canMove: true
+// jsBrowserBreakpoints.defaultViewLocation: true
+// jsExcludedCallers.canMove: true
+// jsExcludedCallers.defaultViewLocation: true
+// jumpToCursorSupported: false
+// keybindingFocus: false
+// languageSupportsDisassembleRequest: true
+// latex-workshop-commands.canMove: true
+// latex-workshop-commands.defaultViewLocation: true
+// latex-workshop-snippet-view.canMove: true
+// latex-workshop-snippet-view.defaultViewLocation: true
+// latex-workshop-structure.canMove: true
+// latex-workshop-structure.defaultViewLocation: true
+// listSupportsKeyboardNavigation: true
+// listSupportsTypeNavigation: true
+// liveshare.devtools.canMove: true
+// liveshare.devtools.defaultViewLocation: true
+// liveshare.help.canMove: true
+// liveshare.help.defaultViewLocation: true
+// liveshare.session.active: true
+// liveshare.session.canMove: true
+// liveshare.session.defaultViewLocation: true
+// liveshare.session.explorer.canMove: true
+// liveshare.session.explorer.defaultViewLocation: true
+// liveshare.session.visible: true
+// liveshare:hasSharedTerminals: false
+// liveshare:isChatEnabled: true
+// liveshare:isCollaborating: false
+// liveshare:isNativeAuthEnabled: true
+// liveshare:isNode: true
+// liveshare:isServerShared: false
+// liveshare:isTeamMember: false
+// liveshare:isWeb: false
+// liveshare:logsEnabled: false
+// liveshare:showExplorer: true
+// liveshare:showHelpViewlet: true
+// liveshare:state: "SignedIn"
+// lldb.excludedCallers.canMove: true
+// lldb.excludedCallers.defaultViewLocation: true
+// lldb.loadedModules.canMove: true
+// lldb.loadedModules.defaultViewLocation: true
+// loadedScriptsSupported: false
+// logLevel: "info"
+// mainEditorAreaVisible: true
+// majorMinorUpdateAvailable: false
+// makefile.outline.active: true
+// makefile.outline.canMove: true
+// makefile.outline.defaultViewLocation: true
+// makefile.outline.visible: true
+// mergeConflictsCount: 0
+// multiCursorModifier: "ctrlCmd"
+// multiSessionDebug: false
+// multipleEditorGroups: false
+// navigableContainerFocused: false
+// notificationCenterVisible: false
+// notificationToastsVisible: false
+// npm.canMove: true
+// npm.defaultViewLocation: true
+// openDiffOnClick: true
+// openFolderWorkspaceSupport: true
+// operationInProgress: false
+// outline.active: true
+// outline.canMove: true
+// outline.defaultViewLocation: true
+// outline.visible: true
+// outlineAllCollapsed: false
+// outlineFiltersOnType: true
+// outlineFollowsCursor: false
+// outlineSortMode: 0
+// panelAlignment: "center"
+// panelFocus: false
+// panelMaximized: false
+// panelPosition: "left"
+// panelVisible: false
+// peacock:liveshare: true
+// pr:github.active: true
+// pr:github.canMove: true
+// pr:github.defaultViewLocation: true
+// pr:github.visible: true
+// prStatus:github.canMove: true
+// prStatus:github.defaultViewLocation: true
+// processExecutionSupported: true
+// productQualityType: "stable"
+// profiles.enabled: true
+// refactorPreview.canMove: false
+// refactorPreview.defaultViewContainerLocation: true
+// refactorPreview.defaultViewLocation: true
+// refactorPreview.enabled: false
+// references-view.tree.canMove: true
+// references-view.tree.defaultViewLocation: true
+// releaseNotesUrl: "https://go.microsoft.com/fwlink/?LinkID=533483#vscode"
+// remoteConnectionState: ""
+// remoteHub.views.workspaceRepositories.active: true
+// remoteHub.views.workspaceRepositories.canMove: false
+// remoteHub.views.workspaceRepositories.defaultViewLocation: true
+// remoteHub.views.workspaceRepositories.visible: true
+// remoteName: ""
+// remoteTunnelConnection: "disconnected"
+// replaceInputFocussed: false
+// resource: "file:///home/bzm3r/bpaf/bpaf_derive/src/top.rs"
+// resourceDirname: "/home/bzm3r/bpaf/bpaf_derive/src"
+// resourceExtname: ".rs"
+// resourceFilename: "top.rs"
+// resourceLangId: "rust"
+// resourcePath: "/home/bzm3r/bpaf/bpaf_derive/src/top.rs"
+// resourceScheme: "file"
+// resourceSet: true
+// restartFrameSupported: false
+// rustDependencies.active: true
+// rustDependencies.canMove: true
+// rustDependencies.defaultViewLocation: true
+// rustDependencies.visible: true
+// saveConflictResolutionContext: false
+// scm.providerCount: 1
+// scmActiveResourceHasChanges: false
+// scmActiveResourceRepository: "scm0"
+// scmRepositorySortKey: "discoveryTime"
+// serverlessWebContext: false
+// shareProviderCount: 13
+// shellExecutionSupported: true
+// sideBarFocus: false
+// sideBarVisible: true
+// sideBySideEditorActive: false
+// splitEditorsVertically: false
+// standaloneColorPickerFocused: false
+// standaloneColorPickerVisible: false
+// stepBackSupported: false
+// stepIntoTargetsSupported: false
+// stickyScrollFocused: false
+// stickyScrollVisible: false
+// suggestWidgetDetailsVisible: false
+// suggestWidgetHasFocusedSuggestion: false
+// suggestWidgetMultipleSuggestions: false
+// suggestWidgetVisible: false
+// suggestionCanResolve: false
+// suggestionHasInsertAndReplaceRange: false
+// suggestionInsertMode: "insert"
+// suggestionMakesTextEdit: true
+// supportedCodeAction: " quickfix refactor refactor.extract refactor.inline refactor.rewrite quickfix refactor.surround"
+// suspendDebuggeeSupported: false
+// syncEnabled: true
+// syncStatus: "idle"
+// targetsWsl.canMove: false
+// targetsWsl.defaultViewLocation: true
+// taskCommandsRegistered: true
+// taskRunning: false
+// temporaryWorkspace: false
+// terminal.active: true
+// terminal.canMove: true
+// terminal.defaultViewContainerLocation: true
+// terminal.defaultViewLocation: true
+// terminal.visible: true
+// terminalCount: 0
+// terminalEditorActive: false
+// terminalGroupCount: 0
+// terminalHasBeenCreated: false
+// terminalIsOpen: false
+// terminalProcessSupported: true
+// terminalSuggestWidgetVisible: false
+// terminalWebExtensionContributedProfile: false
+// terminateDebuggeeSupported: false
+// testing.activeEditorHasTests: false
+// testing.canRefresh: false
+// testing.hasAnyResults: false
+// testing.hasConfigurableProfile: false
+// testing.hasCoverableTests: false
+// testing.hasDebuggableTests: false
+// testing.hasNonDefaultProfile: false
+// testing.hasRunnableTests: false
+// testing.isPeekVisible: false
+// testing.isRefreshing: false
+// testing.isRunning: false
+// testing.isTestCoverageOpen: false
+// testing.providerCount: 0
+// testing.supportsContinuousRun: false
+// textCompareEditorActive: false
+// textCompareEditorVisible: false
+// textInputFocus: true
+// timeline.active: true
+// timeline.canMove: true
+// timeline.defaultViewLocation: true
+// timeline.visible: true
+// timelineExcludeSources: "[]"
+// timelineFollowActiveEditor: true
+// timelineHasProvider: true
+// titleBarStyle: "custom"
+// titleBarVisible: true
+// treeView.github-actions.current-branch.enableCollapseAll: false
+// treeView.github-actions.settings.enableCollapseAll: false
+// treeView.github-actions.workflows.enableCollapseAll: false
+// treeView.issues:github.enableCollapseAll: true
+// treeView.liveshare.help.enableCollapseAll: false
+// treeView.liveshare.session.enableCollapseAll: false
+// treeView.liveshare.session.explorer.enableCollapseAll: false
+// treeView.lldb.excludedCallers.enableCollapseAll: false
+// treeView.lldb.loadedModules.enableCollapseAll: false
+// treeView.pr:github.enableCollapseAll: true
+// treeView.prStatus:github.enableCollapseAll: true
+// treeView.rustDependencies.enableCollapseAll: true
+// treeView.rustDependencies.enableRefresh: false
+// treeView.rustDependencies.toggleCollapseAll: false
+// treeView.workbench.views.editSessions.data.enableCollapseAll: true
+// treeView.workbench.views.editSessions.data.enableRefresh: true
+// treeView.workbench.views.sync.externalActivity.enableCollapseAll: false
+// treeView.workbench.views.sync.externalActivity.enableRefresh: false
+// treeView.workbench.views.sync.localActivity.enableCollapseAll: true
+// treeView.workbench.views.sync.localActivity.enableRefresh: true
+// treeView.workbench.views.sync.machines.enableRefresh: true
+// treeView.workbench.views.sync.remoteActivity.enableCollapseAll: true
+// treeView.workbench.views.sync.remoteActivity.enableRefresh: true
+// treeView.workbench.views.sync.troubleshoot.enableRefresh: true
+// typeHierarchyVisible: false
+// updateState: "idle"
+// userDataProfiles.defaultViewContainerLocation: true
+// userDataSyncAccountStatus: "available"
+// userDataSyncTurningOn: false
+// userHasOpenedNotebook: true
+// view.outline.visible: false
+// view.rustDependencies.visible: false
+// view.timeline.visible: false
+// view.workbench.explorer.fileView.visible: true
+// viewContainer.refactorPreview.enabled: false
+// viewContainer.terminal.enabled: true
+// viewContainer.userDataProfiles.enabled: false
+// viewContainer.workbench.panel.chatSidebar.enabled: false
+// viewContainer.workbench.panel.comments.enabled: true
+// viewContainer.workbench.panel.markers.enabled: true
+// viewContainer.workbench.panel.output.enabled: true
+// viewContainer.workbench.panel.repl.enabled: true
+// viewContainer.workbench.panel.testResults.enabled: false
+// viewContainer.workbench.view.debug.enabled: true
+// viewContainer.workbench.view.editSessions.enabled: false
+// viewContainer.workbench.view.explorer.enabled: true
+// viewContainer.workbench.view.extension.PowerShell.enabled: true
+// viewContainer.workbench.view.extension.github-actions.enabled: true
+// viewContainer.workbench.view.extension.github-pull-request.enabled: false
+// viewContainer.workbench.view.extension.github-pull-requests.enabled: true
+// viewContainer.workbench.view.extension.latex-workshop-activitybar.enabled: false
+// viewContainer.workbench.view.extension.liveshare.enabled: true
+// viewContainer.workbench.view.extension.makefile__viewContainer.enabled: true
+// viewContainer.workbench.view.extension.references-view.enabled: false
+// viewContainer.workbench.view.extension.test.enabled: false
+// viewContainer.workbench.view.extensions.enabled: true
+// viewContainer.workbench.view.remote.enabled: true
+// viewContainer.workbench.view.scm.enabled: true
+// viewContainer.workbench.view.search.enabled: true
+// viewContainer.workbench.view.sync.enabled: false
+// viewContainer.~remote.forwardedPortsContainer.enabled: true
+// viewHasSomeCollapsibleItem: true
+// virtualWorkspace: ""
+// whenFocus: false
+// workbench.accounts.experimental.showEntitlements: true
+// workbench.debug.breakPointsView.active: false
+// workbench.debug.breakPointsView.canMove: true
+// workbench.debug.breakPointsView.defaultViewLocation: true
+// workbench.debug.breakPointsView.visible: false
+// workbench.debug.callStackView.active: false
+// workbench.debug.callStackView.canMove: true
+// workbench.debug.callStackView.defaultViewLocation: true
+// workbench.debug.callStackView.visible: false
+// workbench.debug.loadedScriptsView.canMove: true
+// workbench.debug.loadedScriptsView.defaultViewLocation: true
+// workbench.debug.variablesView.active: false
+// workbench.debug.variablesView.canMove: true
+// workbench.debug.variablesView.defaultViewLocation: true
+// workbench.debug.variablesView.visible: false
+// workbench.debug.watchExpressionsView.active: false
+// workbench.debug.watchExpressionsView.canMove: true
+// workbench.debug.watchExpressionsView.defaultViewLocation: true
+// workbench.debug.watchExpressionsView.visible: false
+// workbench.debug.welcome.active: true
+// workbench.debug.welcome.canMove: false
+// workbench.debug.welcome.defaultViewLocation: true
+// workbench.debug.welcome.visible: true
+// workbench.explorer.fileView.active: true
+// workbench.explorer.fileView.canMove: true
+// workbench.explorer.fileView.defaultViewLocation: true
+// workbench.explorer.fileView.visible: true
+// workbench.explorer.openEditorsView.active: true
+// workbench.explorer.openEditorsView.canMove: true
+// workbench.explorer.openEditorsView.defaultViewLocation: true
+// workbench.panel.chatSidebar.defaultViewContainerLocation: true
+// workbench.panel.comments.active: true
+// workbench.panel.comments.canMove: true
+// workbench.panel.comments.defaultViewContainerLocation: true
+// workbench.panel.comments.defaultViewLocation: true
+// workbench.panel.comments.visible: true
+// workbench.panel.markers.defaultViewContainerLocation: true
+// workbench.panel.markers.view.active: true
+// workbench.panel.markers.view.canMove: true
+// workbench.panel.markers.view.defaultViewLocation: true
+// workbench.panel.markers.view.visible: true
+// workbench.panel.output.active: true
+// workbench.panel.output.canMove: true
+// workbench.panel.output.defaultViewContainerLocation: true
+// workbench.panel.output.defaultViewLocation: true
+// workbench.panel.output.visible: true
+// workbench.panel.repl.defaultViewContainerLocation: true
+// workbench.panel.repl.view.active: true
+// workbench.panel.repl.view.canMove: true
+// workbench.panel.repl.view.defaultViewLocation: true
+// workbench.panel.repl.view.visible: true
+// workbench.panel.testResults.defaultViewContainerLocation: true
+// workbench.panel.testResults.view.canMove: true
+// workbench.panel.testResults.view.defaultViewLocation: true
+// workbench.scm.active: true
+// workbench.scm.canMove: true
+// workbench.scm.defaultViewLocation: true
+// workbench.scm.repositories.active: true
+// workbench.scm.repositories.canMove: true
+// workbench.scm.repositories.defaultViewLocation: true
+// workbench.scm.visible: true
+// workbench.view.debug.defaultViewContainerLocation: true
+// workbench.view.editSessions.defaultViewContainerLocation: true
+// workbench.view.explorer.defaultViewContainerLocation: true
+// workbench.view.extension.PowerShell.defaultViewContainerLocation: true
+// workbench.view.extension.github-actions.defaultViewContainerLocation: true
+// workbench.view.extension.github-pull-request.defaultViewContainerLocation: true
+// workbench.view.extension.github-pull-requests.defaultViewContainerLocation: true
+// workbench.view.extension.latex-workshop-activitybar.defaultViewContainerLocation: true
+// workbench.view.extension.liveshare.defaultViewContainerLocation: true
+// workbench.view.extension.makefile__viewContainer.defaultViewContainerLocation: true
+// workbench.view.extension.references-view.defaultViewContainerLocation: true
+// workbench.view.extension.test.defaultViewContainerLocation: true
+// workbench.view.extensions.defaultViewContainerLocation: true
+// workbench.view.remote.defaultViewContainerLocation: true
+// workbench.view.scm.defaultViewContainerLocation: false
+// workbench.view.search.active: true
+// workbench.view.search.canMove: true
+// workbench.view.search.defaultViewContainerLocation: true
+// workbench.view.search.defaultViewLocation: true
+// workbench.view.search.visible: true
+// workbench.view.sync.defaultViewContainerLocation: true
+// workbench.view.testCoverage.canMove: true
+// workbench.view.testCoverage.defaultViewLocation: true
+// workbench.view.testing.canMove: true
+// workbench.view.testing.defaultViewLocation: true
+// workbench.views.editSessions.data.canMove: false
+// workbench.views.editSessions.data.defaultViewLocation: true
+// workbench.views.extensions.builtinFeatureExtensions.canMove: false
+// workbench.views.extensions.builtinFeatureExtensions.defaultViewLocation: true
+// workbench.views.extensions.builtinProgrammingLanguageExtensions.canMove: false
+// workbench.views.extensions.builtinProgrammingLanguageExtensions.defaultViewLocation: true
+// workbench.views.extensions.builtinThemeExtensions.canMove: false
+// workbench.views.extensions.builtinThemeExtensions.defaultViewLocation: true
+// workbench.views.extensions.deprecatedExtensions.canMove: false
+// workbench.views.extensions.deprecatedExtensions.defaultViewLocation: true
+// workbench.views.extensions.disabled.canMove: false
+// workbench.views.extensions.disabled.defaultViewLocation: true
+// workbench.views.extensions.enabled.canMove: false
+// workbench.views.extensions.enabled.defaultViewLocation: true
+// workbench.views.extensions.installed.canMove: false
+// workbench.views.extensions.installed.defaultViewLocation: true
+// workbench.views.extensions.marketplace.canMove: false
+// workbench.views.extensions.marketplace.defaultViewLocation: true
+// workbench.views.extensions.otherRecommendations.canMove: false
+// workbench.views.extensions.otherRecommendations.defaultViewLocation: true
+// workbench.views.extensions.popular.canMove: false
+// workbench.views.extensions.popular.defaultViewLocation: true
+// workbench.views.extensions.searchBuiltin.canMove: false
+// workbench.views.extensions.searchBuiltin.defaultViewLocation: true
+// workbench.views.extensions.searchDisabled.canMove: false
+// workbench.views.extensions.searchDisabled.defaultViewLocation: true
+// workbench.views.extensions.searchEnabled.canMove: false
+// workbench.views.extensions.searchEnabled.defaultViewLocation: true
+// workbench.views.extensions.searchInstalled.canMove: false
+// workbench.views.extensions.searchInstalled.defaultViewLocation: true
+// workbench.views.extensions.searchOutdated.canMove: false
+// workbench.views.extensions.searchOutdated.defaultViewLocation: true
+// workbench.views.extensions.searchRecentlyUpdated.canMove: false
+// workbench.views.extensions.searchRecentlyUpdated.defaultViewLocation: true
+// workbench.views.extensions.searchWorkspaceUnsupported.canMove: false
+// workbench.views.extensions.searchWorkspaceUnsupported.defaultViewLocation: true
+// workbench.views.extensions.untrustedPartiallySupportedExtensions.canMove: false
+// workbench.views.extensions.untrustedPartiallySupportedExtensions.defaultViewLocation: true
+// workbench.views.extensions.untrustedUnsupportedExtensions.canMove: false
+// workbench.views.extensions.untrustedUnsupportedExtensions.defaultViewLocation: true
+// workbench.views.extensions.virtualPartiallySupportedExtensions.canMove: false
+// workbench.views.extensions.virtualPartiallySupportedExtensions.defaultViewLocation: true
+// workbench.views.extensions.virtualUnsupportedExtensions.canMove: false
+// workbench.views.extensions.virtualUnsupportedExtensions.defaultViewLocation: true
+// workbench.views.extensions.workspaceRecommendations.canMove: false
+// workbench.views.extensions.workspaceRecommendations.defaultViewLocation: true
+// workbench.views.sync.conflicts.canMove: false
+// workbench.views.sync.conflicts.defaultViewLocation: true
+// workbench.views.sync.externalActivity.canMove: false
+// workbench.views.sync.externalActivity.defaultViewLocation: true
+// workbench.views.sync.localActivity.canMove: false
+// workbench.views.sync.localActivity.defaultViewLocation: true
+// workbench.views.sync.machines.canMove: false
+// workbench.views.sync.machines.defaultViewLocation: true
+// workbench.views.sync.remoteActivity.canMove: false
+// workbench.views.sync.remoteActivity.defaultViewLocation: true
+// workbench.views.sync.troubleshoot.canMove: false
+// workbench.views.sync.troubleshoot.defaultViewLocation: true
+// workbenchState: "folder"
+// workspaceFolderCount: 1
+// workspaceHasCommenting: true
+// workspacePlatform: "linux"
+// xmlTreeView.canMove: true
+// xmlTreeView.defaultViewLocation: true
+// ~remote.forwardedPorts.active: true
+// ~remote.forwardedPorts.canMove: true
+// ~remote.forwardedPorts.defaultViewLocation: true
+// ~remote.forwardedPorts.visible: true
+// ~remote.forwardedPortsContainer.defaultViewContainerLocation: true

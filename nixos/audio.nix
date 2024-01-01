@@ -19,13 +19,5 @@
   };
 
   # List packages installed in system profile
-  environment.systemPackages = with pkgs; [
-    alsa-utils
-    alsa-plugins
-    easyeffects
-    pavucontrol
-    pamixer
-    # codecs
-    ffmpeg
-  ];
+  environment.systemPackages = with pkgs; [ easyeffects pavucontrol pamixer ];
 }
