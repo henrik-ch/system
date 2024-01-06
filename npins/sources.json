@@ -27,8 +27,8 @@
     "nixos-unstable": {
       "type": "Channel",
       "name": "nixos-unstable",
-      "url": "https://releases.nixos.org/nixos/unstable/nixos-24.05pre562833.5f64a12a7289/nixexprs.tar.xz",
-      "hash": "0b6fqpc9chscgy8w606fn3y35y1hrxljh7bvi8dji99v8lrygccc"
+      "url": "https://releases.nixos.org/nixos/unstable/nixos-24.05pre565234.bd645e8668ec/nixexprs.tar.xz",
+      "hash": "1ggn71g0i5srjmd685rqidakmgh25bdnwq0zwb2mn5gh14105zbi"
     },
     "pmv": {
       "type": "Git",

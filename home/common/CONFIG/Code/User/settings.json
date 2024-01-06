@@ -287,11 +287,11 @@
                     "bold": true
                 },
                 "typeAlias.defaultLibrary": {
-                    "foreground": "#913ecf",
+                    "foreground": "#d63d91",
                     "bold": true,
                 },
                 "typeAlias": {
-                    "foreground": "#b14bff",
+                    "foreground": "#ff4bae",
                     "bold": true,
                 },
                 "builtinAttribute": {
@@ -524,9 +524,10 @@
     "rust-analyzer.restartServerOnConfigChange": true,
     "rust-analyzer.completion.privateEditable.enable": true,
     "editor.inlayHints.fontFamily": "Atkinson Hyperlegible",
-    "editor.inlayHints.enabled": "off",
+    "editor.inlayHints.enabled": "on",
     "errorLens.excludeBySource": [
-        "rustc(E0412)"
+        "rustc(E0412)",
+        "rust-analyzer(E0559)"
     ],
     "editor.inlineSuggest.showToolbar": "always",
     "editor.quickSuggestionsDelay": 0,
