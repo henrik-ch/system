@@ -1,14 +1,12 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 let
   gSettingsKeySlashed = "org/gnome/desktop/interface";
-  gSettingsKeyDotted =
-    builtins.replaceStrings [ "/" ] [ "." ] gSettingsKeySlashed;
   gSettings = {
     gtk-theme = "Adwaita";
     icon-theme = "Humanity-Dark";
     font-name = "Atkinson Hyperlegible 16";
     cursor-theme = "phinger-cursors";
-    cursor-size = "24";
+    cursor-size = "48";
     toolbar-style = "icon";
     toolbar-icon-size = "large";
     font-antialiasing = "rgba";
@@ -23,7 +21,7 @@ let
     gtk-icon-theme-name = "Humanity-Dark";
     gtk-font-name = "Atkinson Hyperlegible 16";
     gtk-cursor-theme-name = "phinger-cursors";
-    gtk-cursor-theme-size = builtins.toString 24;
+    gtk-cursor-theme-size = builtins.toString 48;
     gtk-toolbar-style = "GTK_TOOLBAR_ICONS";
     gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
     gtk-button-images = builtins.toString 0;
@@ -38,9 +36,7 @@ let
   };
 in {
   config = {
-    environment.systemPackages = with pkgs; [
-      phinger-cursors
-    ];
+    environment.systemPackages = with pkgs; [ phinger-cursors ];
 
     programs.dconf = {
       enable = true;

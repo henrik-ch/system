@@ -103,18 +103,18 @@
 	},
 	"battery": {
 		"states": {
-			"good": 95,
-			"warning": 30,
-			"critical": 15,
-			"plugged_in": 
+			"0": 80,
+			"1": 60,
+			"2": 40,
+			"3": 20,
 		},
 		"format": "{icon} {capacity}%",
 		"format-icons": [
-			"",
-			"",
-			"",
+			"",
 			"",
-			""
+			"",
+			"",
+			"",
 		]
 	},
     "network": {

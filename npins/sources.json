@@ -27,8 +27,8 @@
     "nixos-unstable": {
       "type": "Channel",
       "name": "nixos-unstable",
-      "url": "https://releases.nixos.org/nixos/unstable/nixos-24.05pre565234.bd645e8668ec/nixexprs.tar.xz",
-      "hash": "1ggn71g0i5srjmd685rqidakmgh25bdnwq0zwb2mn5gh14105zbi"
+      "url": "https://releases.nixos.org/nixos/unstable/nixos-24.05pre567011.46ae0210ce16/nixexprs.tar.xz",
+      "hash": "1byqjp3xsp7d4vi5hysh4hs6amnsh6l00yfzcw9c4xj3qh1rw3il"
     },
     "pmv": {
       "type": "Git",
@@ -50,9 +50,9 @@
         "repo": "rust-shell"
       },
       "branch": "main",
-      "revision": "7e1dac471d9e5559780b706e7986329adb3ce914",
-      "url": "https://github.com/bzm3r/rust-shell/archive/7e1dac471d9e5559780b706e7986329adb3ce914.tar.gz",
-      "hash": "15s28cm98azyzyi243yynafargzw8f743d9pkxd7wrmyy5055vvm"
+      "revision": "a319b0a55b5505217805c98945cec43ee295c07f",
+      "url": "https://github.com/bzm3r/rust-shell/archive/a319b0a55b5505217805c98945cec43ee295c07f.tar.gz",
+      "hash": "10p14i45hsg2agxfc9pscli7p5i0iddilz1rgnljxcqxspp27p4k"
     }
   },
   "version": 3

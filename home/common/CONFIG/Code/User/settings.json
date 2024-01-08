@@ -613,4 +613,5 @@
     "workbench.editor.tabSizing": "shrink",
     "window.density.editorTabHeight": "compact",
     "rust-analyzer.server.path": "rust-analyzer",
+    "workbench.editor.showTabs": "none",
 }

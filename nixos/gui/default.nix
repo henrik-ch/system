@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./chat.nix
     ./editing.nix
@@ -44,10 +44,12 @@
       wrapperFeatures.gtk = true;
       #export WLR_RENDERER=vulkan
       extraSessionCommands = ''
-        export SDL_VIDEODRIVER=wayland
         export LIBSEAT_BACKEND=logind
+        export WLR_RENDERER=vulkan
+        export SDL_VIDEODRIVER=wayland
         export _JAVA_AWT_WM_NONREPARENTING=1
       '';
+
       extraPackages = with pkgs; [
         # eww-wayland
         waybar
