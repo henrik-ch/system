@@ -45,7 +45,7 @@
       #export WLR_RENDERER=vulkan
       extraSessionCommands = ''
         export LIBSEAT_BACKEND=logind
-        export WLR_RENDERER=vulkan
+        #export WLR_RENDERER=vulkan
         export SDL_VIDEODRIVER=wayland
         export _JAVA_AWT_WM_NONREPARENTING=1
       '';
