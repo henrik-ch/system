@@ -67,6 +67,9 @@
       };
     };
 
+    services.sshd.enable = true;
+    programs.ssh.startAgent = true;
+
     cargoHomeBase = config.userHome;
     cabalHomeBase = config.userHome;
   };
