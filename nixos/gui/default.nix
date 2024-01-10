@@ -25,13 +25,6 @@
     humanity-icon-theme
   ];
 
-  security.pam.loginLimits = [{
-    domain = "@users";
-    item = "rtprio";
-    type = "-";
-    value = 1;
-  }];
-
   # enable sway window manager
   programs = {
     zsh.loginShellInit = ''

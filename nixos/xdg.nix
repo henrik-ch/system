@@ -16,21 +16,30 @@ let
     "VIDEOS"
   ] (mkXdgDir "DIR") (x: "$HOME");
 
-   xdgHomePrimaryDirs = builtins.listToAttrs (map (x: {
-     name = mkXdgDir "HOME" x;
-     value = "$HOME/${x}";
-   }) [ "CACHE" "CONFIG" "DATA" "STATE" ]);
+  xdgHomePrimaryDirs = builtins.listToAttrs (map (x: {
+    name = mkXdgDir "HOME" x;
+    value = "$HOME/${x}";
+  }) [ "CACHE" "CONFIG" "DATA" "STATE" ]);
 in {
-  environment.systemPackages = with pkgs; [ xdg-user-dirs ];
+  options = {
+    userXdgDirs = lib.options.mkOption {
+      type = lib.types.attrsOf lib.types.string;
+      description = lib.mdDoc "Custom XDG user dirs";
+    };
+  };
+  config = {
+    environment.systemPackages = with pkgs; [ xdg-user-dirs ];
 
-  environment.variables = lib.traceVal (xdgHomeSecondaryDirs // xdgHomePrimaryDirs);
+    environment.variables =
+      lib.traceVal (xdgHomeSecondaryDirs // xdgHomePrimaryDirs);
 
-  xdg = {
-    mime = {
-      enable = true;
-      defaultApplications = {
-        "inode/directory" = "thunar.desktop";
-        "image/gif" = [ "firefox.desktop" ];
+    xdg = {
+      mime = {
+        enable = true;
+        defaultApplications = {
+          "inode/directory" = "thunar.desktop";
+          "image/gif" = [ "firefox.desktop" ];
+        };
       };
     };
   };

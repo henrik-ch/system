@@ -28,29 +28,10 @@ in {
   imports = [ ./nixos/hw-config.nix ./nixos/configuration.nix ];
 
   options = {
-    homeBase = lib.options.mkOption {
-      type = lib.types.str;
-      default = "/home";
-      description = lib.mdDoc
-        "Default base directory used for [normal user homes](https://github.com/NixOS/nixpkgs/blob/90c3374749364dc58f7077e4cfb53caa0bd29350/nixos/modules/config/users-groups.nix#L364).";
-    };
     sources = lib.options.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       example = "{ nixpkgs = { ... }; rust-shell = { ... }; }";
       description = lib.mdDoc "Derivation of a rust-shell package";
-    };
-    singleUser = lib.options.mkOption {
-      type = lib.types.str;
-      example = "alfred";
-      description =
-        lib.mdDoc "Username of the primary user for this machine, as a string.";
-    };
-    userHome = lib.options.mkOption {
-      type = lib.types.str;
-      example = "/home/alfred";
-      default = "/home/${config.singleUser}";
-      description =
-        lib.mdDoc "Home directory of the primary user for this machine.";
     };
     machineLabel = lib.options.mkOption {
       type = lib.types.enum [ "d" "l" ];
@@ -65,7 +46,6 @@ in {
   };
 
   config = {
-    singleUser = lib.mkForce "bzm3r";
     sources = lib.mkForce (import ./npins);
     machine = lib.mkForce (selectMachine config.machineLabel);
 

@@ -64,6 +64,6 @@
     # for checking out which kernel modules are loaded
     environment.systemPackages = with pkgs; [ kmon ];
 
-    #services.getty.autologinUser = config.singleUser;
+    #services.getty.autologinUser = config.userName;
   };
 }

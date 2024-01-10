@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: {
+{ lib, ... }: {
   imports = [
     ./admin.nix
     ./aliases.nix
@@ -12,6 +12,7 @@
     ./nix.nix
     ./productivity.nix
     ./security.nix
+    ./userspace.nix
     ./vm.nix
     ./xdg.nix
     ./zip.nix
@@ -27,12 +28,6 @@
     };
 
     hardware.opengl.enable = true;
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    security = {
-      sudo.extraConfig = "Defaults lecture = never ";
-      polkit.enable = true;
-    };
 
     services = {
       # hardware scanner + firmware recommender
@@ -50,24 +45,7 @@
       };
     };
 
-    # should set up one-time auto-detect (perhaps on startup/login)
-    time.timeZone = "America/Vancouver";
-
     system.stateVersion =
       "24.05"; # TODO: properly understand why this should not be changed in general.
-
-    users = {
-      defaultUserShell = "${pkgs.zsh}/bin/zsh";
-      users."${config.singleUser}" = {
-        isNormalUser = true;
-        home = config.userHome;
-        extraGroups =
-          [ "wheel" "networkmanager" "video" "rcontent_block" "libvirtd" ];
-        useDefaultShell = true;
-      };
-    };
-
-    cargoHomeBase = config.userHome;
-    cabalHomeBase = config.userHome;
   };
 }

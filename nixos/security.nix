@@ -2,8 +2,21 @@
   # gnome keyring works through tty too
   services = {
     gnome.gnome-keyring.enable = true;
-    pam.services.bzm3r.enableGnomeKeyring = true;
-    services.sshd.enable = true;
+    sshd.enable = true;
+  };
+
+  security = {
+    sudo.extraConfig = "Defaults lecture = never ";
+    polkit.enable = true;
+    pam = {
+      loginLimits = [{
+        domain = "@users";
+        item = "rtprio";
+        type = "-";
+        value = 1;
+      }];
+      services."${config.userName}".enableGnomeKeyring = true;
+    };
   };
 
   programs.ssh = {
